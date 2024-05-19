@@ -71,8 +71,8 @@ processResources {
 loom {
     forge {
         mixinConfig(
-                "examplemod-common.mixins.json",
-                "examplemod.mixins.json"
+                "createcobblestone-common.mixins.json",
+                "createcobblestone.mixins.json"
         )
     }
 }

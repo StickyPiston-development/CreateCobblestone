@@ -2,6 +2,7 @@ package net.createcobblestone.index;
 
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import net.createcobblestone.CreateCobblestoneBlocks;
+import net.createcobblestone.CreateCobblestoneMod;
 import net.createcobblestone.blocks.CobblestoneGeneratorBlockEntity;
 import net.createcobblestone.blocks.CobblestoneGeneratorInstance;
 import net.createcobblestone.blocks.CobblestoneGeneratorRenderer;
@@ -15,4 +16,8 @@ public class BlockEntities {
             .validBlocks(CreateCobblestoneBlocks.COBBLESTONE_GENERATOR_BLOCK_BLOCK_ENTRY)
             .renderer(() -> CobblestoneGeneratorRenderer::new)
             .register();
+
+    public static void init() {
+        CreateCobblestoneMod.LOGGER.info("Registering blockEntities for " + CreateCobblestoneMod.NAME);
+    }
 }

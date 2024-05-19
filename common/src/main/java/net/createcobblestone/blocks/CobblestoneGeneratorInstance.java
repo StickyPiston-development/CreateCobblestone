@@ -12,43 +12,30 @@ import net.minecraft.world.level.block.state.BlockState;
 public class CobblestoneGeneratorInstance extends KineticBlockEntityInstance<CobblestoneGeneratorBlockEntity> {
 
     protected RotatingData rotatingModel1;
-    protected RotatingData rotatingModel2;
     public CobblestoneGeneratorInstance(MaterialManager materialManager, CobblestoneGeneratorBlockEntity blockEntity) {
         super(materialManager, blockEntity);
     }
 
     public void init() {
         this.rotatingModel1 = this.setup((RotatingData)this.getModel().createInstance());
-        this.rotatingModel2 = this.setup((RotatingData)this.getModel().createInstance());
 
         rotatingModel1.setRotationAxis(axis)
                 .setRotationalSpeed(getBlockEntitySpeed())
                 .setRotationOffset(-getRotationOffset(axis))
                 .setColor(blockEntity)
                 .setPosition(getInstancePosition());
-
-        rotatingModel2.setRotationAxis(axis)
-                .setRotationalSpeed(getBlockEntitySpeed())
-                .setRotationOffset(-getRotationOffset(axis))
-                .setColor(blockEntity)
-                .setPosition(getInstancePosition())
-                .nudge(0, 4f/16f, 0)
-                .setRotationalSpeed(-getBlockEntitySpeed());
     }
 
     public void update() {
         this.updateRotation(this.rotatingModel1);
-        this.updateRotation(this.rotatingModel2);
-        rotatingModel2.setRotationalSpeed(-getBlockEntitySpeed());
     }
 
     public void updateLight() {
-        this.relight(this.pos, new FlatLit[]{this.rotatingModel1, this.rotatingModel2});
+        this.relight(this.pos, new FlatLit[]{this.rotatingModel1});
     }
 
     public void remove() {
         this.rotatingModel1.delete();
-        this.rotatingModel2.delete();
     }
 
     protected BlockState getRenderedBlockState() {

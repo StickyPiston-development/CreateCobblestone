@@ -5,6 +5,7 @@ import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlock;
 import com.simibubi.create.foundation.block.IBE;
+import net.createcobblestone.index.BlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -46,7 +47,7 @@ public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements
 
     @Override
     public BlockEntityType<? extends CobblestoneGeneratorBlockEntity> getBlockEntityType() {
-        return null;
+        return BlockEntities.COBBLESTONE_GENERATOR.get() ;
     }
 
     @Override
