@@ -4,30 +4,30 @@ loaderVersion = "[${forge_version},)"
 license = "Insert License Here"
 
 [[mods]]
-modId = "examplemod"
+modId = "createcobblestone"
 version = "${version}"
-displayName = "Example Mod"
-authors = "Me!"
+displayName = "Create cobblestone"
+authors = "MrStickyPiston"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+Adds a block generating cobblestone using SU, stopping cobblestone generators from easting your frames.
 '''
 logoFile = "icon.png"
 
-[[dependencies.examplemod]]
+[[dependencies.createcobblestone]]
 modId = "forge"
 mandatory = true
 versionRange = "[${forge_version},)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.createcobblestone]]
 modId = "minecraft"
 mandatory = true
 versionRange = "${minecraft_version}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.createcobblestone]]
 modId="create"
 mandatory=true
 versionRange="${create_version}"

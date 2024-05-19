@@ -1,27 +1,26 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "createcobblestone",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Create Cobblestone",
+  "description": "Adds a block generating cobblestone using SU, stopping cobblestone generators from easting your frames.",
   "authors": [
-    "Me!"
+    "MrStickyPiston"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/StickyPiston-development/CreateCobblestone"
   },
-  "license": "Insert License Here",
-  "icon": "assets/examplemod/icon.png",
+  "license": "CC0",
+  "icon": "assets/createcobblestone/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.examplemod.fabric.ExampleModFabric"
+      "net.createcobblestone.fabric.CreateCobblestoneFabric"
     ]
   },
   "mixins": [
-    "examplemod.mixins.json",
-    "examplemod-common.mixins.json"
+    "createcobblestone.mixins.json",
+    "createcobblestone-common.mixins.json"
   ],
   "depends": {
     "minecraft": "${minecraft_version}",
