@@ -1,6 +1,6 @@
 package net.createcobblestone.forge;
 
-public class CreateCobblestonePlatformImpl {
+public class CreateCobblestoneExpectPlatformImpl {
 	public static String platformName() {
 		return "Forge";
 	}
