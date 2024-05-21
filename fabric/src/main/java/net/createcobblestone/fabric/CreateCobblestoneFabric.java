@@ -1,7 +1,6 @@
 package net.createcobblestone.fabric;
 
 import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
-import net.createcobblestone.CreateCobblestoneBlocks;
 import net.createcobblestone.CreateCobblestoneMod;
 import net.fabricmc.api.ModInitializer;
 

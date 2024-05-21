@@ -1,6 +1,5 @@
 package net.createcobblestone.forge;
 
-import net.createcobblestone.CreateCobblestoneBlocks;
 import net.createcobblestone.CreateCobblestoneMod;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;

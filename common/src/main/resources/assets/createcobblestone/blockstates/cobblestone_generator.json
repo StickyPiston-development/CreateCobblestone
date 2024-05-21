@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "createcobblestone:block/cobblestone_generator" },
+    "facing=east":  { "model": "createcobblestone:block/cobblestone_generator", "y":  90 },
+    "facing=south": { "model": "createcobblestone:block/cobblestone_generator", "y": 180 },
+    "facing=west":  { "model": "createcobblestone:block/cobblestone_generator", "y": 270 }
+  }
+}
