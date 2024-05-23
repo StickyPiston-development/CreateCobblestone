@@ -93,7 +93,7 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
 
     @Override
     public float calculateStressApplied() {
-        float impact = 4;
+        float impact = 8;
         this.lastStressApplied = impact;
         return impact;
     }
