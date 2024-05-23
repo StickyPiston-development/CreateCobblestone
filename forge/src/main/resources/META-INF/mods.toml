@@ -9,7 +9,7 @@ version = "${version}"
 displayName = "Create cobblestone"
 authors = "MrStickyPiston"
 description = '''
-Adds a block generating cobblestone using SU, stopping cobblestone generators from easting your frames.
+Adds a block generating cobblestone using SU, stopping cobblestone generators from eating your frames.
 '''
 logoFile = "icon.png"
 
