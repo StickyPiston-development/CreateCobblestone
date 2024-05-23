@@ -36,10 +36,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: fabric-artifacts
-          path: fabric/build/lib/
+          path: fabric/build/libs/
 
       - name: Upload Forge artifacts
         uses: actions/upload-artifact@v3
         with:
           name: forge-artifacts
-          path: forge/build/lib/
+          path: forge/build/libs/
