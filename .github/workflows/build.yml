@@ -32,8 +32,14 @@ jobs:
       - name: build
         run: ./gradlew build
 
-      - name: capture build artifacts
-        uses: actions/upload-artifact@v2
+      - name: Upload Fabric artifacts
+        uses: actions/upload-artifact@v3
         with:
-          name: Artifacts
-          path: build/libs/
+          name: fabric-artifacts
+          path: fabric/build/libs/
+
+      - name: Upload Forge artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: forge-artifacts
+          path: forge/build/libs/

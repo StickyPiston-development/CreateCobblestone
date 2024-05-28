@@ -3,7 +3,7 @@
   "id": "createcobblestone",
   "version": "${version}",
   "name": "Create Cobblestone",
-  "description": "Adds a block generating cobblestone using SU, stopping cobblestone generators from easting your frames.",
+  "description": "Adds a block generating cobblestone using SU, stopping cobblestone generators from eating your frames.",
   "authors": [
     "MrStickyPiston"
   ],
