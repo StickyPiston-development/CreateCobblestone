@@ -26,7 +26,7 @@ public class Blocks {
 	public static final BlockEntry<CobblestoneGeneratorBlock> COBBLESTONE_GENERATOR_BLOCK_BLOCK_ENTRY = REGISTRATE.block("cobblestone_generator", CobblestoneGeneratorBlock::new)
 			.initialProperties(AllBlocks.BRASS_CASING)
 			.properties(p -> p.mapColor(MapColor.COLOR_BROWN))
-			.transform(BlockStressDefaults.setImpact(8))
+			.transform(BlockStressDefaults.setImpact(Config.common().cobblestoneGeneratorStress.get()))
 			.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
 			.item()
 			.tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())

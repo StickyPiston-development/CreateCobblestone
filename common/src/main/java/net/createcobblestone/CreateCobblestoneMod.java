@@ -4,6 +4,7 @@ import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.createcobblestone.index.BlockEntities;
 import net.createcobblestone.index.Blocks;
+import net.createcobblestone.index.Config;
 import net.createcobblestone.index.CreativeModeTabs;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ public class CreateCobblestoneMod {
     public static void init() {
         LOGGER.info("{} initializing! Create version: {} on platform: {}", NAME, Create.VERSION, CreateCobblestoneExpectPlatform.platformName());
 
+        Config.register();
         CreativeModeTabs.init();
         BlockEntities.init();
         Blocks.init(); // hold registrate in a separate class to avoid loading early on forge

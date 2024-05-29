@@ -2,6 +2,7 @@ package net.createcobblestone.blocks;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import net.createcobblestone.CreateCobblestoneMod;
+import net.createcobblestone.index.Config;
 import net.createcobblestone.util.GeneratorType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -107,12 +108,12 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
     public void tick(){
         super.tick();
 
-        this.items.set(0, new ItemStack(type.getBlock(), abs((int) getSpeed()/8)));
+        this.items.set(0, new ItemStack(type.getBlock(), abs((int) getSpeed()/Config.common().cobblestoneGenratorRatio.get())));
     }
 
     @Override
     public float calculateStressApplied() {
-        float impact = 8;
+        float impact = Config.common().cobblestoneGeneratorStress.get();
         this.lastStressApplied = impact;
         return impact;
     }
