@@ -20,7 +20,9 @@ import static net.createcobblestone.CreateCobblestoneMod.REGISTRATE;
 public class Blocks {
 
 	static {
-		REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE).andThen(TooltipModifier.mapNull(CobblestoneType.create(item))).andThen(TooltipModifier.mapNull(KineticStats.create(item))));
+		REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
+				//.andThen(TooltipModifier.mapNull(CobblestoneType.create(item)))
+				.andThen(TooltipModifier.mapNull(KineticStats.create(item))));
 	}
 
 	public static final BlockEntry<CobblestoneGeneratorBlock> COBBLESTONE_GENERATOR_BLOCK_BLOCK_ENTRY = REGISTRATE.block("cobblestone_generator", CobblestoneGeneratorBlock::new)

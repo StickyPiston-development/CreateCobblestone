@@ -36,7 +36,7 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
         super.write(compound, clientPacket);
 
         saveType(compound);
-        CreateCobblestoneMod.LOGGER.error("Saving: " + compound.getAsString());
+        //CreateCobblestoneMod.LOGGER.error("Saving: " + compound.getAsString());
     }
 
     public void saveType(CompoundTag tag){
@@ -47,7 +47,7 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
 
-        CreateCobblestoneMod.LOGGER.error("Reading: " + compound.getAsString());
+        //CreateCobblestoneMod.LOGGER.error("Reading: " + compound.getAsString());
         this.type = GeneratorType.valueOf(compound.getString("type"));
     }
 

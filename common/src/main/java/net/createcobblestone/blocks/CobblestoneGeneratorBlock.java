@@ -61,32 +61,32 @@ public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements
         return SpeedLevel.SLOW;
     }
 
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof CobblestoneGeneratorBlockEntity) {
-                ItemStack itemStack = new ItemStack(this);
-                CompoundTag tag = new CompoundTag();
-                ((CobblestoneGeneratorBlockEntity) blockEntity).saveType(tag);
-                itemStack.setTag(tag);
-
-                ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), itemStack);
-                level.addFreshEntity(itemEntity);
-            }
-            super.onRemove(state, level, pos, newState, isMoving);
-        }
-    }
-
-    @Override
-    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        if (stack.hasTag()) {
-            if (stack.getOrCreateTag().contains("type") && stack.getOrCreateTag().contains("speed")) {
-                BlockEntity blockEntity = world.getBlockEntity(pos);
-                if (blockEntity instanceof CobblestoneGeneratorBlockEntity) {
-                    blockEntity.load(stack.getOrCreateTag());
-                }
-            }
-        }
-    }
+//    @Override
+//    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+//        if (state.getBlock() != newState.getBlock()) {
+//            BlockEntity blockEntity = level.getBlockEntity(pos);
+//            if (blockEntity instanceof CobblestoneGeneratorBlockEntity) {
+//                ItemStack itemStack = new ItemStack(this);
+//                CompoundTag tag = new CompoundTag();
+//                ((CobblestoneGeneratorBlockEntity) blockEntity).saveType(tag);
+//                itemStack.setTag(tag);
+//
+//                ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), itemStack);
+//                level.addFreshEntity(itemEntity);
+//            }
+//            super.onRemove(state, level, pos, newState, isMoving);
+//        }
+//    }
+//
+//    @Override
+//    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+//        if (stack.hasTag()) {
+//            if (stack.getOrCreateTag().contains("type") && stack.getOrCreateTag().contains("speed")) {
+//                BlockEntity blockEntity = world.getBlockEntity(pos);
+//                if (blockEntity instanceof CobblestoneGeneratorBlockEntity) {
+//                    blockEntity.load(stack.getOrCreateTag());
+//                }
+//            }
+//        }
+//    }
 }
