@@ -1,0 +1,6 @@
+{
+  "parent": "createcobblestone:block/cobblestone_generator",
+  "textures": {
+    "2": "minecraft:block/stone"
+  }
+}

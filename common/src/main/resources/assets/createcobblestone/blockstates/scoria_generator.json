@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "createcobblestone:block/scoria_generator" },
+    "facing=east":  { "model": "createcobblestone:block/scoria_generator", "y":  90 },
+    "facing=south": { "model": "createcobblestone:block/scoria_generator", "y": 180 },
+    "facing=west":  { "model": "createcobblestone:block/scoria_generator", "y": 270 }
+  }
+}

@@ -1,29 +1,50 @@
 package net.createcobblestone.util;
 
 import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.NotNull;
 
-public enum GeneratorType {
-    COBBLESTONE("minecraft:block/cobblestone", Blocks.COBBLESTONE),
-    BASALT("minecraft:block/basalt", Blocks.BASALT),
-    LIMESTONE("create:block/limestone", AllPaletteStoneTypes.LIMESTONE.baseBlock.get());
+import java.util.function.Supplier;
 
-    private final String texturePath;
+public enum GeneratorType implements StringRepresentable {
+    COBBLESTONE(Blocks.COBBLESTONE),
+    STONE(Blocks.STONE),
+    BASALT(Blocks.BASALT),
+    LIMESTONE(AllPaletteStoneTypes.LIMESTONE.getBaseBlock()),
+    SCORIA(AllPaletteStoneTypes.SCORIA.getBaseBlock());
+
+    private final NonNullSupplier<Block> blockNonNullSupplier;
     private final Block block;
 
-    GeneratorType(String texturePath, Block block) {
-        this.texturePath = texturePath;
-        this.block = block;
+    GeneratorType(NonNullSupplier<Block> blockNonNullSupplier) {
+        this.block = null;
+        this.blockNonNullSupplier = blockNonNullSupplier;
     }
 
-    public String getTexturePath() {
-        return texturePath;
+    GeneratorType(Block block) {
+        this.block = block;
+        this.blockNonNullSupplier = null;
     }
 
     public Block getBlock(){
-        return this.block;
+        if (this.block != null){
+            return this.block;
+        }
+
+        if (this.blockNonNullSupplier != null) {
+            return this.blockNonNullSupplier.get();
+        }
+
+        return null;
+    }
+
+    @Override
+    public @NotNull String getSerializedName() {
+        return this.name();
     }
 }
