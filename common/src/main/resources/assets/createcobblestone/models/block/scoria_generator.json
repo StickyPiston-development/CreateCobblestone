@@ -1,6 +1,6 @@
 {
   "parent": "createcobblestone:block/cobblestone_generator",
   "textures": {
-    "2": "create:block/scoria"
+    "2": "create:block/palettes/stone_types/scoria"
   }
 }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "createcobblestone:scoria_generator",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "createcobblestone:scoria_generator"
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "condition": "minecraft:survives_explosion"
+    }
+  ]
+}

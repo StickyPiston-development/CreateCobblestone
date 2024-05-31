@@ -1,6 +1,6 @@
 {
   "parent": "createcobblestone:block/cobblestone_generator",
   "textures": {
-    "2": "minecraft:block/basalt"
+    "2": "minecraft:block/basalt_top"
   }
 }

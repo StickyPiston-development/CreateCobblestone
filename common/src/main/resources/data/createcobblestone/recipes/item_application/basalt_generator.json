@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "tag": "createcobblestone:cobblestone_generators"
+    },
+    {
+      "item": "minecraft:basalt"
+    }
+  ],
+  "results": [
+    {
+      "item": "createcobblestone:basalt_generator"
+    }
+  ]
+}
