@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "#createcobblestone:cobblestone_generators"
+    "createcobblestone:cobblestone_generator",
+    "createcobblestone:stone_generator",
+    "createcobblestone:basalt_generator",
+    "createcobblestone:limestone_generator",
+    "createcobblestone:scoria_generator"
   ]
 }

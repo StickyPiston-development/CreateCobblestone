@@ -1,17 +1,31 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "redstone",
-  "ingredients": [
-    {
-      "item": "create:brass_casing"
+  "pattern": [
+    "IEI",
+    "WDL",
+    "BBB"
+  ],
+  "key": {
+    "I": {
+      "item": "create:brass_ingot"
     },
-    {
+    "E": {
       "item": "create:electron_tube"
     },
-    {
+    "B": {
+      "item": "create:brass_casing"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    },
+    "L": {
+      "item": "minecraft:lava_bucket"
+    },
+    "D": {
       "item": "create:mechanical_drill"
     }
-  ],
+  },
   "result": {
     "item": "createcobblestone:cobblestone_generator"
   }
