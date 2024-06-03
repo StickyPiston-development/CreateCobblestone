@@ -17,7 +17,7 @@ public class CobblestoneGeneratorInstance extends KineticBlockEntityInstance<Cob
     }
 
     public void init() {
-        this.rotatingModel1 = this.setup((RotatingData)this.getModel().createInstance());
+        this.rotatingModel1 = this.setup(this.getModel().createInstance());
 
         rotatingModel1.setRotationAxis(axis)
                 .setRotationalSpeed(getBlockEntitySpeed())
@@ -31,7 +31,7 @@ public class CobblestoneGeneratorInstance extends KineticBlockEntityInstance<Cob
     }
 
     public void updateLight() {
-        this.relight(this.pos, new FlatLit[]{this.rotatingModel1});
+        this.relight(this.pos, this.rotatingModel1);
     }
 
     public void remove() {

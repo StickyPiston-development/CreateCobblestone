@@ -1,6 +1,5 @@
 package net.createcobblestone.index;
 
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
@@ -12,7 +11,6 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import net.createcobblestone.CreateCobblestoneMod;
 import net.createcobblestone.blocks.CobblestoneGeneratorBlock;
 import net.createcobblestone.util.GeneratorType;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
@@ -21,18 +19,17 @@ import static net.createcobblestone.CreateCobblestoneMod.REGISTRATE;
 public class Blocks {
 
 
+    static {
+        REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
+                //.andThen(TooltipModifier.mapNull(CobblestoneType.create(item)))
+                .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
+    }
 
-	static {
-		REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
-				//.andThen(TooltipModifier.mapNull(CobblestoneType.create(item)))
-				.andThen(TooltipModifier.mapNull(KineticStats.create(item))));
-	}
-
-	public static BlockEntry<CobblestoneGeneratorBlock> COBBLESTONE_GENERATOR_BLOCK;
-	public static BlockEntry<CobblestoneGeneratorBlock> STONE_GENERATOR_BLOCK;
-	public static BlockEntry<CobblestoneGeneratorBlock> BASALT_GENERATOR_BLOCK;
-	public static BlockEntry<CobblestoneGeneratorBlock> LIMESTONE_GENERATOR_BLOCK;
-	public static BlockEntry<CobblestoneGeneratorBlock> SCORIA_GENERATOR_BLOCK;
+    public static BlockEntry<CobblestoneGeneratorBlock> COBBLESTONE_GENERATOR_BLOCK;
+    public static BlockEntry<CobblestoneGeneratorBlock> STONE_GENERATOR_BLOCK;
+    public static BlockEntry<CobblestoneGeneratorBlock> BASALT_GENERATOR_BLOCK;
+    public static BlockEntry<CobblestoneGeneratorBlock> LIMESTONE_GENERATOR_BLOCK;
+    public static BlockEntry<CobblestoneGeneratorBlock> SCORIA_GENERATOR_BLOCK;
 
 //	public static BlockEntry<CobblestoneGeneratorBlock> of(GeneratorType type){
 //		switch (type) {
@@ -73,67 +70,62 @@ public class Blocks {
 //        return false;
 //    }
 
-	public static void init() {
-		CreateCobblestoneMod.LOGGER.info("Registering blocks for " + CreateCobblestoneMod.NAME);
+    public static void init() {
+        CreateCobblestoneMod.LOGGER.info("Registering blocks for " + CreateCobblestoneMod.NAME);
 
-		if (Config.common().cobblestoneGeneratorEnabled.get()) {
-			COBBLESTONE_GENERATOR_BLOCK = REGISTRATE.block("cobblestone_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.COBBLESTONE))
-					.initialProperties(AllBlocks.BRASS_CASING)
-					.properties(p -> p.mapColor(MapColor.COLOR_BROWN))
-					.transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
-					.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
-					.item()
-					.tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
-					.transform(customItemModel())
-					.register();
-		}
+        if (Config.common().cobblestoneGeneratorEnabled.get()) {
+            COBBLESTONE_GENERATOR_BLOCK = REGISTRATE.block("cobblestone_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.COBBLESTONE))
+                    .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
+                    .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
+                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .item()
+                    .tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
+                    .transform(customItemModel())
+                    .register();
+        }
 
-		if (Config.common().stoneGeneratorEnabled.get()) {
-			STONE_GENERATOR_BLOCK = REGISTRATE.block("stone_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.STONE))
-					.initialProperties(AllBlocks.BRASS_CASING)
-					.properties(p -> p.mapColor(MapColor.COLOR_BROWN))
-					.transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
-					.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
-					.item()
-					.tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
-					.transform(customItemModel())
-					.register();
-		}
+        if (Config.common().stoneGeneratorEnabled.get()) {
+            STONE_GENERATOR_BLOCK = REGISTRATE.block("stone_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.STONE))
+                    .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
+                    .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
+                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .item()
+                    .tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
+                    .transform(customItemModel())
+                    .register();
+        }
 
-		if (Config.common().basaltGeneratorEnabled.get()) {
-			BASALT_GENERATOR_BLOCK = REGISTRATE.block("basalt_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.BASALT))
-					.initialProperties(AllBlocks.BRASS_CASING)
-					.properties(p -> p.mapColor(MapColor.COLOR_BROWN))
-					.transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
-					.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
-					.item()
-					.tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
-					.transform(customItemModel())
-					.register();
-		}
+        if (Config.common().basaltGeneratorEnabled.get()) {
+            BASALT_GENERATOR_BLOCK = REGISTRATE.block("basalt_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.BASALT))
+                    .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
+                    .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
+                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .item()
+                    .tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
+                    .transform(customItemModel())
+                    .register();
+        }
 
-		if (Config.common().limestoneGeneratorEnabled.get()) {
-			LIMESTONE_GENERATOR_BLOCK = REGISTRATE.block("limestone_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.LIMESTONE))
-					.initialProperties(AllBlocks.BRASS_CASING)
-					.properties(p -> p.mapColor(MapColor.COLOR_BROWN))
-					.transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
-					.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
-					.item()
-					.tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
-					.transform(customItemModel())
-					.register();
-		}
+        if (Config.common().limestoneGeneratorEnabled.get()) {
+            LIMESTONE_GENERATOR_BLOCK = REGISTRATE.block("limestone_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.LIMESTONE))
+                    .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
+                    .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
+                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .item()
+                    .tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
+                    .transform(customItemModel())
+                    .register();
+        }
 
-		if (Config.common().scoriaGeneratorEnabled.get()) {
-			SCORIA_GENERATOR_BLOCK = REGISTRATE.block("scoria_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.SCORIA))
-					.initialProperties(AllBlocks.BRASS_CASING)
-					.properties(p -> p.mapColor(MapColor.COLOR_BROWN))
-					.transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
-					.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
-					.item()
-					.tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
-					.transform(customItemModel())
-					.register();
-		}
-	}
+        if (Config.common().scoriaGeneratorEnabled.get()) {
+            SCORIA_GENERATOR_BLOCK = REGISTRATE.block("scoria_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.SCORIA))
+                    .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
+                    .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
+                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .item()
+                    .tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
+                    .transform(customItemModel())
+                    .register();
+        }
+    }
 }
