@@ -3,13 +3,9 @@ package net.createcobblestone.util;
 import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Supplier;
 
 public enum GeneratorType implements StringRepresentable {
     COBBLESTONE(Blocks.COBBLESTONE),

@@ -1,12 +1,6 @@
 package net.createcobblestone.index;
 
-import com.simibubi.create.Create;
-import com.simibubi.create.content.kinetics.BlockStressValues;
 import com.simibubi.create.foundation.config.ConfigBase;
-import com.simibubi.create.infrastructure.config.AllConfigs;
-import com.simibubi.create.infrastructure.config.CClient;
-import com.simibubi.create.infrastructure.config.CCommon;
-import com.simibubi.create.infrastructure.config.CServer;
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
 import net.createcobblestone.CreateCobblestoneMod;
