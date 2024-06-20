@@ -1,6 +1,5 @@
 package net.createcobblestone.index;
 
-import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.item.ItemDescription;
@@ -79,7 +78,7 @@ public class Blocks {
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                     .item()
-                    .tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
+                    .tab(CreativeTabs.CREATECOBBLESTONE_TAB.getKey())
                     .transform(customItemModel())
                     .register();
         }
@@ -90,7 +89,7 @@ public class Blocks {
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                     .item()
-                    .tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
+                    .tab(CreativeTabs.CREATECOBBLESTONE_TAB.getKey())
                     .transform(customItemModel())
                     .register();
         }
@@ -101,7 +100,7 @@ public class Blocks {
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                     .item()
-                    .tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
+                    .tab(CreativeTabs.CREATECOBBLESTONE_TAB.getKey())
                     .transform(customItemModel())
                     .register();
         }
@@ -112,7 +111,7 @@ public class Blocks {
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                     .item()
-                    .tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
+                    .tab(CreativeTabs.CREATECOBBLESTONE_TAB.getKey())
                     .transform(customItemModel())
                     .register();
         }
@@ -123,7 +122,7 @@ public class Blocks {
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                     .item()
-                    .tab(AllCreativeModeTabs.BASE_CREATIVE_TAB.key())
+                    .tab(CreativeTabs.CREATECOBBLESTONE_TAB.getKey())
                     .transform(customItemModel())
                     .register();
         }

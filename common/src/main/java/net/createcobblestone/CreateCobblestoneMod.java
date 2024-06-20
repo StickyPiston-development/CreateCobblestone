@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.createcobblestone.index.BlockEntities;
 import net.createcobblestone.index.Blocks;
 import net.createcobblestone.index.Config;
+import net.createcobblestone.index.CreativeTabs;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ public class CreateCobblestoneMod {
         LOGGER.info("{} initializing! Create version: {} on platform: {}", NAME, Create.VERSION, CreateCobblestoneExpectPlatform.platformName());
 
         Config.register();
+        CreativeTabs.register();
 
         Blocks.init(); // hold registrate in a separate class to avoid loading early on forge
         BlockEntities.init();

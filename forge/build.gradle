@@ -49,6 +49,8 @@ dependencies {
     // Development QOL
     modLocalRuntime("mezz.jei:jei-${minecraft_version}-forge:${jei_version}") { transitive = false }
 
+    modImplementation "dev.architectury:architectury-forge:$rootProject.architectury_api_version"
+
     // if you would like to add integration with JEI, uncomment this line.
 //    modCompileOnly("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
 }
