@@ -21,10 +21,11 @@ public class CreateCobblestoneMod {
         LOGGER.info("{} initializing! Create version: {} on platform: {}", NAME, Create.VERSION, CreateCobblestoneExpectPlatform.platformName());
 
         Config.register();
-        CreativeTabs.register();
 
         Blocks.init(); // hold registrate in a separate class to avoid loading early on forge
         BlockEntities.init();
+
+        CreativeTabs.init();
     }
 
     public static ResourceLocation id(String path) {
