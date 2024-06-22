@@ -19,7 +19,7 @@ public class CreativeTabs {
             id("tab"),
             () -> CreativeTabRegistry.create(
                     Component.translatable("category.create_cobblestone"), // Tab Name
-                () -> new ItemStack(Blocks.COBBLESTONE_GENERATOR_BLOCK.get()) // Icon
+                () -> new ItemStack(Blocks.COBBLESTONE_GENERATOR_BLOCK.get().asItem()) // Icon
             )
     );
 
