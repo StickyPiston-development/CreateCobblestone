@@ -14,7 +14,6 @@ import net.minecraft.world.level.material.MapColor;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static net.createcobblestone.CreateCobblestoneMod.REGISTRATE;
-import static net.createcobblestone.index.CreativeTabs.CREATECOBBLESTONE_TAB;
 
 public class Blocks {
 
@@ -79,7 +78,7 @@ public class Blocks {
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                     .item()
-                    .properties(p -> p.arch$tab(CREATECOBBLESTONE_TAB))
+                    .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
                     .transform(customItemModel())
                     .register();
         }
@@ -90,7 +89,7 @@ public class Blocks {
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                     .item()
-                    .properties(p -> p.arch$tab(CREATECOBBLESTONE_TAB))
+                    .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
                     .transform(customItemModel())
                     .register();
         }
@@ -101,7 +100,7 @@ public class Blocks {
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                     .item()
-                    .properties(p -> p.arch$tab(CREATECOBBLESTONE_TAB))
+                    .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
                     .transform(customItemModel())
                     .register();
         }
@@ -112,7 +111,7 @@ public class Blocks {
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                     .item()
-                    .properties(p -> p.arch$tab(CREATECOBBLESTONE_TAB))
+                    .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
                     .transform(customItemModel())
                     .register();
         }
@@ -123,7 +122,7 @@ public class Blocks {
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                     .item()
-                    .properties(p -> p.arch$tab(CREATECOBBLESTONE_TAB))
+                    .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
                     .transform(customItemModel())
                     .register();
         }

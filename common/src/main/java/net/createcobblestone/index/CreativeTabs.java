@@ -1,27 +1,46 @@
 package net.createcobblestone.index;
 
-import dev.architectury.registry.CreativeTabRegistry;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
+import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 
-import static net.createcobblestone.CreateCobblestoneMod.MOD_ID;
-import static net.createcobblestone.CreateCobblestoneMod.id;
+import java.util.function.Supplier;
 
 public class CreativeTabs {
-    public static final DeferredRegister<CreativeModeTab> TABS =
-            DeferredRegister.create(MOD_ID, Registries.CREATIVE_MODE_TAB);
+    @ExpectPlatform
+    public static CreativeModeTab getBaseTab() {
+        throw new AssertionError();
+    }
 
-    public static final RegistrySupplier<CreativeModeTab> CREATECOBBLESTONE_TAB = TABS.register(
-            id("tab"),
-            () -> CreativeTabRegistry.create(
-                    Component.translatable("category.create_cobblestone"), // Tab Name
-                () -> new ItemStack(Blocks.COBBLESTONE_GENERATOR_BLOCK.get().asItem()) // Icon
-            )
-    );
+    @ExpectPlatform
+    public static ResourceKey<CreativeModeTab> getBaseTabKey() {
+        throw new AssertionError();
+    }
+
+    public enum Tabs {
+        MAIN(CreativeTabs::getBaseTabKey),
+        ;
+
+        private final Supplier<ResourceKey<CreativeModeTab>> keySupplier;
+
+        Tabs(Supplier<ResourceKey<CreativeModeTab>> keySupplier) {
+            this.keySupplier = keySupplier;
+        }
+
+        public ResourceKey<CreativeModeTab> getKey() {
+            return keySupplier.get();
+        }
+
+        public void use() {
+            use(this);
+        }
+
+        @ExpectPlatform
+        private static void use(Tabs tab) {
+            throw new AssertionError();
+        }
+    }
 
     public static void init (){}
 }
+

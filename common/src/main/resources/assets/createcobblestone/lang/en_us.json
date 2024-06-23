@@ -1,5 +1,5 @@
 {
-  "category.create_cobblestone": "Create Cobblestone",
+  "itemGroup.create_cobblestone": "Create Cobblestone",
 
   "block.createcobblestone.cobblestone_generator": "Mechanical Cobblestone Generator",
   "block.createcobblestone.stone_generator": "Mechanical Stone Generator",
