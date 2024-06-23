@@ -47,7 +47,15 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
         super.read(compound, clientPacket);
 
         //CreateCobblestoneMod.LOGGER.error("Reading: " + compound.getAsString());
-        this.type = GeneratorType.valueOf(compound.getString("type"));
+        String generatorType = compound.getString("type");
+
+        // FIX: #3 Placing a generator using a schematticannon crashes a server.
+        if (generatorType.isEmpty()){
+            this.type = GeneratorType.COBBLESTONE;
+            return;
+        }
+
+        this.type = GeneratorType.valueOf(generatorType);
     }
 
     @Override
