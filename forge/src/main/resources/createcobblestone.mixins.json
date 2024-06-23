@@ -1,11 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.createcobblestone.mixin.forge",
+  "package": "net.createcobblestone.forge.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
   ],
   "mixins": [
+    "self.CobblestoneGeneratorCapabilities"
   ],
   "injectors": {
     "defaultRequire": 1
