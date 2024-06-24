@@ -12,7 +12,7 @@ public class CreateCobblestoneCommon extends ConfigBase {
     }
 
     public final ConfigInt generatorStress = i(8, "generatorStress", Comments.generatorStress);
-    public final ConfigInt generatorRatio = i(8, "generatorRatio", Comments.generatorRatio);
+    public final ConfigFloat generatorRatio = f(8.0f, 0.01f, "generatorRatio", Comments.generatorRatio);
 
     public final ConfigGroup generatorsGroup = group(1, "generatorsEnabled", Comments.generatorsGroup);
     public final ConfigBool cobblestoneGeneratorEnabled = b(true, "cobblestoneGeneratorEnabled", Comments.cobblestoneGeneratorEnabled);

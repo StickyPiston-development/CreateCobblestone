@@ -116,7 +116,7 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
         super.tick();
 
         if (type.getBlock() != null) {
-            this.items.set(0, new ItemStack(type.getBlock(), abs((int) getSpeed() / Config.common().generatorRatio.get())));
+            this.items.set(0, new ItemStack(type.getBlock(), (int) abs(getSpeed() / Config.common().generatorRatio.get())));
         }
     }
 
