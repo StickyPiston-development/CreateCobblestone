@@ -21,8 +21,6 @@ public class Config {
         return CONFIGS.get(type);
     }
 
-    public static boolean loaded = false;
-
     @ExpectPlatform
     public static void register() {
     }
