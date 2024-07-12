@@ -5,5 +5,8 @@
   "block.createcobblestone.stone_generator": "Mechanical Stone Generator",
   "block.createcobblestone.basalt_generator": "Mechanical Basalt Generator",
   "block.createcobblestone.limestone_generator": "Mechanical Limestone Generator",
-  "block.createcobblestone.scoria_generator": "Mechanical Scoria Generator"
+  "block.createcobblestone.scoria_generator": "Mechanical Scoria Generator",
+
+  "block.createcobblestone.deepslate_generator": "Mechanical Deepslate Generator",
+  "block.createcobblestone.cobbled_deepslate_generator": "Mechanical Cobbled Deepslate Generator"
 }

@@ -12,7 +12,10 @@ public enum GeneratorType implements StringRepresentable {
     STONE(Blocks.STONE),
     BASALT(Blocks.BASALT),
     LIMESTONE(AllPaletteStoneTypes.LIMESTONE.getBaseBlock()),
-    SCORIA(AllPaletteStoneTypes.SCORIA.getBaseBlock());
+    SCORIA(AllPaletteStoneTypes.SCORIA.getBaseBlock()),
+
+    DEEPSLATE(Blocks.DEEPSLATE),
+    COBBLED_DEEPSLATE(Blocks.COBBLED_DEEPSLATE);
 
     private final NonNullSupplier<Block> blockNonNullSupplier;
     private final Block block;

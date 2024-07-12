@@ -30,6 +30,9 @@ public class Blocks {
     public static BlockEntry<CobblestoneGeneratorBlock> LIMESTONE_GENERATOR_BLOCK;
     public static BlockEntry<CobblestoneGeneratorBlock> SCORIA_GENERATOR_BLOCK;
 
+    public static BlockEntry<CobblestoneGeneratorBlock> DEEPSLATE_GENERATOR_BLOCK;
+    public static BlockEntry<CobblestoneGeneratorBlock> COBBLED_DEEPSLATE_GENERATOR_BLOCK;
+
 //	public static BlockEntry<CobblestoneGeneratorBlock> of(GeneratorType type){
 //		switch (type) {
 //            case COBBLESTONE -> {
@@ -118,6 +121,28 @@ public class Blocks {
 
         if (Config.common().scoriaGeneratorEnabled.get()) {
             SCORIA_GENERATOR_BLOCK = REGISTRATE.block("scoria_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.SCORIA))
+                    .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
+                    .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
+                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .item()
+                    .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
+                    .transform(customItemModel())
+                    .register();
+        }
+
+        if (Config.common().deepslateGeneratorEnabled.get()) {
+            DEEPSLATE_GENERATOR_BLOCK = REGISTRATE.block("deepslate_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.DEEPSLATE))
+                    .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
+                    .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
+                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .item()
+                    .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
+                    .transform(customItemModel())
+                    .register();
+        }
+
+        if (Config.common().cobbledDeepslateGeneratorEnabled.get()) {
+            COBBLED_DEEPSLATE_GENERATOR_BLOCK = REGISTRATE.block("cobbled_deepslate_generator", p -> new CobblestoneGeneratorBlock(p, GeneratorType.COBBLED_DEEPSLATE))
                     .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
                     .transform(BlockStressDefaults.setImpact(Config.common().generatorStress.get()))
                     .tag(AllTags.AllBlockTags.SAFE_NBT.tag)

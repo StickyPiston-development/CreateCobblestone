@@ -42,6 +42,14 @@ public class BlockEntities {
             suppliers.add(SCORIA_GENERATOR_BLOCK);
         }
 
+        if (Config.common().deepslateGeneratorEnabled.get()) {
+            suppliers.add(DEEPSLATE_GENERATOR_BLOCK);
+        }
+
+        if (Config.common().cobbledDeepslateGeneratorEnabled.get()) {
+            suppliers.add(COBBLED_DEEPSLATE_GENERATOR_BLOCK);
+        }
+
         @SuppressWarnings("unchecked")
         NonNullSupplier<? extends Block>[] suppliersArray = suppliers.toArray(new NonNullSupplier[0]);
 
