@@ -14,6 +14,8 @@ public class CreateCobblestoneCommon extends ConfigBase {
     public final ConfigInt generatorStress = i(8, "generatorStress", Comments.generatorStress);
     public final ConfigFloat generatorRatio = f(8.0f, 0.01f, "generatorRatio", Comments.generatorRatio);
 
+    public final ConfigInt maxStorage = i(256, "maxGeneratorStorage", Comments.maxStorage);
+
     public final ConfigGroup generatorsGroup = group(1, "generatorsEnabled", Comments.generatorsGroup);
     public final ConfigBool cobblestoneGeneratorEnabled = b(true, "cobblestoneGeneratorEnabled", Comments.generatorEnabled);
     public final ConfigBool basaltGeneratorEnabled = b(true, "basaltGeneratorEnabled", Comments.generatorEnabled);
@@ -34,6 +36,8 @@ public class CreateCobblestoneCommon extends ConfigBase {
                 "Cobblestone generator ratio",
                 "Cobblestone/tick = rpm/ratio"
         };
+
+        public static String maxStorage = "Maximum storage of the generators (in items)";
 
         public static String[] generatorsGroup = new String[]{
                 "Cobblestone generator types",

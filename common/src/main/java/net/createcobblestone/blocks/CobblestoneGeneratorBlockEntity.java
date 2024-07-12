@@ -20,6 +20,7 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
 
     final NonNullList<ItemStack> items;
     private final int size;
+    private double available = 0d;
 
     public GeneratorType type = GeneratorType.COBBLESTONE;
 
@@ -116,7 +117,15 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
         super.tick();
 
         if (type.getBlock() != null) {
-            this.items.set(0, new ItemStack(type.getBlock(), (int) abs(getSpeed() / Config.common().generatorRatio.get())));
+            if (this.available < 64) {
+                this.available = this.available + abs(getSpeed() / Config.common().generatorRatio.get());
+            }
+
+            int current = this.items.get(0).getCount();
+            int added = (int) this.available;
+            this.available -= added;
+
+            this.items.set(0, new ItemStack(type.getBlock(), Math.min(current + added, Config.common().maxStorage.get())));
         }
     }
 
