@@ -23,8 +23,8 @@ public class CreateCobblestoneCommon extends ConfigBase {
     public final ConfigBool limestoneGeneratorEnabled = b(true, "limestoneGeneratorEnabled", Comments.generatorEnabled);
     public final ConfigBool scoriaGeneratorEnabled = b(true, "scoriaGeneratorEnabled", Comments.generatorEnabled);
 
-    public final ConfigBool deepslateGeneratorEnabled = b(true, "deepslateGeneratorEnabled", Comments.generatorEnabled);
-    public final ConfigBool cobbledDeepslateGeneratorEnabled = b(true, "cobbledDeepslateGeneratorEnabled", Comments.generatorEnabled);
+    public final ConfigBool deepslateGeneratorEnabled = b(false, "deepslateGeneratorEnabled", Comments.generatorEnabled);
+    public final ConfigBool cobbledDeepslateGeneratorEnabled = b(false, "cobbledDeepslateGeneratorEnabled", Comments.generatorEnabled);
 
     private static class Comments {
         public static String common = "Common settings";
