@@ -49,7 +49,10 @@ public class CreateCobblestoneCommon extends ConfigBase {
     }
 
     public boolean isEnabled(GeneratorType type) {
-        if (type.equals(GeneratorType.COBBLESTONE)) {
+
+        if (type.equals(GeneratorType.NONE)){
+            return true;
+        } else if (type.equals(GeneratorType.COBBLESTONE)) {
             return Config.common().cobblestoneGeneratorEnabled.get();
 
         } else if (type.equals(GeneratorType.STONE)) {

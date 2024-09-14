@@ -38,11 +38,6 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
         super.write(compound, clientPacket);
 
         compound.putString("type", type.name());
-        CreateCobblestoneMod.LOGGER.error("Saving: " + compound.getAsString());
-    }
-
-    public void saveType(CompoundTag tag){
-
     }
 
     @Override
