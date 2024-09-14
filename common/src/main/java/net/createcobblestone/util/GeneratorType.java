@@ -3,11 +3,15 @@ package net.createcobblestone.util;
 import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public enum GeneratorType implements StringRepresentable {
+    NONE(Blocks.AIR),
     COBBLESTONE(Blocks.COBBLESTONE),
     STONE(Blocks.STONE),
     BASALT(Blocks.BASALT),
@@ -41,6 +45,29 @@ public enum GeneratorType implements StringRepresentable {
 
         return null;
     }
+
+    public Item getItem(){
+        return Objects.requireNonNull(this.getBlock()).asItem();
+    }
+
+    public static GeneratorType fromBlock(Block block) {
+        for (GeneratorType type : GeneratorType.values()) {
+            if (type.getBlock() == block) {
+                return type;
+            }
+        }
+        return null; // or throw an exception if preferred
+    }
+
+    public static GeneratorType fromItem(Item item) {
+        for (GeneratorType type : GeneratorType.values()) {
+            if (type.getItem() == item) {
+                return type;
+            }
+        }
+        return null; // or throw an exception if preferred
+    }
+
 
     @Override
     public @NotNull String getSerializedName() {

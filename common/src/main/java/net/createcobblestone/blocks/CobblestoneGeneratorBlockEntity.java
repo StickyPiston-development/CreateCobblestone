@@ -1,6 +1,7 @@
 package net.createcobblestone.blocks;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import net.createcobblestone.CreateCobblestoneMod;
 import net.createcobblestone.index.Config;
 import net.createcobblestone.util.GeneratorType;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,8 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
     private final int size;
     private double available = 0d;
 
-    public GeneratorType type = GeneratorType.COBBLESTONE;
+    public @NotNull GeneratorType type = GeneratorType.NONE;
+    private @NotNull GeneratorType previousType;
 
     public CobblestoneGeneratorBlockEntity(BlockEntityType<? extends CobblestoneGeneratorBlockEntity> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
@@ -35,28 +37,25 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
     protected void write(CompoundTag compound, boolean clientPacket) {
         super.write(compound, clientPacket);
 
-        saveType(compound);
-        //CreateCobblestoneMod.LOGGER.error("Saving: " + compound.getAsString());
+        compound.putString("type", type.name());
+        CreateCobblestoneMod.LOGGER.error("Saving: " + compound.getAsString());
     }
 
     public void saveType(CompoundTag tag){
-        tag.putString("type", type.name());
+
     }
 
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
 
-        //CreateCobblestoneMod.LOGGER.error("Reading: " + compound.getAsString());
-        String generatorType = compound.getString("type");
-
-        // FIX: #3 Placing a generator using a schematticannon crashes a server.
-        if (generatorType.isEmpty()){
-            this.type = GeneratorType.COBBLESTONE;
-            return;
+        try {
+            updateType(GeneratorType.valueOf(compound.getString("type")));
+        } catch (IllegalArgumentException e) {
+            CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", compound.getString("type"));
+            type = GeneratorType.NONE;
+            setChanged();
         }
-
-        this.type = GeneratorType.valueOf(generatorType);
     }
 
     @Override
@@ -136,5 +135,14 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
         return impact;
     }
 
+    public void updateType(GeneratorType newType) {
 
+        if (!Config.common().isEnabled(newType)){
+            CreateCobblestoneMod.LOGGER.error("Disabled generator type \"{}\", not changing generator type.", newType.name());
+            return;
+        }
+
+        this.type = newType;
+        this.setChanged();
+    }
 }

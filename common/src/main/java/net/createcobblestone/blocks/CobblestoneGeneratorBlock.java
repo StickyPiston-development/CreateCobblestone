@@ -3,24 +3,25 @@ package net.createcobblestone.blocks;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 import net.createcobblestone.index.BlockEntities;
+import net.createcobblestone.index.Config;
 import net.createcobblestone.util.GeneratorType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.Objects;
+import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements IBE<CobblestoneGeneratorBlockEntity> {
 
-    GeneratorType generatorType;
-
-    public CobblestoneGeneratorBlock(Properties properties, GeneratorType type) {
+    public CobblestoneGeneratorBlock(Properties properties) {
         super(properties);
-        this.generatorType = type;
     }
 
     @Override
@@ -64,12 +65,29 @@ public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements
     }
 
     @Override
-    public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-        super.onPlace(state, worldIn, pos, oldState, isMoving);
-        Objects.requireNonNull(this.getBlockEntity(worldIn, pos)).type = generatorType;
+    public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+        try {
+            GeneratorType type = GeneratorType.fromItem(player.getMainHandItem().getItem());
+
+            if (type.getBlock() == null || type == GeneratorType.NONE || !Config.common().isEnabled(type)) {
+                return InteractionResult.FAIL;
+            }
+
+            CobblestoneGeneratorBlockEntity be = this.getBlockEntity(level, pos);
+
+            if (be != null) {
+                be.updateType(type);
+                return InteractionResult.SUCCESS;
+            } else {
+                return InteractionResult.FAIL;
+            }
+
+        } catch (NullPointerException ignored) {
+            return InteractionResult.FAIL;
+        }
     }
 
-//    @Override
+    //    @Override
 //    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 //        try {
 //            GeneratorType type = GeneratorType.valueOf(
@@ -87,35 +105,6 @@ public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements
 //            return InteractionResult.SUCCESS;
 //        } catch (IllegalArgumentException e) {
 //            return super.use(state, level, pos, player, hand, hit);
-//        }
-//    }
-
-    //    @Override
-//    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-//        if (state.getBlock() != newState.getBlock()) {
-//            BlockEntity blockEntity = level.getBlockEntity(pos);
-//            if (blockEntity instanceof CobblestoneGeneratorBlockEntity) {
-//                ItemStack itemStack = new ItemStack(this);
-//                CompoundTag tag = new CompoundTag();
-//                ((CobblestoneGeneratorBlockEntity) blockEntity).saveType(tag);
-//                itemStack.setTag(tag);
-//
-//                ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), itemStack);
-//                level.addFreshEntity(itemEntity);
-//            }
-//            super.onRemove(state, level, pos, newState, isMoving);
-//        }
-//    }
-//
-//    @Override
-//    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-//        if (stack.hasTag()) {
-//            if (stack.getOrCreateTag().contains("type") && stack.getOrCreateTag().contains("speed")) {
-//                BlockEntity blockEntity = world.getBlockEntity(pos);
-//                if (blockEntity instanceof CobblestoneGeneratorBlockEntity) {
-//                    blockEntity.load(stack.getOrCreateTag());
-//                }
-//            }
 //        }
 //    }
 }

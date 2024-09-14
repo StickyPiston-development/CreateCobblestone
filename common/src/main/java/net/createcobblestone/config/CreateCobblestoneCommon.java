@@ -1,6 +1,8 @@
 package net.createcobblestone.config;
 
 import com.simibubi.create.foundation.config.ConfigBase;
+import net.createcobblestone.index.Config;
+import net.createcobblestone.util.GeneratorType;
 
 public class CreateCobblestoneCommon extends ConfigBase {
     public final ConfigGroup common = group(0, "common",
@@ -44,6 +46,31 @@ public class CreateCobblestoneCommon extends ConfigBase {
                 "(Requires relaunch)"
         };
         public static String generatorEnabled = "Enables the generator. When disabled, the generator is fully removed from the game. Make a backup before doing this.";
+    }
+
+    public boolean isEnabled(GeneratorType type) {
+        if (type.equals(GeneratorType.COBBLESTONE)) {
+            return Config.common().cobblestoneGeneratorEnabled.get();
+
+        } else if (type.equals(GeneratorType.STONE)) {
+            return Config.common().stoneGeneratorEnabled.get();
+
+        } else if (type.equals(GeneratorType.BASALT)) {
+            return Config.common().basaltGeneratorEnabled.get();
+
+        } else if (type.equals(GeneratorType.LIMESTONE)) {
+            return Config.common().limestoneGeneratorEnabled.get();
+
+        } else if (type.equals(GeneratorType.SCORIA)) {
+            return Config.common().scoriaGeneratorEnabled.get();
+
+        } else if (type.equals(GeneratorType.DEEPSLATE)) {
+            return Config.common().deepslateGeneratorEnabled.get();
+
+        } else if (type.equals(GeneratorType.COBBLED_DEEPSLATE)) {
+            return Config.common().cobbledDeepslateGeneratorEnabled.get();
+        }
+        return false;
     }
 
 }
