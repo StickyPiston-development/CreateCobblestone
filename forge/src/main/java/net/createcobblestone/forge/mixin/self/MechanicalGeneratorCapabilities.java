@@ -1,7 +1,7 @@
 package net.createcobblestone.forge.mixin.self;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import net.createcobblestone.blocks.CobblestoneGeneratorBlockEntity;
+import net.createcobblestone.blocks.MechanicalGeneratorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
@@ -18,9 +18,9 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(CobblestoneGeneratorBlockEntity.class)
-public abstract class CobblestoneGeneratorCapabilities extends KineticBlockEntity implements ICapabilityProvider, Container {
-    public CobblestoneGeneratorCapabilities(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+@Mixin(MechanicalGeneratorBlockEntity.class)
+public abstract class MechanicalGeneratorCapabilities extends KineticBlockEntity implements ICapabilityProvider, Container {
+    public MechanicalGeneratorCapabilities(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 

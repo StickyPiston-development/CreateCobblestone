@@ -11,13 +11,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 
-public class CobblestoneGeneratorRenderer extends KineticBlockEntityRenderer<CobblestoneGeneratorBlockEntity> {
-    public CobblestoneGeneratorRenderer(BlockEntityRendererProvider.Context context) {
+public class MechanicalGeneratorRenderer extends KineticBlockEntityRenderer<MechanicalGeneratorBlockEntity> {
+    public MechanicalGeneratorRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    protected void renderSafe(CobblestoneGeneratorBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+    protected void renderSafe(MechanicalGeneratorBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         Block renderedBlock = be.type.getBlock();
 
         if (renderedBlock == null) {
@@ -26,7 +26,7 @@ public class CobblestoneGeneratorRenderer extends KineticBlockEntityRenderer<Cob
 
         ItemStack renderedItem = new ItemStack(renderedBlock);
 
-        Direction shaftDirection = be.getBlockState().getValue(CobblestoneGeneratorBlock.HORIZONTAL_FACING);
+        Direction shaftDirection = be.getBlockState().getValue(MechanicalGeneratorBlock.HORIZONTAL_FACING);
 
         // Render on non-shaft sides based on the shaft's orientation
         if (shaftDirection == Direction.EAST || shaftDirection == Direction.WEST) {
@@ -50,7 +50,7 @@ public class CobblestoneGeneratorRenderer extends KineticBlockEntityRenderer<Cob
         super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
     }
 
-    private void renderOnSides(PoseStack ms, MultiBufferSource buffer, CobblestoneGeneratorBlockEntity be, ItemStack renderedItem, int light, int overlay, Vec3[] translations) {
+    private void renderOnSides(PoseStack ms, MultiBufferSource buffer, MechanicalGeneratorBlockEntity be, ItemStack renderedItem, int light, int overlay, Vec3[] translations) {
         for (int i = 0; i < translations.length; i++) {
             ms.pushPose();
             ms.translate(translations[i].x, translations[i].y, translations[i].z); // Adjust position

@@ -23,9 +23,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements IBE<CobblestoneGeneratorBlockEntity> {
+public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements IBE<MechanicalGeneratorBlockEntity> {
 
-    public CobblestoneGeneratorBlock(Properties properties) {
+    public MechanicalGeneratorBlock(Properties properties) {
         super(properties);
     }
 
@@ -50,12 +50,12 @@ public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements
     }
 
     @Override
-    public Class<CobblestoneGeneratorBlockEntity> getBlockEntityClass() {
-        return CobblestoneGeneratorBlockEntity.class;
+    public Class<MechanicalGeneratorBlockEntity> getBlockEntityClass() {
+        return MechanicalGeneratorBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends CobblestoneGeneratorBlockEntity> getBlockEntityType() {
+    public BlockEntityType<? extends MechanicalGeneratorBlockEntity> getBlockEntityType() {
         return BlockEntities.COBBLESTONE_GENERATOR.get() ;
     }
 
@@ -78,7 +78,7 @@ public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements
                 return InteractionResult.FAIL;
             }
 
-            CobblestoneGeneratorBlockEntity be = this.getBlockEntity(level, pos);
+            MechanicalGeneratorBlockEntity be = this.getBlockEntity(level, pos);
 
             if (be != null) {
                 be.updateType(type);
@@ -97,7 +97,7 @@ public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements
         super.setPlacedBy(world, pos, state, placer, stack);
 
         // Ensure the world isn't null and is server-side
-        CobblestoneGeneratorBlockEntity blockEntity = (CobblestoneGeneratorBlockEntity) world.getBlockEntity(pos);
+        MechanicalGeneratorBlockEntity blockEntity = (MechanicalGeneratorBlockEntity) world.getBlockEntity(pos);
 
         if (blockEntity == null) return;
 
@@ -112,7 +112,7 @@ public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements
     public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
 
-        CobblestoneGeneratorBlockEntity blockEntity = (CobblestoneGeneratorBlockEntity) level.getBlockEntity(pos);
+        MechanicalGeneratorBlockEntity blockEntity = (MechanicalGeneratorBlockEntity) level.getBlockEntity(pos);
 
         System.out.println(1);
 

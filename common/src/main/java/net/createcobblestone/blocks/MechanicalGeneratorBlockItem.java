@@ -7,9 +7,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-public class CobblestoneGeneratorBlockItem extends BlockItem {
+public class MechanicalGeneratorBlockItem extends BlockItem {
 
-    public CobblestoneGeneratorBlockItem(Block block, Properties properties) {
+    public MechanicalGeneratorBlockItem(Block block, Properties properties) {
         super(block, properties);
     }
 

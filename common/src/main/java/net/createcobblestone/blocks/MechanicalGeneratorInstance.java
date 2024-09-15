@@ -8,10 +8,10 @@ import com.simibubi.create.content.kinetics.base.flwdata.RotatingData;
 import com.simibubi.create.content.kinetics.simpleRelays.ShaftBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class CobblestoneGeneratorInstance extends KineticBlockEntityInstance<CobblestoneGeneratorBlockEntity> {
+public class MechanicalGeneratorInstance extends KineticBlockEntityInstance<MechanicalGeneratorBlockEntity> {
 
     protected RotatingData rotatingModel1;
-    public CobblestoneGeneratorInstance(MaterialManager materialManager, CobblestoneGeneratorBlockEntity blockEntity) {
+    public MechanicalGeneratorInstance(MaterialManager materialManager, MechanicalGeneratorBlockEntity blockEntity) {
         super(materialManager, blockEntity);
     }
 
@@ -38,7 +38,7 @@ public class CobblestoneGeneratorInstance extends KineticBlockEntityInstance<Cob
     }
 
     protected BlockState getRenderedBlockState() {
-        return AllBlocks.SHAFT.getDefaultState().setValue(ShaftBlock.AXIS, blockState.getValue(CobblestoneGeneratorBlock.HORIZONTAL_FACING).getAxis());
+        return AllBlocks.SHAFT.getDefaultState().setValue(ShaftBlock.AXIS, blockState.getValue(MechanicalGeneratorBlock.HORIZONTAL_FACING).getAxis());
     }
 
     protected Instancer<RotatingData> getModel() {

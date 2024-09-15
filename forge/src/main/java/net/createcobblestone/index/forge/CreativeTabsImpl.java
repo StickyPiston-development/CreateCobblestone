@@ -23,7 +23,7 @@ public class CreativeTabsImpl {
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.create_cobblestone"))
                     .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-                    .icon(() -> Blocks.COBBLESTONE_GENERATOR_BLOCK.asStack())
+                    .icon(() -> Blocks.MECHANICAL_GENERATOR_BLOCK.asStack())
                     .displayItems(new RegistrateDisplayItemsGenerator(CreativeTabs.Tabs.MAIN))
                     .build());
 

@@ -6,7 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "self.CobblestoneGeneratorCapabilities"
+    "self.MechanicalGeneratorCapabilities"
   ],
   "injectors": {
     "defaultRequire": 1

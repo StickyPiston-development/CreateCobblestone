@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static java.lang.Math.abs;
 
-public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implements Container {
+public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implements Container {
 
     final NonNullList<ItemStack> items;
     private final int size;
@@ -26,7 +26,7 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
     public @NotNull GeneratorType type = GeneratorType.NONE;
     private @NotNull GeneratorType previousType;
 
-    public CobblestoneGeneratorBlockEntity(BlockEntityType<? extends CobblestoneGeneratorBlockEntity> typeIn, BlockPos pos, BlockState state) {
+    public MechanicalGeneratorBlockEntity(BlockEntityType<? extends MechanicalGeneratorBlockEntity> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
 
         this.size = 1;

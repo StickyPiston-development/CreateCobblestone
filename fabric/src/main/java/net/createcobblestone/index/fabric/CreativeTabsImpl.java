@@ -19,7 +19,7 @@ public class CreativeTabsImpl {
     private static final RegistrateDisplayItemsGenerator.TabInfo MAIN_TAB = register("main",
             () -> FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup.create_cobblestone"))
-                    .icon(() -> Blocks.COBBLESTONE_GENERATOR_BLOCK.asStack())
+                    .icon(() -> Blocks.MECHANICAL_GENERATOR_BLOCK.asStack())
                     .displayItems(new RegistrateDisplayItemsGenerator(CreativeTabs.Tabs.MAIN))
                     .build());
 
