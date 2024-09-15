@@ -2,19 +2,31 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "createcobblestone:cobblestone_generator",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "createcobblestone:cobblestone_generator"
+          "name": "createcobblestone:cobblestone_generator",
+          "functions": [
+            {
+              "function": "minecraft:copy_nbt",
+              "source": "block_entity",
+              "ops": [
+                {
+                  "source": "type",
+                  "target": "type",
+                  "op": "replace"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
         }
       ]
-    }
-  ],
-  "conditions": [
-    {
-      "condition": "minecraft:survives_explosion"
     }
   ]
 }

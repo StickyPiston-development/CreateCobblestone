@@ -7,16 +7,21 @@ import net.createcobblestone.index.Config;
 import net.createcobblestone.util.GeneratorType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements IBE<CobblestoneGeneratorBlockEntity> {
 
@@ -86,6 +91,46 @@ public class CobblestoneGeneratorBlock extends HorizontalKineticBlock implements
             return InteractionResult.FAIL;
         }
     }
+
+    @Override
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(world, pos, state, placer, stack);
+
+        // Ensure the world isn't null and is server-side
+        CobblestoneGeneratorBlockEntity blockEntity = (CobblestoneGeneratorBlockEntity) world.getBlockEntity(pos);
+
+        if (blockEntity == null) return;
+
+        if (blockEntity.type != GeneratorType.NONE) return;
+
+        // Make sure it's the correct block entity type
+        CompoundTag tag = stack.getOrCreateTag(); // Get the tag from the item
+        blockEntity.loadFromItemTag(tag); // Apply the tag to the block entity
+    }
+
+    @Override
+    public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
+        ItemStack stack = super.getCloneItemStack(level, pos, state);
+
+        CobblestoneGeneratorBlockEntity blockEntity = (CobblestoneGeneratorBlockEntity) level.getBlockEntity(pos);
+
+        System.out.println(1);
+
+        if (blockEntity == null) return stack;
+
+        System.out.println(2);
+
+        if (blockEntity.type == GeneratorType.NONE) return stack;
+
+        System.out.println(3);
+
+        CompoundTag tag = new CompoundTag();
+        tag.putString("type", blockEntity.type.name());
+        stack.addTagElement("BlockEntityTag", tag);
+
+        return stack;
+    }
+
 
     //    @Override
 //    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {

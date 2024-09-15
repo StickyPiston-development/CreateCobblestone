@@ -37,6 +37,8 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
     protected void write(CompoundTag compound, boolean clientPacket) {
         super.write(compound, clientPacket);
 
+        System.out.println("w" + compound);
+
         compound.putString("type", type.name());
     }
 
@@ -44,10 +46,22 @@ public class CobblestoneGeneratorBlockEntity extends KineticBlockEntity implemen
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
 
+        System.out.println("r" + compound);
+
         try {
             updateType(GeneratorType.valueOf(compound.getString("type")));
         } catch (IllegalArgumentException e) {
             CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", compound.getString("type"));
+            type = GeneratorType.NONE;
+            setChanged();
+        }
+    }
+
+    public void loadFromItemTag(CompoundTag tag) {
+        try {
+            updateType(GeneratorType.valueOf(tag.getString("type")));
+        } catch (IllegalArgumentException e) {
+            CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", tag.getString("type"));
             type = GeneratorType.NONE;
             setChanged();
         }
