@@ -4,7 +4,7 @@
   "textures": {
     "1": "create:block/brass_gearbox",
     "2": "minecraft:block/cobblestone",
-    "4": "createcobblestone:block/cobblestone_generator",
+    "4": "createcobblestone:block/mechanical_generator",
     "particle": "create:block/brass_gearbox"
   },
   "elements": [

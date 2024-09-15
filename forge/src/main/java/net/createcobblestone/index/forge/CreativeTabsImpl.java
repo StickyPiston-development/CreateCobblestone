@@ -8,7 +8,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -22,7 +21,6 @@ public class CreativeTabsImpl {
     public static final RegistryObject<CreativeModeTab> MAIN_TAB = TAB_REGISTER.register("main",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.create_cobblestone"))
-                    .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
                     .icon(() -> Blocks.MECHANICAL_GENERATOR_BLOCK.asStack())
                     .displayItems(new RegistrateDisplayItemsGenerator(CreativeTabs.Tabs.MAIN))
                     .build());

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "createcobblestone:cobblestone_generator",
+          "name": "createcobblestone:mechanical_generator",
           "functions": [
             {
               "function": "minecraft:copy_nbt",
