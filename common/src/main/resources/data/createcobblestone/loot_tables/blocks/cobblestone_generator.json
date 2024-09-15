@@ -14,7 +14,7 @@
               "ops": [
                 {
                   "source": "type",
-                  "target": "type",
+                  "target": "BlockEntityTag.type",
                   "op": "replace"
                 }
               ]

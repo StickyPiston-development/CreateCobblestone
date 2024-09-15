@@ -9,6 +9,7 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.createcobblestone.CreateCobblestoneMod;
 import net.createcobblestone.blocks.CobblestoneGeneratorBlock;
+import net.createcobblestone.blocks.CobblestoneGeneratorBlockItem;
 import net.minecraft.world.level.material.MapColor;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
@@ -42,7 +43,7 @@ public class Blocks {
                 .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
                 .transform(BlockStressDefaults.setImpact(generator_stress))
                 .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
-                .item()
+                .item(CobblestoneGeneratorBlockItem::new)
                 .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
                 .transform(customItemModel())
                 .register();
