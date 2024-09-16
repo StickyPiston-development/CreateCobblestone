@@ -54,7 +54,7 @@ public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements 
 
     @Override
     public BlockEntityType<? extends MechanicalGeneratorBlockEntity> getBlockEntityType() {
-        return BlockEntities.COBBLESTONE_GENERATOR.get() ;
+        return BlockEntities.MECHANICAL_GENERATOR.get() ;
     }
 
     @Override
