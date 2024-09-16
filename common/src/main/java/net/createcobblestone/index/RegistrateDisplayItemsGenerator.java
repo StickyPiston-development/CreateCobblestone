@@ -2,6 +2,7 @@ package net.createcobblestone.index;
 
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.createcobblestone.CreateCobblestoneMod;
 import net.createcobblestone.util.GeneratorType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
@@ -47,6 +48,10 @@ public final class RegistrateDisplayItemsGenerator implements CreativeModeTab.Di
 
     private static void outputAll(CreativeModeTab.Output output, List<ItemStack> stacks) {
         for (ItemStack stack : stacks) {
+            if (stack.getCount() != 1) {
+                CreateCobblestoneMod.LOGGER.error("Invalid stack size {} for stack {}.", stack.getCount(), stack);
+                continue;
+            }
             output.accept(stack, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
     }
