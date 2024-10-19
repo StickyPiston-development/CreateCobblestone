@@ -1,7 +1,5 @@
 package net.createcobblestone.index;
 
-import com.tterrag.registrate.util.entry.RegistryEntry;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.createcobblestone.CreateCobblestoneMod;
 import net.createcobblestone.util.GeneratorType;
 import net.minecraft.nbt.CompoundTag;
@@ -27,8 +25,6 @@ public final class RegistrateDisplayItemsGenerator implements CreativeModeTab.Di
         List<ItemStack> stacks = new LinkedList<>();
 
         for (GeneratorType type: GeneratorType.values()){
-            if (type == GeneratorType.NONE) continue;
-
             ItemStack stack = Blocks.MECHANICAL_GENERATOR_BLOCK.asStack();
 
             CompoundTag tag = new CompoundTag();
@@ -36,14 +32,11 @@ public final class RegistrateDisplayItemsGenerator implements CreativeModeTab.Di
             stack.addTagElement("BlockEntityTag", tag);
 
             stacks.add(stack);
+
+            CreateCobblestoneMod.LOGGER.info("Added {} generator to creative menu", type);
         }
 
         outputAll(output, stacks);
-    }
-
-    @ExpectPlatform
-    private static boolean isInCreativeTab(RegistryEntry<?> entry, ResourceKey<CreativeModeTab> tab) {
-        throw new AssertionError();
     }
 
     private static void outputAll(CreativeModeTab.Output output, List<ItemStack> stacks) {

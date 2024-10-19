@@ -1,11 +1,17 @@
 package net.createcobblestone.blocks;
 
+import net.createcobblestone.util.GeneratorType;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class MechanicalGeneratorBlockItem extends BlockItem {
 
@@ -14,18 +20,52 @@ public class MechanicalGeneratorBlockItem extends BlockItem {
     }
 
     @Override
-    public @NotNull Component getName(@NotNull ItemStack stack) {
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
         if (stack.getTag() != null) {
             CompoundTag BET = stack.getTagElement("BlockEntityTag");
 
-            if (BET == null) {
-                return super.getName(stack);
-            }
+            if (BET != null) {
 
-            return Component.translatable(
-                    "block.createcobblestone.generators." + BET.getString("type").toLowerCase()
-            );
+                Item generatedItem = GeneratorType.valueOf(
+                        BET.getString("type")
+                ).getItem();
+
+                if (generatedItem != Items.AIR) {
+                    tooltipComponents.add(
+                            Component.translatable(
+                                    "block.createcobblestone.generators.hovertext.itemprefix"
+                            ).append(
+                                    generatedItem.getName(generatedItem.getDefaultInstance())
+                            ).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
+                    );
+                } else {
+                    tooltipComponents.add(
+                            Component.translatable(
+                                    "block.createcobblestone.generators.hovertext.no_item"
+                            ).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
+                    );
+                }
+
+
+
+            }
         }
-        return super.getName(stack);
+
+        super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+    }
+
+    @Override
+    public ItemStack getDefaultInstance() {
+        ItemStack defaultStack = super.getDefaultInstance();
+
+        defaultStack.getOrCreateTagElement("BlockEntityTag").putString("type", GeneratorType.NONE.name());
+
+        return defaultStack;
+    }
+
+    @Override
+    public void onCraftedBy(ItemStack stack, Level level, Player player) {
+        stack.getOrCreateTagElement("BlockEntityTag").putString("type", GeneratorType.NONE.name());
+        super.onCraftedBy(stack, level, player);
     }
 }

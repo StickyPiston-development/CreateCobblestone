@@ -1,16 +1,8 @@
 {
   "itemGroup.create_cobblestone": "Create Cobblestone",
 
-  "block.createcobblestone.mechanical_generator": "Uninitialized Mechanical Generator",
+  "block.createcobblestone.mechanical_generator": "Mechanical Generator",
 
-  "block.createcobblestone.generators.none": "Unassigned Mechanical Generator",
-
-  "block.createcobblestone.generators.cobblestone": "Mechanical Cobblestone Generator",
-  "block.createcobblestone.generators.stone": "Mechanical Stone Generator",
-  "block.createcobblestone.generators.basalt": "Mechanical Basalt Generator",
-  "block.createcobblestone.generators.limestone": "Mechanical Limestone Generator",
-  "block.createcobblestone.generators.scoria": "Mechanical Scoria Generator",
-
-  "block.createcobblestone.generators.deepslate": "Mechanical Deepslate Generator",
-  "block.createcobblestone.generators.cobbled_deepslate": "Mechanical Cobbled Deepslate Generator"
+  "block.createcobblestone.generators.hovertext.itemprefix": "Generates: ",
+  "block.createcobblestone.generators.hovertext.no_item": "Click on the generator with a stone type to set the generator type."
 }

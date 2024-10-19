@@ -18,8 +18,7 @@ public class CreativeTabs {
     }
 
     public enum Tabs {
-        MAIN(CreativeTabs::getBaseTabKey),
-        ;
+        MAIN(CreativeTabs::getBaseTabKey);
 
         private final Supplier<ResourceKey<CreativeModeTab>> keySupplier;
 

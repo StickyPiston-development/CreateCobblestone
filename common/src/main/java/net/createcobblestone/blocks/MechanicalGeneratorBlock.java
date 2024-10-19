@@ -113,7 +113,6 @@ public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements 
         MechanicalGeneratorBlockEntity blockEntity = (MechanicalGeneratorBlockEntity) level.getBlockEntity(pos);
 
         if (blockEntity == null) return stack;
-        if (blockEntity.type == GeneratorType.NONE) return stack;
 
         CompoundTag tag = new CompoundTag();
         tag.putString("type", blockEntity.type.name());

@@ -43,9 +43,8 @@ public class CreateCobblestoneCommon extends ConfigBase {
 
         public static String[] generatorsGroup = new String[]{
                 "Cobblestone generator types",
-                "(Requires relaunch)"
         };
-        public static String generatorEnabled = "Enables the generator. When disabled, the generator is fully removed from the game. Make a backup before doing this.";
+        public static String generatorEnabled = "Enables the generator. When disabled, the generator is replaced with unset generators. Make a backup before doing this.";
     }
 
     public boolean isEnabled(GeneratorType type) {
