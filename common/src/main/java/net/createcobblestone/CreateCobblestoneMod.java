@@ -2,6 +2,7 @@ package net.createcobblestone;
 
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import net.createcobblestone.data.GeneratorTypeLoader;
 import net.createcobblestone.index.BlockEntities;
 import net.createcobblestone.index.Blocks;
 import net.createcobblestone.index.Config;
@@ -26,6 +27,8 @@ public class CreateCobblestoneMod {
         BlockEntities.init();
 
         CreativeTabs.init();
+
+        GeneratorTypeLoader.init();
     }
 
     public static ResourceLocation id(String path) {

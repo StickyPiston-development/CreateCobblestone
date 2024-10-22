@@ -1,8 +1,10 @@
 package net.createcobblestone.config;
 
+import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import com.simibubi.create.foundation.config.ConfigBase;
 import net.createcobblestone.index.Config;
 import net.createcobblestone.util.GeneratorType;
+import net.minecraft.world.level.block.Blocks;
 
 public class CreateCobblestoneCommon extends ConfigBase {
     public final ConfigGroup common = group(0, "common",
@@ -51,28 +53,28 @@ public class CreateCobblestoneCommon extends ConfigBase {
 
         if (type.equals(GeneratorType.NONE)){
             return true;
-        } else if (type.equals(GeneratorType.COBBLESTONE)) {
+        } else if (type.getBlock() == Blocks.COBBLESTONE) {
             return Config.common().cobblestoneGeneratorEnabled.get();
 
-        } else if (type.equals(GeneratorType.STONE)) {
+        } else if (type.getBlock() == Blocks.STONE) {
             return Config.common().stoneGeneratorEnabled.get();
 
-        } else if (type.equals(GeneratorType.BASALT)) {
+        } else if (type.getBlock() == Blocks.BASALT) {
             return Config.common().basaltGeneratorEnabled.get();
 
-        } else if (type.equals(GeneratorType.LIMESTONE)) {
+        } else if (type.getBlock() == AllPaletteStoneTypes.LIMESTONE.getBaseBlock()) {
             return Config.common().limestoneGeneratorEnabled.get();
 
-        } else if (type.equals(GeneratorType.SCORIA)) {
+        } else if (type.getBlock() == AllPaletteStoneTypes.SCORIA.getBaseBlock()) {
             return Config.common().scoriaGeneratorEnabled.get();
 
-        } else if (type.equals(GeneratorType.DEEPSLATE)) {
+        } else if (type.getBlock() == Blocks.DEEPSLATE) {
             return Config.common().deepslateGeneratorEnabled.get();
 
-        } else if (type.equals(GeneratorType.COBBLED_DEEPSLATE)) {
+        } else if (type.getBlock() == Blocks.COBBLED_DEEPSLATE) {
             return Config.common().cobbledDeepslateGeneratorEnabled.get();
         }
-        return false;
+        return true;
     }
 
 }

@@ -1,76 +1,62 @@
 package net.createcobblestone.util;
 
-import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
-import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public enum GeneratorType implements StringRepresentable {
-    NONE(Blocks.AIR),
-    COBBLESTONE(Blocks.COBBLESTONE),
-    STONE(Blocks.STONE),
-    BASALT(Blocks.BASALT),
-    LIMESTONE(AllPaletteStoneTypes.LIMESTONE.getBaseBlock()),
-    SCORIA(AllPaletteStoneTypes.SCORIA.getBaseBlock()),
+public class GeneratorType {
+    private static final Map<String, GeneratorType> ID_TO_TYPE = new HashMap<>();
+    private static final Map<Block, GeneratorType> BLOCK_TO_TYPE = new HashMap<>();
+    private static final Map<Item, GeneratorType> ITEM_TO_TYPE = new HashMap<>();
 
-    DEEPSLATE(Blocks.DEEPSLATE),
-    COBBLED_DEEPSLATE(Blocks.COBBLED_DEEPSLATE);
-
-    private final NonNullSupplier<Block> blockNonNullSupplier;
+    private final String id;
     private final Block block;
 
-    GeneratorType(NonNullSupplier<Block> blockNonNullSupplier) {
-        this.block = null;
-        this.blockNonNullSupplier = blockNonNullSupplier;
-    }
+    public static GeneratorType NONE = new GeneratorType("none", Blocks.AIR);
 
-    GeneratorType(Block block) {
+    public GeneratorType(String id, Block block) {
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("Generator type ID cannot be null or empty");
+        }
+
+        this.id = id;
         this.block = block;
-        this.blockNonNullSupplier = null;
+
+        ID_TO_TYPE.put(id, this);
+        BLOCK_TO_TYPE.put(block, this);
+        ITEM_TO_TYPE.put(block.asItem(), this);
     }
 
-    public Block getBlock(){
-        if (this.block != null){
-            return this.block;
-        }
-
-        if (this.blockNonNullSupplier != null) {
-            return this.blockNonNullSupplier.get();
-        }
-
-        return null;
+    public String getId() {
+        return id;
     }
 
-    public Item getItem(){
-        return Objects.requireNonNull(this.getBlock()).asItem();
+    public Block getBlock() {
+        return block;
+    }
+
+    public Item getItem() {
+        return block.asItem();
+    }
+
+    public static GeneratorType fromId(String id) {
+        return ID_TO_TYPE.get(id);
     }
 
     public static GeneratorType fromBlock(Block block) {
-        for (GeneratorType type : GeneratorType.values()) {
-            if (type.getBlock() == block) {
-                return type;
-            }
-        }
-        return null; // or throw an exception if preferred
+        return BLOCK_TO_TYPE.get(block);
     }
 
     public static GeneratorType fromItem(Item item) {
-        for (GeneratorType type : GeneratorType.values()) {
-            if (type.getItem() == item) {
-                return type;
-            }
-        }
-        return null; // or throw an exception if preferred
+        return ITEM_TO_TYPE.get(item);
     }
 
-
-    @Override
-    public @NotNull String getSerializedName() {
-        return this.name();
+    public static List<GeneratorType> getTypes() {
+        return new ArrayList<>(ID_TO_TYPE.values());
     }
 }

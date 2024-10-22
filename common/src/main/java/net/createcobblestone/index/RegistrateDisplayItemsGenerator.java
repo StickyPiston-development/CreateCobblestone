@@ -24,11 +24,11 @@ public final class RegistrateDisplayItemsGenerator implements CreativeModeTab.Di
 
         List<ItemStack> stacks = new LinkedList<>();
 
-        for (GeneratorType type: GeneratorType.values()){
+        for (GeneratorType type: GeneratorType.getTypes()){
             ItemStack stack = Blocks.MECHANICAL_GENERATOR_BLOCK.asStack();
 
             CompoundTag tag = new CompoundTag();
-            tag.putString("type", type.name());
+            tag.putString("type", type.getId());
             stack.addTagElement("BlockEntityTag", tag);
 
             stacks.add(stack);

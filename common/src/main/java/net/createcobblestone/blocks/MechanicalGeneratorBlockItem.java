@@ -26,7 +26,7 @@ public class MechanicalGeneratorBlockItem extends BlockItem {
 
             if (BET != null) {
 
-                Item generatedItem = GeneratorType.valueOf(
+                Item generatedItem = GeneratorType.fromId(
                         BET.getString("type")
                 ).getItem();
 
@@ -58,14 +58,14 @@ public class MechanicalGeneratorBlockItem extends BlockItem {
     public ItemStack getDefaultInstance() {
         ItemStack defaultStack = super.getDefaultInstance();
 
-        defaultStack.getOrCreateTagElement("BlockEntityTag").putString("type", GeneratorType.NONE.name());
+        defaultStack.getOrCreateTagElement("BlockEntityTag").putString("type", GeneratorType.NONE.getId());
 
         return defaultStack;
     }
 
     @Override
     public void onCraftedBy(ItemStack stack, Level level, Player player) {
-        stack.getOrCreateTagElement("BlockEntityTag").putString("type", GeneratorType.NONE.name());
+        stack.getOrCreateTagElement("BlockEntityTag").putString("type", GeneratorType.NONE.getId());
         super.onCraftedBy(stack, level, player);
     }
 }

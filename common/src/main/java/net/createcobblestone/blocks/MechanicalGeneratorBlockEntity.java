@@ -37,7 +37,7 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
     protected void write(CompoundTag compound, boolean clientPacket) {
         super.write(compound, clientPacket);
 
-        compound.putString("type", type.name());
+        compound.putString("type", type.getId().toString());
     }
 
     @Override
@@ -45,7 +45,7 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         super.read(compound, clientPacket);
 
         try {
-            updateType(GeneratorType.valueOf(compound.getString("type")));
+            updateType(GeneratorType.fromId(compound.getString("type")));
         } catch (IllegalArgumentException e) {
             CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", compound.getString("type"));
             type = GeneratorType.NONE;
@@ -55,7 +55,7 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
 
     public void loadFromItemTag(CompoundTag tag) {
         try {
-            updateType(GeneratorType.valueOf(tag.getString("type")));
+            updateType(GeneratorType.fromId(tag.getString("type")));
         } catch (IllegalArgumentException e) {
             CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", tag.getString("type"));
             type = GeneratorType.NONE;
@@ -143,7 +143,7 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
     public void updateType(GeneratorType newType) {
 
         if (!Config.common().isEnabled(newType)){
-            CreateCobblestoneMod.LOGGER.error("Disabled generator type \"{}\", not changing generator type.", newType.name());
+            CreateCobblestoneMod.LOGGER.error("Disabled generator type \"{}\", not changing generator type.", newType.getId());
             return;
         }
 
