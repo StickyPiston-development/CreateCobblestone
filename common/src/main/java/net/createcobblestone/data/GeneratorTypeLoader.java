@@ -1,6 +1,5 @@
 package net.createcobblestone.data;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dev.architectury.injectables.annotations.ExpectPlatform;
@@ -14,8 +13,6 @@ import java.io.InputStream;
 import java.util.Map;
 
 public class GeneratorTypeLoader {
-
-    static Gson gson = new Gson();
 
     public static void loadGeneratorTypes(ResourceManager resourceManager) {
         GeneratorType.init();

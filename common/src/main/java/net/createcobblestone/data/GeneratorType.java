@@ -69,6 +69,8 @@ public class GeneratorType {
 
         GeneratorType type = ensureType(ID_TO_TYPE.get(id.toLowerCase()));
 
+        System.out.println(id);
+
         if (type == GeneratorType.NONE) {
             switch (id.toLowerCase()) {
                 case "cobblestone":
@@ -96,10 +98,10 @@ public class GeneratorType {
             }
 
             type = ensureType(ID_TO_TYPE.get(id));
-        }
 
-        if (type == GeneratorType.NONE && id.equals("createcobblestone:generator_types/deepslate.json") || id.equals("createcobblestone:generator_types/cobbled_deepslate.json")) {
-            CreateCobblestoneMod.LOGGER.error("Deepslate generators are now added using a data pack. Please install it from the mod page. (generator: {})", id);
+            if (type == GeneratorType.NONE && id.equals("createcobblestone:generator_types/deepslate.json") || id.equals("createcobblestone:generator_types/cobbled_deepslate.json")) {
+                CreateCobblestoneMod.LOGGER.error("Deepslate generators are now added using a data pack. Please install it from the mod page. (generator: {})", id);
+            }
         }
 
         return type;

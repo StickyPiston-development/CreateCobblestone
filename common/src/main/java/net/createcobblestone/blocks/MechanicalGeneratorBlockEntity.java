@@ -2,8 +2,8 @@ package net.createcobblestone.blocks;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import net.createcobblestone.CreateCobblestoneMod;
-import net.createcobblestone.index.Config;
 import net.createcobblestone.data.GeneratorType;
+import net.createcobblestone.index.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -22,22 +22,25 @@ import static java.lang.Math.abs;
 public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implements Container {
 
     final NonNullList<ItemStack> items;
-    private final int size;
+    private final int size = 1;
     private double available = 0d;
 
-    public @NotNull GeneratorType type = GeneratorType.NONE;
-    private @NotNull GeneratorType previousType;
+    public GeneratorType type;
 
     public MechanicalGeneratorBlockEntity(BlockEntityType<? extends MechanicalGeneratorBlockEntity> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
 
-        this.size = 1;
-        this.items = NonNullList.withSize(size, ItemStack.EMPTY);
+        items = NonNullList.withSize(size, ItemStack.EMPTY);
+        type = GeneratorType.NONE;
     }
 
     @Override
     protected void write(CompoundTag compound, boolean clientPacket) {
         super.write(compound, clientPacket);
+
+        if (type == null) {
+            type = GeneratorType.NONE;
+        }
 
         compound.putString("type", type.getId());
     }
@@ -47,6 +50,8 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         super.read(compound, clientPacket);
 
         try {
+            System.out.println(compound.toString());
+            System.out.println(GeneratorType.fromId(compound.getString("type")));
             updateType(GeneratorType.fromId(compound.getString("type")));
         } catch (IllegalArgumentException e) {
             CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", compound.getString("type"));
@@ -158,6 +163,17 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
     }
 
     public void updateType(GeneratorType newType) {
+
+        if (this.type == null){
+            this.type = GeneratorType.NONE;
+        }
+
+        if (newType == null) {
+            CreateCobblestoneMod.LOGGER.error("Attempted to update generator type to null");
+            return;
+        }
+
+        CreateCobblestoneMod.LOGGER.info("Trying to update generator type from \"{}\" to \"{}\"", type.getId(), newType.getId());
 
         if (!Config.common().isEnabled(newType)){
             if (!Config.common().isEnabled(type)) {
