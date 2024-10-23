@@ -4,7 +4,7 @@ import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 import net.createcobblestone.index.BlockEntities;
 import net.createcobblestone.index.Config;
-import net.createcobblestone.util.GeneratorType;
+import net.createcobblestone.data.GeneratorType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -115,7 +115,7 @@ public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements 
         if (blockEntity == null) return stack;
 
         CompoundTag tag = new CompoundTag();
-        tag.putString("type", blockEntity.type.getId().toString());
+        tag.putString("type", blockEntity.type.getId());
         stack.addTagElement("BlockEntityTag", tag);
 
         return stack;

@@ -1,10 +1,10 @@
 package net.createcobblestone.config;
 
-import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import com.simibubi.create.foundation.config.ConfigBase;
+import net.createcobblestone.data.GeneratorType;
 import net.createcobblestone.index.Config;
-import net.createcobblestone.util.GeneratorType;
-import net.minecraft.world.level.block.Blocks;
+
+import java.util.Objects;
 
 public class CreateCobblestoneCommon extends ConfigBase {
     public final ConfigGroup common = group(0, "common",
@@ -53,25 +53,25 @@ public class CreateCobblestoneCommon extends ConfigBase {
 
         if (type.equals(GeneratorType.NONE)){
             return true;
-        } else if (type.getBlock() == Blocks.COBBLESTONE) {
+        } else if (Objects.equals(type.getId(), "createcobblestone:generator_types/cobblestone.json")) {
             return Config.common().cobblestoneGeneratorEnabled.get();
 
-        } else if (type.getBlock() == Blocks.STONE) {
+        } else if (Objects.equals(type.getId(), "createcobblestone:generator_types/stone.json")) {
             return Config.common().stoneGeneratorEnabled.get();
 
-        } else if (type.getBlock() == Blocks.BASALT) {
+        } else if (Objects.equals(type.getId(), "createcobblestone:generator_types/basalt.json")) {
             return Config.common().basaltGeneratorEnabled.get();
 
-        } else if (type.getBlock() == AllPaletteStoneTypes.LIMESTONE.getBaseBlock()) {
+        } else if (Objects.equals(type.getId(), "createcobblestone:generator_types/limestone.json")) {
             return Config.common().limestoneGeneratorEnabled.get();
 
-        } else if (type.getBlock() == AllPaletteStoneTypes.SCORIA.getBaseBlock()) {
+        } else if (Objects.equals(type.getId(), "createcobblestone:generator_types/scoria.json")) {
             return Config.common().scoriaGeneratorEnabled.get();
 
-        } else if (type.getBlock() == Blocks.DEEPSLATE) {
+        } else if (Objects.equals(type.getId(), "createcobblestone:generator_types/deepslate.json")) {
             return Config.common().deepslateGeneratorEnabled.get();
 
-        } else if (type.getBlock() == Blocks.COBBLED_DEEPSLATE) {
+        } else if (Objects.equals(type.getId(), "createcobblestone:generator_types/cobbled_deepslate.json")) {
             return Config.common().cobbledDeepslateGeneratorEnabled.get();
         }
         return true;

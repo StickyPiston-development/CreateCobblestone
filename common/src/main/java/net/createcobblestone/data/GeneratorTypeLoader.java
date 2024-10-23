@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.createcobblestone.CreateCobblestoneMod;
-import net.createcobblestone.util.GeneratorType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -19,13 +18,15 @@ public class GeneratorTypeLoader {
     static Gson gson = new Gson();
 
     public static void loadGeneratorTypes(ResourceManager resourceManager) {
+        GeneratorType.init();
+
         Map<ResourceLocation, Resource> resources = resourceManager.listResources("generator_types", location -> location.getPath().endsWith(".json"));
 
         for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
             ResourceLocation id = entry.getKey();
             Resource resource = entry.getValue();
 
-            try (InputStream inputStream = resourceManager.getResource(id).get().open()) {
+            try (InputStream inputStream = resource.open()) {
 
                 JsonObject generatorJsonData = JsonParser.parseString(new String(inputStream.readAllBytes())).getAsJsonObject();
 

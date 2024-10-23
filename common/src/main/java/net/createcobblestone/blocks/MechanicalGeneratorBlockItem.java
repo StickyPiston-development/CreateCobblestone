@@ -1,6 +1,6 @@
 package net.createcobblestone.blocks;
 
-import net.createcobblestone.util.GeneratorType;
+import net.createcobblestone.data.GeneratorType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

@@ -3,7 +3,7 @@ package net.createcobblestone.blocks;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import net.createcobblestone.CreateCobblestoneMod;
 import net.createcobblestone.index.Config;
-import net.createcobblestone.util.GeneratorType;
+import net.createcobblestone.data.GeneratorType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -11,6 +11,8 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -120,7 +122,22 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
     public void tick(){
         super.tick();
 
-        if (type.getBlock() != null) {
+        Block generatorBlock;
+
+        try {
+            generatorBlock  = type.getBlock();
+
+            if (!Config.common().isEnabled(type)) {
+                updateType(GeneratorType.NONE);
+                return;
+            }
+
+        } catch (NullPointerException e) {
+            CreateCobblestoneMod.LOGGER.error("Tried accessing generator block before world was loaded");
+            return;
+        }
+
+        if (generatorBlock != Blocks.AIR) {
             if (this.available < 64) {
                 this.available = this.available + abs(getSpeed() / Config.common().generatorRatio.get());
             }
@@ -129,7 +146,7 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
             int added = (int) this.available;
             this.available -= added;
 
-            this.items.set(0, new ItemStack(type.getBlock(), Math.min(current + added, Config.common().maxStorage.get())));
+            this.items.set(0, new ItemStack(generatorBlock, Math.min(current + added, Config.common().maxStorage.get())));
         }
     }
 
@@ -143,9 +160,15 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
     public void updateType(GeneratorType newType) {
 
         if (!Config.common().isEnabled(newType)){
-            CreateCobblestoneMod.LOGGER.error("Disabled generator type \"{}\", not changing generator type.", newType.getId());
-            return;
+            if (!Config.common().isEnabled(type)) {
+                newType = GeneratorType.NONE;
+            } else {
+                CreateCobblestoneMod.LOGGER.error("Disabled generator type \"{}\", not changing old generator type. ({})", newType.getId(), type.getId());
+                return;
+            }
         }
+
+        CreateCobblestoneMod.LOGGER.info("Changing generator type from \"{}\" to \"{}\"", type.getId(), newType.getId());
 
         this.type = newType;
         this.setChanged();

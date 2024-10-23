@@ -1,7 +1,7 @@
 package net.createcobblestone.index;
 
 import net.createcobblestone.CreateCobblestoneMod;
-import net.createcobblestone.util.GeneratorType;
+import net.createcobblestone.data.GeneratorType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
