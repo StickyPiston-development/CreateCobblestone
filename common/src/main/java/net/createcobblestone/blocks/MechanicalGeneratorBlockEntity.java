@@ -37,7 +37,7 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
     protected void write(CompoundTag compound, boolean clientPacket) {
         super.write(compound, clientPacket);
 
-        compound.putString("type", type.getId().toString());
+        compound.putString("type", type.getId());
     }
 
     @Override
