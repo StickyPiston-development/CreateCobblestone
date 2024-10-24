@@ -15,10 +15,10 @@ public class CreateCobblestoneCommon extends ConfigBase {
         return "common";
     }
 
-    public final ConfigInt generatorStress = i(8, "generatorStress", Comments.generatorStress);
+    public final ConfigInt generatorStress = i(8, 0, "generatorStress", Comments.generatorStress);
     public final ConfigFloat generatorRatio = f(8.0f, 0.01f, "generatorRatio", Comments.generatorRatio);
 
-    public final ConfigInt maxStorage = i(256, "maxGeneratorStorage", Comments.maxStorage);
+    public final ConfigInt maxStorage = i(256, 1, "maxGeneratorStorage", Comments.maxStorage);
 
     public final ConfigGroup generatorsGroup = group(1, "generatorsEnabled", Comments.generatorsGroup);
     public final ConfigBool cobblestoneGeneratorEnabled = b(true, "cobblestoneGeneratorEnabled", Comments.generatorEnabled);
@@ -27,26 +27,35 @@ public class CreateCobblestoneCommon extends ConfigBase {
     public final ConfigBool limestoneGeneratorEnabled = b(true, "limestoneGeneratorEnabled", Comments.generatorEnabled);
     public final ConfigBool scoriaGeneratorEnabled = b(true, "scoriaGeneratorEnabled", Comments.generatorEnabled);
 
-    public final ConfigBool deepslateGeneratorEnabled = b(false, "deepslateGeneratorEnabled", Comments.generatorEnabled);
-    public final ConfigBool cobbledDeepslateGeneratorEnabled = b(false, "cobbledDeepslateGeneratorEnabled", Comments.generatorEnabled);
+    public final ConfigBool deepslateGeneratorEnabled = b(false, "deepslateGeneratorEnabled", Comments.deepslateGeneratorsEnabled);
+    public final ConfigBool cobbledDeepslateGeneratorEnabled = b(false, "cobbledDeepslateGeneratorEnabled", Comments.deepslateGeneratorsEnabled);
 
     private static class Comments {
-        public static String common = "Common settings";
+        public static String common = "Common config";
         public static String[] generatorStress = new String[]{
-                "Cobblestone generator stress",
-                "stress * rpm = total stress"
+                "Default generator stress",
+                "stress * rpm = total stress",
+                "(Can be overridden by custom generator types)",
         };
         public static String[] generatorRatio = new String[]{
-                "Cobblestone generator ratio",
-                "Cobblestone/tick = rpm/ratio"
+                "Default generator ratio",
+                "Cobblestone/tick = rpm/ratio",
+                "(Can be overridden by custom generator types)",
         };
 
-        public static String maxStorage = "Maximum storage of the generators (in items)";
+        public static String[] maxStorage = new String[]{
+                "Default maximum storage of the generators in items",
+                "(Can be overridden by custom generator types)",
+        };
 
         public static String[] generatorsGroup = new String[]{
                 "Cobblestone generator types",
         };
         public static String generatorEnabled = "Enables the generator. When disabled, the generator is replaced with unset generators. Make a backup before doing this.";
+        public static String[] deepslateGeneratorsEnabled = new String[]{
+                Comments.generatorEnabled,
+                "(Requires deepslate generators datapack, https://modrinth.com/datapack/create-cobblestone-deepslate-generators)"
+        };
     }
 
     public boolean isEnabled(GeneratorType type) {

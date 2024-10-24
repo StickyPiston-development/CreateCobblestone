@@ -1,6 +1,7 @@
 package net.createcobblestone.data;
 
 import net.createcobblestone.CreateCobblestoneMod;
+import net.createcobblestone.index.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -14,8 +15,12 @@ import java.util.*;
 public class GeneratorType {
     private static final Map<String, GeneratorType> ID_TO_TYPE = new HashMap<>();
     private static final Map<ResourceLocation, GeneratorType> BLOCK_TO_TYPE = new HashMap<>();
+
     private final String id;
     private final ResourceLocation block;
+    private final int generatorStress;
+    private final float generatorRatio;
+    private final int generatorStorage;
 
     public static GeneratorType NONE;
 
@@ -26,24 +31,12 @@ public class GeneratorType {
 
         CreateCobblestoneMod.LOGGER.info("Generator types cleared");
 
-        NONE = new GeneratorType("none", Blocks.AIR);
+        NONE = new GeneratorType("none", Blocks.AIR.arch$registryName(), -1, -1, -1);
 
         CreateCobblestoneMod.LOGGER.info("Generator type NONE initialized");
     }
 
-    public GeneratorType(String id, Block block) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("Generator type ID cannot be null or empty");
-        }
-
-        this.id = id;
-        this.block = block.arch$registryName();
-
-        ID_TO_TYPE.put(id.toLowerCase(), this);
-        BLOCK_TO_TYPE.put(this.block, this);
-    }
-
-    public GeneratorType(String id, ResourceLocation block) {
+    public GeneratorType(String id, ResourceLocation block, int generatorStress, float generatorRatio, int generatorStorage) {
         if (id == null || id.isEmpty()) {
             throw new IllegalArgumentException("Generator type ID cannot be null or empty");
         }
@@ -51,8 +44,34 @@ public class GeneratorType {
         this.id = id;
         this.block = block;
 
+        this.generatorStress = generatorStress;
+        this.generatorRatio = generatorRatio;
+        this.generatorStorage = generatorStorage;
+
         ID_TO_TYPE.put(id.toLowerCase(), this);
         BLOCK_TO_TYPE.put(block, this);
+    }
+
+
+    public int getGeneratorStress() {
+        if (generatorStress == -1) {
+            return Config.common().generatorStress.get();
+        }
+        return generatorStress;
+    }
+
+    public float getGeneratorRatio() {
+        if (generatorRatio == -1) {
+            return Config.common().generatorRatio.get().floatValue();
+        }
+        return generatorRatio;
+    }
+
+    public int getStorage() {
+        if (generatorStorage == -1) {
+            return Config.common().maxStorage.get();
+        }
+        return generatorStorage;
     }
 
     public String getId() {

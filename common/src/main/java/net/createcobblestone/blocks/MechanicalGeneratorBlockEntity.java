@@ -131,21 +131,21 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         }
 
         if (generatorBlock != Blocks.AIR) {
-            if (this.available < 64) {
-                this.available = this.available + abs(getSpeed() / Config.common().generatorRatio.get());
+            if (this.available < type.getStorage()) {
+                this.available = this.available + abs(getSpeed() / type.getGeneratorRatio());
             }
 
             int current = this.items.get(0).getCount();
             int added = (int) this.available;
             this.available -= added;
 
-            this.items.set(0, new ItemStack(generatorBlock, Math.min(current + added, Config.common().maxStorage.get())));
+            this.items.set(0, new ItemStack(generatorBlock, Math.min(current + added, type.getStorage())));
         }
     }
 
     @Override
     public float calculateStressApplied() {
-        float impact = Config.common().generatorStress.get();
+        float impact = type.getGeneratorStress();
         this.lastStressApplied = impact;
         return impact;
     }
@@ -171,6 +171,11 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         CreateCobblestoneMod.LOGGER.info("Changing generator type from \"{}\" to \"{}\"", type.getId(), newType.getId());
 
         this.type = newType;
+
+        // Make sure no items get ghosted to the new generator to avoid generator rate issues
+        this.available = 0;
+        this.items.clear();
+
         this.setChanged();
     }
 }
