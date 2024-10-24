@@ -28,15 +28,24 @@ public class GeneratorTypeLoader {
                 JsonObject generatorJsonData = JsonParser.parseString(new String(inputStream.readAllBytes())).getAsJsonObject();
 
                 String block = generatorJsonData.get("block").getAsString();
-                boolean generatorEnabled;
 
-                try {
-                    generatorEnabled = generatorJsonData.get("enabled").getAsBoolean();
-                } catch (NullPointerException e) {
-                    generatorEnabled = true;
+                int generatorStress = -1;
+                float generatorRatio = -1;
+                int generatorStorage = -1;
+
+                if (generatorJsonData.has("stress")) {
+                    generatorStress = generatorJsonData.get("stress").getAsInt();
                 }
 
-                new GeneratorType(id.toString(), new ResourceLocation(block));
+                if (generatorJsonData.has("ratio")) {
+                    generatorRatio = generatorJsonData.get("ratio").getAsFloat();
+                }
+
+                if (generatorJsonData.has("storage")) {
+                    generatorStorage = generatorJsonData.get("storage").getAsInt();
+                }
+
+                new GeneratorType(id.toString(), new ResourceLocation(block), generatorStress, generatorRatio, generatorStorage);
             } catch (IOException e) {
                 CreateCobblestoneMod.LOGGER.error("Error loading generator type: " + id, e);
             }
