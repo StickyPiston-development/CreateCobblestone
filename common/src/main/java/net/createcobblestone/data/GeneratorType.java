@@ -24,7 +24,11 @@ public class GeneratorType {
         ID_TO_TYPE.clear();
         BLOCK_TO_TYPE.clear();
 
+        CreateCobblestoneMod.LOGGER.info("Generator types cleared");
+
         NONE = new GeneratorType("none", Blocks.AIR);
+
+        CreateCobblestoneMod.LOGGER.info("Generator type NONE initialized");
     }
 
     public GeneratorType(String id, Block block) {
@@ -68,8 +72,6 @@ public class GeneratorType {
     public static @NotNull GeneratorType fromId(String id) {
 
         GeneratorType type = ensureType(ID_TO_TYPE.get(id.toLowerCase()));
-
-        System.out.println(id);
 
         if (type == GeneratorType.NONE) {
             switch (id.toLowerCase()) {

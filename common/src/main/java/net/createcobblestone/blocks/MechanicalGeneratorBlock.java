@@ -90,22 +90,6 @@ public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements 
         }
     }
 
-//    @Override
-//    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-//        super.setPlacedBy(world, pos, state, placer, stack);
-//
-//        // Ensure the world isn't null and is server-side
-//        MechanicalGeneratorBlockEntity blockEntity = (MechanicalGeneratorBlockEntity) world.getBlockEntity(pos);
-//
-//        if (blockEntity == null) return;
-//
-//        if (blockEntity.type != GeneratorType.NONE) return;
-//
-//        // Make sure it's the correct block entity type
-//        CompoundTag tag = stack.getOrCreateTag(); // Get the tag from the item
-//        blockEntity.loadFromItemTag(tag); // Apply the tag to the block entity
-//    }
-
     @Override
     public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
@@ -120,26 +104,4 @@ public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements 
 
         return stack;
     }
-
-
-    //    @Override
-//    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-//        try {
-//            GeneratorType type = GeneratorType.valueOf(
-//                    player.getMainHandItem().getItem().toString().toUpperCase());
-//
-//            if (generatorType.getBlock() == null || Blocks.of(generatorType) == null || !Blocks.isEnabled(Blocks.of(type))){
-//                return InteractionResult.FAIL;
-//            }
-//
-//            this.generatorType = type;
-//
-//            System.out.printf(generatorType.getBlock().toString());
-//
-//            level.setBlock(pos, Blocks.of(generatorType).getDefaultState(), 0);
-//            return InteractionResult.SUCCESS;
-//        } catch (IllegalArgumentException e) {
-//            return super.use(state, level, pos, player, hand, hit);
-//        }
-//    }
 }

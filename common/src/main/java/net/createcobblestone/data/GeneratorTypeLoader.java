@@ -41,6 +41,8 @@ public class GeneratorTypeLoader {
                 CreateCobblestoneMod.LOGGER.error("Error loading generator type: " + id, e);
             }
         }
+
+        CreateCobblestoneMod.LOGGER.info("Generator types loading done");
     }
 
     @ExpectPlatform

@@ -32,15 +32,15 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
 
         items = NonNullList.withSize(size, ItemStack.EMPTY);
         type = GeneratorType.NONE;
+
+        if (type == null) {
+            throw new IllegalStateException("Generator type cannot be null (GeneratorTypes not initialized but mechanicalGeneratorBlockEntity created)");
+        }
     }
 
     @Override
     protected void write(CompoundTag compound, boolean clientPacket) {
         super.write(compound, clientPacket);
-
-        if (type == null) {
-            type = GeneratorType.NONE;
-        }
 
         compound.putString("type", type.getId());
     }
@@ -50,21 +50,9 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         super.read(compound, clientPacket);
 
         try {
-            System.out.println(compound.toString());
-            System.out.println(GeneratorType.fromId(compound.getString("type")));
             updateType(GeneratorType.fromId(compound.getString("type")));
         } catch (IllegalArgumentException e) {
             CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", compound.getString("type"));
-            type = GeneratorType.NONE;
-            setChanged();
-        }
-    }
-
-    public void loadFromItemTag(CompoundTag tag) {
-        try {
-            updateType(GeneratorType.fromId(tag.getString("type")));
-        } catch (IllegalArgumentException e) {
-            CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", tag.getString("type"));
             type = GeneratorType.NONE;
             setChanged();
         }
@@ -163,10 +151,6 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
     }
 
     public void updateType(GeneratorType newType) {
-
-        if (this.type == null){
-            this.type = GeneratorType.NONE;
-        }
 
         if (newType == null) {
             CreateCobblestoneMod.LOGGER.error("Attempted to update generator type to null");

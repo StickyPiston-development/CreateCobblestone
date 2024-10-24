@@ -33,7 +33,7 @@ public final class RegistrateDisplayItemsGenerator implements CreativeModeTab.Di
 
             stacks.add(stack);
 
-            CreateCobblestoneMod.LOGGER.info("Added {} generator to creative menu", type);
+            CreateCobblestoneMod.LOGGER.info("Added {} generator to creative menu", type.getId());
         }
 
         outputAll(output, stacks);
