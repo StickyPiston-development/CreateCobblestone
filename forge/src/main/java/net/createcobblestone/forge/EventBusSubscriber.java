@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 public class EventBusSubscriber {
 
     @SubscribeEvent
-    public static void onAddReloadListener(AddReloadListenerEvent event) {
+    public static void addReloadListener(AddReloadListenerEvent event) {
         // Register the custom resource reload listener
         event.addListener(new ResourceReloadListener());
     }
