@@ -1,15 +1,8 @@
 package net.createcobblestone.data;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.createcobblestone.index.Config;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.RegistryDataLoader;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -26,7 +19,7 @@ public class GeneratorType {
     private final String id;
     private final ResourceLocation block;
     private final int generatorStress;
-    private final float generatorRatio;
+    private final float outputPerSecondPerRpm;
     private final int generatorStorage;
 
     public static GeneratorType NONE;
@@ -41,7 +34,7 @@ public class GeneratorType {
         NONE = initializeNewType("none", Blocks.AIR.arch$registryName(), -1, -1, -1);
     }
 
-    public static GeneratorType initializeNewType(String id, ResourceLocation block, int generatorStress, float generatorRatio, int generatorStorage){
+    public static GeneratorType initializeNewType(String id, ResourceLocation block, int generatorStress, float outputPerSecondPerRpm, int generatorStorage){
 
         if (id == null || id.isEmpty()) {
             throw new IllegalArgumentException("Generator type ID cannot be null or empty");
@@ -54,7 +47,7 @@ public class GeneratorType {
             return BLOCK_TO_TYPE.get(block);
         }
 
-        GeneratorType type = new GeneratorType(id, block, generatorStress, generatorRatio, generatorStorage);
+        GeneratorType type = new GeneratorType(id, block, generatorStress, outputPerSecondPerRpm, generatorStorage);
         ID_TO_TYPE.put(id.toLowerCase(), type);
         BLOCK_TO_TYPE.put(block, type);
 
@@ -63,12 +56,12 @@ public class GeneratorType {
         return type;
     }
 
-    private GeneratorType(String id, ResourceLocation block, int generatorStress, float generatorRatio, int generatorStorage) {
+    private GeneratorType(String id, ResourceLocation block, int generatorStress, float outputPerSecondPerRpm, int generatorStorage) {
         this.id = id;
         this.block = block;
 
         this.generatorStress = generatorStress;
-        this.generatorRatio = generatorRatio;
+        this.outputPerSecondPerRpm = outputPerSecondPerRpm;
         this.generatorStorage = generatorStorage;
     }
 
@@ -80,11 +73,11 @@ public class GeneratorType {
         return generatorStress;
     }
 
-    public float getGeneratorRatio() {
-        if (generatorRatio == -1) {
-            return Config.common().generatorRatio.get().floatValue();
+    public float getOutputPerSecondPerRpm() {
+        if (outputPerSecondPerRpm == -1) {
+            return Config.common().outputPerSecondPerRpm.get().floatValue();
         }
-        return generatorRatio;
+        return outputPerSecondPerRpm;
     }
 
     public int getStorage() {

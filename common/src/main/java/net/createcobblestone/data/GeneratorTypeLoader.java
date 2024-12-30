@@ -50,7 +50,7 @@ public class GeneratorTypeLoader {
                 }
 
                 int generatorStress = -1;
-                float generatorRatio = -1;
+                float outputPerSecondPerRpm = -1;
                 int generatorStorage = -1;
 
                 if (generatorJsonData.has("enabled") && !generatorJsonData.get("enabled").getAsBoolean()) {
@@ -62,16 +62,33 @@ public class GeneratorTypeLoader {
                     generatorStress = generatorJsonData.get("stress").getAsInt();
                 }
 
-                if (generatorJsonData.has("ratio")) {
-                    generatorRatio = generatorJsonData.get("ratio").getAsFloat();
+                if (generatorJsonData.has("outputPerSecondPerRpm")) {
+                    outputPerSecondPerRpm = generatorJsonData.get("outputPerSecondPerRpm").getAsFloat();
                 }
 
                 if (generatorJsonData.has("storage")) {
                     generatorStorage = generatorJsonData.get("storage").getAsInt();
                 }
 
-                GeneratorType.initializeNewType(id.toString(), new ResourceLocation(block), generatorStress, generatorRatio, generatorStorage);
-                loadedTypes.add(new Quintet<>(id.toString(), block, generatorStress, generatorRatio, generatorStorage));
+                loadedTypes.add(new Quintet<>(id.toString(), block, generatorStress, outputPerSecondPerRpm, generatorStorage));
+
+                GeneratorType.initializeNewType(id.toString(), new ResourceLocation(block), generatorStress, outputPerSecondPerRpm, generatorStorage);
+                // Deprecated
+                if (generatorJsonData.has("ratio")) {
+
+                    if (generatorJsonData.has("outputPerSecondPerRpm")) {
+                        LOGGER.error("Generator type {} has both ratio and outputPerSecondPerRpm, outputPerSecondPerRpm will be used", id);
+                    } else {
+                        // Convert ratio to outputPerSecondPerRpm
+                        LOGGER.warn("Generator type {} has deprecated ratio, please use outputPerSecondPerRpm instead. (Converted to {} outputPerSecondPerRpm)", id, 1/(generatorJsonData.get("ratio").getAsFloat())*20);
+
+                        outputPerSecondPerRpm = 1/(generatorJsonData.get("ratio").getAsFloat())*20;
+                    }
+                }
+
+                loadedTypes.add(new Quintet<>(id.toString(), block, generatorStress, outputPerSecondPerRpm, generatorStorage));
+
+                GeneratorType.initializeNewType(id.toString(), new ResourceLocation(block), generatorStress, outputPerSecondPerRpm, generatorStorage);
 
             } catch (Exception e) {
                 LOGGER.error("Error loading generator type: " + id, e);

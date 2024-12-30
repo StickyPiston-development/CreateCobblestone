@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.min;
 
 public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implements Container {
 
@@ -138,7 +139,7 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
             }
 
             if (this.available < type.getStorage()) {
-                this.available = this.available + abs(getSpeed() / type.getGeneratorRatio());
+                this.available = min(this.available + abs(getSpeed() * type.getOutputPerSecondPerRpm())/20, type.getStorage());
             }
 
             int current = this.items.get(0).getCount();

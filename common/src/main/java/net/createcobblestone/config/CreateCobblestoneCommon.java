@@ -16,7 +16,7 @@ public class CreateCobblestoneCommon extends ConfigBase {
     }
 
     public final ConfigInt generatorStress = i(8, 0, "generatorStress", Comments.generatorStress);
-    public final ConfigFloat generatorRatio = f(8.0f, 0.01f, "generatorRatio", Comments.generatorRatio);
+    public final ConfigFloat outputPerSecondPerRpm = f(2.5f, 0.01f, "outputPerSecondPerRpm", Comments.outputPerSecondPerRpm);
 
     public final ConfigInt maxStorage = i(256, 1, "maxGeneratorStorage", Comments.maxStorage);
 
@@ -33,18 +33,14 @@ public class CreateCobblestoneCommon extends ConfigBase {
     private static class Comments {
         public static String common = "Common config";
         public static String[] generatorStress = new String[]{
-                "Default generator stress",
                 "stress * rpm = total stress",
                 "(Can be overridden by custom generator types)",
         };
-        public static String[] generatorRatio = new String[]{
-                "Default generator ratio",
-                "Cobblestone/tick = rpm/ratio",
+        public static String[] outputPerSecondPerRpm = new String[]{
                 "(Can be overridden by custom generator types)",
         };
 
         public static String[] maxStorage = new String[]{
-                "Default maximum storage of the generators in items",
                 "(Can be overridden by custom generator types)",
         };
 
