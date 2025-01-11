@@ -16,7 +16,7 @@ public class CreateCobblestoneCommon extends ConfigBase {
     }
 
     public final ConfigInt generatorStress = i(8, 0, "generatorStress", Comments.generatorStress);
-    public final ConfigFloat outputPerSecondPerRpm = f(2.5f, 0.01f, "outputPerSecondPerRpm", Comments.outputPerSecondPerRpm);
+    public final ConfigFloat outputPerSecondPerRpm = f(2.5f, 0, "outputPerSecondPerRpm", Comments.outputPerSecondPerRpm);
 
     public final ConfigInt maxStorage = i(256, 1, "maxGeneratorStorage", Comments.maxStorage);
     public final ConfigBool enableDebugLogging = b(false, "enableDebugLogging", Comments.enableDebugLogging);
