@@ -19,6 +19,7 @@ public class CreateCobblestoneCommon extends ConfigBase {
     public final ConfigFloat outputPerSecondPerRpm = f(2.5f, 0.01f, "outputPerSecondPerRpm", Comments.outputPerSecondPerRpm);
 
     public final ConfigInt maxStorage = i(256, 1, "maxGeneratorStorage", Comments.maxStorage);
+    public final ConfigBool enableDebugLogging = b(false, "enableDebugLogging", Comments.enableDebugLogging);
 
     public final ConfigGroup generatorsGroup = group(1, "generatorsEnabled", Comments.generatorsGroup);
     public final ConfigBool cobblestoneGeneratorEnabled = b(true, "cobblestoneGeneratorEnabled", Comments.generatorEnabled);
@@ -42,6 +43,11 @@ public class CreateCobblestoneCommon extends ConfigBase {
 
         public static String[] maxStorage = new String[]{
                 "(Can be overridden by custom generator types)",
+        };
+
+        public static String[] enableDebugLogging = new String[]{
+                "Log information that may be usefull for reporting a problem and debugging it.",
+                "THIS WILL SPAM YOUR LOGS"
         };
 
         public static String[] generatorsGroup = new String[]{

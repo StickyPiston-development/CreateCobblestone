@@ -3,9 +3,7 @@
   "minVersion": "0.8",
   "package": "net.createcobblestone.mixin",
   "compatibilityLevel": "JAVA_17",
-  "client": [
-    "MixinTitleScreen"
-  ],
+  "client": [],
   "mixins": [
   ],
   "injectors": {

@@ -9,8 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-import static net.createcobblestone.CreateCobblestoneMod.LOGGER;
-
 public class ResourceReloadListener implements PreparableReloadListener {
 
     @Override
@@ -21,7 +19,6 @@ public class ResourceReloadListener implements PreparableReloadListener {
         return CompletableFuture.supplyAsync(() -> {
             preparationsProfiler.push("prepare");
             // Data preparation logic
-            LOGGER.info("Preparing resources...");
             preparationsProfiler.pop();
             return null; // Placeholder for any preparation result
         }, backgroundExecutor).thenCompose(backgroundResult -> {
@@ -30,7 +27,6 @@ public class ResourceReloadListener implements PreparableReloadListener {
                 reloadProfiler.push("apply");
                 // Load generator types here
                 GeneratorTypeLoader.loadGeneratorTypes(resourceManager);
-                LOGGER.info("Generator types loaded successfully.");
                 reloadProfiler.pop();
             });
         });

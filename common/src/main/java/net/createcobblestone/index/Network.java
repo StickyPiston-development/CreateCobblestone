@@ -5,10 +5,7 @@ import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
 import net.createcobblestone.CreateCobblestoneMod;
 import net.createcobblestone.data.GeneratorTypeLoader;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.entity.player.Player;
 
 import static net.createcobblestone.CreateCobblestoneMod.LOGGER;
 
@@ -20,10 +17,7 @@ public class Network {
 
         // Client side only
         if (Platform.getEnvironment() == Env.CLIENT) {
-            NetworkManager.registerReceiver(NetworkManager.serverToClient(), GENERATOR_TYPES_PACKET, (buf, context) -> {
-                LOGGER.info("Received generator types packet");
-                GeneratorTypeLoader.loadGeneratorTypesFromPacket(buf, context);
-            });
+            NetworkManager.registerReceiver(NetworkManager.serverToClient(), GENERATOR_TYPES_PACKET, GeneratorTypeLoader::loadGeneratorTypesFromPacket);
         }
     }
 }

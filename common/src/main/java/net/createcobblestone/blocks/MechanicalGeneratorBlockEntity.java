@@ -127,7 +127,9 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
             }
 
         } catch (NullPointerException e) {
-            CreateCobblestoneMod.LOGGER.error("Tried accessing generator block before world was loaded");
+            if (Config.common().enableDebugLogging.get()) {
+                CreateCobblestoneMod.LOGGER.error("Tried accessing generator block before world was loaded");
+            }
             return;
         }
 
@@ -160,11 +162,15 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
     public void updateType(GeneratorType newType) {
 
         if (newType == null) {
-            CreateCobblestoneMod.LOGGER.error("Attempted to update generator type to null");
+            if (Config.common().enableDebugLogging.get()) {
+                CreateCobblestoneMod.LOGGER.error("Attempted to update generator type to null");
+            }
             return;
         }
 
-        CreateCobblestoneMod.LOGGER.info("Trying to update generator type from \"{}\" to \"{}\"", type.getId(), newType.getId());
+        if (Config.common().enableDebugLogging.get()) {
+            CreateCobblestoneMod.LOGGER.info("Trying to update generator type from \"{}\" to \"{}\"", type.getId(), newType.getId());
+        }
 
         if (!Config.common().isEnabled(newType)){
             if (!Config.common().isEnabled(type)) {
@@ -175,7 +181,9 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
             }
         }
 
-        CreateCobblestoneMod.LOGGER.info("Changing generator type from \"{}\" to \"{}\"", type.getId(), newType.getId());
+        if (Config.common().enableDebugLogging.get()) {
+            CreateCobblestoneMod.LOGGER.info("Changing generator type from \"{}\" to \"{}\"", type.getId(), newType.getId());
+        }
 
         this.type = newType;
 

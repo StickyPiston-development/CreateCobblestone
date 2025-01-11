@@ -51,7 +51,9 @@ public class GeneratorType {
         ID_TO_TYPE.put(id.toLowerCase(), type);
         BLOCK_TO_TYPE.put(block, type);
 
-        LOGGER.info("Generator type {} initialized with block {}", id, block);
+        if (Config.common().enableDebugLogging.get()) {
+            LOGGER.info("Generator type {} initialized with block {}", id, block);
+        }
 
         return type;
     }

@@ -35,7 +35,7 @@ public class Blocks {
             generator_stress = Config.common().generatorStress.get();
         } catch (IllegalStateException e) {
             // Fallback for forge config initializing late
-            CreateCobblestoneMod.LOGGER.info("Set generator stress tooltip stress to 8.");
+            CreateCobblestoneMod.LOGGER.warn("Set generator stress tooltip stress to 8. (config not initialized, this is a common forge problem)");
             generator_stress = 8;
         }
 

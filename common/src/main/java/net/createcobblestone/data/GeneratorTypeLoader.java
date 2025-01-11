@@ -33,6 +33,8 @@ public class GeneratorTypeLoader {
 
         loadedTypes.clear();
 
+        LOGGER.info("Loading generator types from datapacks");
+
         Map<ResourceLocation, Resource> resources = resourceManager.listResources("generator_types", location -> location.getPath().endsWith(".json"));
 
         for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
@@ -70,9 +72,6 @@ public class GeneratorTypeLoader {
                     generatorStorage = generatorJsonData.get("storage").getAsInt();
                 }
 
-                loadedTypes.add(new Quintet<>(id.toString(), block, generatorStress, outputPerSecondPerRpm, generatorStorage));
-
-                GeneratorType.initializeNewType(id.toString(), new ResourceLocation(block), generatorStress, outputPerSecondPerRpm, generatorStorage);
                 // Deprecated
                 if (generatorJsonData.has("ratio")) {
 
