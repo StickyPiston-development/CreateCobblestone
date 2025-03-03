@@ -1,8 +1,8 @@
 package net.createcobblestone.index;
 
-import com.simibubi.create.foundation.config.ConfigBase;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.createcobblestone.config.CreateCobblestoneCommon;
+import net.createmod.catnip.config.ConfigBase;
 import net.minecraftforge.fml.config.ModConfig;
 
 import java.util.EnumMap;

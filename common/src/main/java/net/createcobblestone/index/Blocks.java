@@ -1,15 +1,14 @@
 package net.createcobblestone.index;
 
 import com.simibubi.create.AllTags;
-import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
-import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.createcobblestone.CreateCobblestoneMod;
 import net.createcobblestone.blocks.MechanicalGeneratorBlock;
 import net.createcobblestone.blocks.MechanicalGeneratorBlockItem;
+import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.world.level.material.MapColor;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
@@ -19,7 +18,7 @@ public class Blocks {
 
 
     static {
-        REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
+        REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
                 //.andThen(TooltipModifier.mapNull(CobblestoneType.create(item)))
                 .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
     }
@@ -39,12 +38,13 @@ public class Blocks {
             generator_stress = 8;
         }
 
+        // TODO: fix generator stress and tab
         MECHANICAL_GENERATOR_BLOCK = REGISTRATE.block("mechanical_generator", MechanicalGeneratorBlock::new)
                 .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
-                .transform(BlockStressDefaults.setImpact(generator_stress))
+//                .transform(BlockStressDefaults.setImpact(generator_stress))
                 .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                 .item(MechanicalGeneratorBlockItem::new)
-                .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
+//                .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
                 .transform(customItemModel())
                 .register();
     }

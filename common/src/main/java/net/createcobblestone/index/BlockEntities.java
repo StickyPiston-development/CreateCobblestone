@@ -17,7 +17,7 @@ public class BlockEntities {
 
         MECHANICAL_GENERATOR = REGISTRATE
                 .blockEntity("mechanical_generator", MechanicalGeneratorBlockEntity::new)
-                .instance(() -> MechanicalGeneratorInstance::new)
+                .visual(() -> MechanicalGeneratorInstance::new)
                 .validBlocks(MECHANICAL_GENERATOR_BLOCK)
                 .renderer(() -> MechanicalGeneratorRenderer::new)
                 .register();

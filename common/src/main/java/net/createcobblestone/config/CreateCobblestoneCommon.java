@@ -1,13 +1,13 @@
 package net.createcobblestone.config;
 
-import com.simibubi.create.foundation.config.ConfigBase;
 import net.createcobblestone.data.GeneratorType;
 import net.createcobblestone.index.Config;
+import net.createmod.catnip.config.ConfigBase;
 
 import java.util.Objects;
 
 public class CreateCobblestoneCommon extends ConfigBase {
-    public final ConfigGroup common = group(0, "common",
+    public final ConfigBase.ConfigGroup common = group(0, "common",
             Comments.common);
 
     @Override

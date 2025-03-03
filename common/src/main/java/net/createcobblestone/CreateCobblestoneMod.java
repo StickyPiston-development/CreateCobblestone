@@ -16,7 +16,7 @@ public class CreateCobblestoneMod {
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(CreateCobblestoneMod.MOD_ID);
 
     public static void init() {
-        LOGGER.info("{} initializing! Create version: {} on platform: {}", NAME, Create.VERSION, CreateCobblestoneExpectPlatform.platformName());
+        LOGGER.info("{} initializing on platform: {}", NAME, CreateCobblestoneExpectPlatform.platformName());
 
         Network.init();
         Config.register();

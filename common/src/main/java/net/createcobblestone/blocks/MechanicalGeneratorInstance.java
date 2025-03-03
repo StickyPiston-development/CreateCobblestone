@@ -1,47 +1,57 @@
 package net.createcobblestone.blocks;
 
-import com.jozufozu.flywheel.api.Instancer;
-import com.jozufozu.flywheel.api.MaterialManager;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.content.kinetics.base.KineticBlockEntityInstance;
-import com.simibubi.create.content.kinetics.base.flwdata.RotatingData;
-import com.simibubi.create.content.kinetics.simpleRelays.ShaftBlock;
-import net.minecraft.world.level.block.state.BlockState;
+import com.simibubi.create.AllPartialModels;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntityVisual;
+import com.simibubi.create.content.kinetics.base.RotatingInstance;
+import com.simibubi.create.foundation.render.AllInstanceTypes;
+import dev.engine_room.flywheel.api.visualization.VisualizationContext;
+import dev.engine_room.flywheel.lib.model.Models;
+import net.minecraft.core.Direction;
 
-public class MechanicalGeneratorInstance extends KineticBlockEntityInstance<MechanicalGeneratorBlockEntity> {
+import java.util.function.Consumer;
 
-    protected RotatingData rotatingModel1;
-    public MechanicalGeneratorInstance(MaterialManager materialManager, MechanicalGeneratorBlockEntity blockEntity) {
-        super(materialManager, blockEntity);
+public class MechanicalGeneratorInstance extends KineticBlockEntityVisual<MechanicalGeneratorBlockEntity> {
+
+    protected RotatingInstance shaftModel;
+
+    public MechanicalGeneratorInstance(VisualizationContext context, MechanicalGeneratorBlockEntity blockEntity, float partialTick) {
+        super(context, blockEntity, partialTick);
+
+        final Direction direction = blockState.getValue(MechanicalGeneratorBlock.HORIZONTAL_FACING);
+        final Direction.Axis axis = direction.getAxis();
+
+        var instancer = instancerProvider().instancer(AllInstanceTypes.ROTATING, Models.partial(AllPartialModels.SHAFT));
+
+        this.shaftModel = instancer.createInstance().rotateToFace(Direction.UP, axis);
+
+        shaftModel.setup(blockEntity, axis)
+                .setPosition(getVisualPosition())
+                .setChanged();
     }
 
-    public void init() {
-        this.rotatingModel1 = this.setup(this.getModel().createInstance());
-
-        rotatingModel1.setRotationAxis(axis)
-                .setRotationalSpeed(getBlockEntitySpeed())
-                .setRotationOffset(-getRotationOffset(axis))
-                .setColor(blockEntity)
-                .setPosition(getInstancePosition());
+    @Override
+    public void update(float v) {
+        final Direction direction = blockState.getValue(MechanicalGeneratorBlock.HORIZONTAL_FACING);
+        final Direction.Axis axis = direction.getAxis();
+        shaftModel.setup(blockEntity, axis, blockEntity.getSpeed()).setChanged();
     }
 
-    public void update() {
-        this.updateRotation(this.rotatingModel1);
+    @Override
+    public void updateLight(float v) {
+        this.relight(this.pos, this.shaftModel);
     }
 
-    public void updateLight() {
-        this.relight(this.pos, this.rotatingModel1);
+    public void remove(float v) {
+        this.shaftModel.delete();
     }
 
-    public void remove() {
-        this.rotatingModel1.delete();
+    @Override
+    public void collectCrumblingInstances(Consumer consumer) {
+        consumer.accept(this.shaftModel);
     }
 
-    protected BlockState getRenderedBlockState() {
-        return AllBlocks.SHAFT.getDefaultState().setValue(ShaftBlock.AXIS, blockState.getValue(MechanicalGeneratorBlock.HORIZONTAL_FACING).getAxis());
-    }
-
-    protected Instancer<RotatingData> getModel() {
-        return this.getRotatingMaterial().getModel(this.getRenderedBlockState());
+    @Override
+    protected void _delete() {
+        shaftModel.delete();
     }
 }
