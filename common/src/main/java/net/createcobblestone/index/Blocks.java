@@ -44,7 +44,7 @@ public class Blocks {
 //                .transform(BlockStressDefaults.setImpact(generator_stress))
                 .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                 .item(MechanicalGeneratorBlockItem::new)
-//                .properties(p -> p.arch$tab(CreativeTabs.getBaseTabKey()))
+                .tab(CreativeTabs.getBaseTabKey())
                 .transform(customItemModel())
                 .register();
     }
