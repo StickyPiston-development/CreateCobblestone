@@ -58,11 +58,6 @@ public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements 
     }
 
     @Override
-    public boolean hideStressImpact() {
-        return false;
-    }
-
-    @Override
     public SpeedLevel getMinimumRequiredSpeedLevel() {
         return SpeedLevel.SLOW;
     }
@@ -89,6 +84,8 @@ public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements 
             return InteractionResult.FAIL;
         }
     }
+
+
 
     @Override
     public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
