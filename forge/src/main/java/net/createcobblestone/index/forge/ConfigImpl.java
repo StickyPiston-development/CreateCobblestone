@@ -1,9 +1,9 @@
 package net.createcobblestone.index.forge;
 
-import com.simibubi.create.foundation.config.ConfigBase;
 import net.createcobblestone.CreateCobblestoneMod;
 import net.createcobblestone.config.CreateCobblestoneCommon;
 import net.createcobblestone.index.Config;
+import net.createmod.catnip.config.ConfigBase;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
