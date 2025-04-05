@@ -37,7 +37,22 @@ The generator types are also configurable. By default are all enabled, except fo
 ![https://cdn.modrinth.com/data/ihpnEd80/images/6fcd51448bd9df885a6428a22fd7999026556cb7.png](https://cdn.modrinth.com/data/ihpnEd80/images/6fcd51448bd9df885a6428a22fd7999026556cb7.png)
 
 ## Custom generators
-Custom generators can be added by installing a datapack. For an example pack check out the [deepslate generators datapack](https://modrinth.com/datapack/create-cobblestone-deepslate-generators).
+Custom generators can be added by installing a datapack. Custom generator types can have a custom stress, ratio and storage amount set. For an example pack check out the [deepslate generators datapack](https://modrinth.com/datapack/create-cobblestone-deepslate-generators).
+
+### Technical 
+Custom generator files are json files located in the datapack folder data/MOD/generator_types/TYPE.json with the following required content:
+```json
+{
+  "block": "minecraft:BLOCK_ID",
+}
+```
+The file can be expanded to contain the following extra configuration (inside the existing brackets):
+```json
+  "stress": STRESS_AMOUNT,
+  "ratio": GENERATOR_RATIO,
+  "storage": GENERATOR_STORAGE,
+```
+Please check the configuration for what those values do. The default config will be overridden by the per generator config.
 
 ## Example usage
 ### Minimal
@@ -48,3 +63,8 @@ Custom generators can be added by installing a datapack. For an example pack che
 
 ## Balancing
 Do note that this mod makes it far more easy to generate cobblestone. If you feel its unbalanced, change the recipe for the cobblestone generator to something more difficult using a datapack or cubejs. Or change the config to make the generators generate less cobblestone.
+
+## Contributors
+<a href="https://github.com/StickyPiston-development/CreateCobblestone/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=StickyPiston-development/CreateCobblestone" />
+</a>
