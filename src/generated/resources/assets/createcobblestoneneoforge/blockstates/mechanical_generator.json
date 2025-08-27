@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "createcobblestoneneoforge:block/mechanical_generator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "createcobblestoneneoforge:block/mechanical_generator"
+    },
+    "facing=south": {
+      "model": "createcobblestoneneoforge:block/mechanical_generator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "createcobblestoneneoforge:block/mechanical_generator",
+      "y": 270
+    }
+  }
+}
