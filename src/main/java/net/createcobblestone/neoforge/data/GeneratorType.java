@@ -33,7 +33,7 @@ public class GeneratorType {
     public static final String ID_KEY = "id";
     public static final String TYPE_KEY = "type";
 
-    public static GeneratorType NONE;
+    public static GeneratorType NONE = initializeNewType("none", BuiltInRegistries.BLOCK.getKey(Blocks.AIR), -1, -1, -1);
 
     public static void init() {
         // clears all generator types and (re)adds the empty type

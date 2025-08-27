@@ -48,6 +48,7 @@ public class CreateCobblestoneNeoForge {
         Blocks.register(); // hold registrate in a separate class to avoid loading early on forge
         BlockEntities.register();
         GeneratorTypeLoader.register();
+        eventBus.register(CreateCobblestoneNeoForge.class);
     }
 
     public static ResourceLocation asResource(String path) {
@@ -71,11 +72,11 @@ public class CreateCobblestoneNeoForge {
 
     }
 
-    @SubscribeEvent
-    public static void onAddReloadListenerEvent(AddReloadListenerEvent event) {
-        // Register the custom resource reload listener
-        event.addListener(new ResourceReloadListener());
-    }
+//    @SubscribeEvent
+//    public static void onAddReloadListenerEvent(AddReloadListenerEvent event) {
+//        // Register the custom resource reload listener
+//        event.addListener(new ResourceReloadListener());
+//    }
 
 
     @SubscribeEvent
