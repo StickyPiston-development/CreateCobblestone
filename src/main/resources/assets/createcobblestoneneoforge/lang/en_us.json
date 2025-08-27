@@ -1,8 +1,0 @@
-{
-  "itemGroup.create_cobblestone": "Create Cobblestone",
-
-  "block.createcobblestoneneoforge.mechanical_generator": "Mechanical Generator",
-
-  "block.createcobblestoneneoforge.generators.hovertext.itemprefix": "Generates: ",
-  "block.createcobblestoneneoforge.generators.hovertext.no_item": "Click on the generator with a stone type to set the generator type."
-}

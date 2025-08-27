@@ -1,0 +1,6 @@
+{
+  "itemGroup.create_cobblestone": "Create Cobblestone",
+  "block.createcobblestone.mechanical_generator": "Механический генератор",
+  "block.createcobblestone.generators.hovertext.itemprefix": "Генерирует: ",
+  "block.createcobblestone.generators.hovertext.no_item": "Нажатие по генератору определённым видом камня задаёт генерируемый ресурс."
+}

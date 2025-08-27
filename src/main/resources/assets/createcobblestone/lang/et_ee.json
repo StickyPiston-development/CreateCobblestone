@@ -1,0 +1,6 @@
+{
+  "itemGroup.create_cobblestone": "Create Cobblestone",
+  "block.createcobblestone.mechanical_generator": "Mehaaniline generaator",
+  "block.createcobblestone.generators.hovertext.itemprefix": "Genereerib: ",
+  "block.createcobblestone.generators.hovertext.no_item": "Generaatori Klõpsumine kiviga muudub generatori tüüp."
+}
