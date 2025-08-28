@@ -14,9 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 
 public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements IBE<MechanicalGeneratorBlockEntity> {
@@ -87,14 +89,13 @@ public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements 
 
 
     @Override
-    public @NotNull ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-        ItemStack stack = super.getCloneItemStack(level, pos, state);
+    public @NotNull ItemStack getCloneItemStack(@NotNull BlockState state, @NotNull HitResult target, @NotNull LevelReader level, @NotNull BlockPos pos, @NotNull Player player) {
+        ItemStack stack = super.getCloneItemStack(state, target, level, pos, player);
 
-        MechanicalGeneratorBlockEntity blockEntity = (MechanicalGeneratorBlockEntity) level.getBlockEntity(pos);
-
-        if (blockEntity == null) return stack;
-
-        blockEntity.type.setTypeToItemStack(stack);
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be instanceof MechanicalGeneratorBlockEntity gen) {
+            gen.type.writeToItemStack(stack);
+        }
 
         return stack;
     }

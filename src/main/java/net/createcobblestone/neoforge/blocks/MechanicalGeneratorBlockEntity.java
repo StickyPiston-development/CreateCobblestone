@@ -38,17 +38,13 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
 
         items = NonNullList.withSize(size, ItemStack.EMPTY);
         type = GeneratorType.NONE;
-
-        if (type == null) {
-            throw new IllegalStateException("Generator type cannot be null (GeneratorTypes not initialized but mechanicalGeneratorBlockEntity created)");
-        }
     }
 
     @Override
     protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         super.write(compound, registries, clientPacket);
 
-        type.setTypeToCompoundTag(compound);
+        type.writeToCompoundTag(compound);
     }
 
     @Override
@@ -56,9 +52,9 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         super.read(compound, registries, clientPacket);
 
         try {
-            updateType(GeneratorType.fromId(compound.getString(GeneratorType.TYPE_KEY)));
+            updateType(GeneratorType.fromCompoundTag(compound));
         } catch (IllegalArgumentException e) {
-            CreateCobblestoneNeoForge.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", compound.getString(GeneratorType.TYPE_KEY));
+            CreateCobblestoneNeoForge.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", GeneratorType.fromCompoundTag(compound).getId());
             type = GeneratorType.NONE;
             setChanged();
         }

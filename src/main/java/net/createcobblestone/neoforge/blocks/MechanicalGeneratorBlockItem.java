@@ -27,7 +27,7 @@ public class MechanicalGeneratorBlockItem extends BlockItem {
         if (beData  != null) {
             CompoundTag BET = beData.copyTag(); // safe copy of the tag
 
-            Item generatedItem = GeneratorType.fromId(BET.getString(GeneratorType.TYPE_KEY))
+            Item generatedItem = GeneratorType.fromCompoundTag(BET)
                 .getItem();
 
             if (generatedItem != Items.AIR) {
@@ -51,14 +51,14 @@ public class MechanicalGeneratorBlockItem extends BlockItem {
     public @NotNull ItemStack getDefaultInstance() {
         ItemStack defaultStack = super.getDefaultInstance();
 
-        GeneratorType.NONE.setTypeToItemStack(defaultStack);
+        GeneratorType.NONE.writeToItemStack(defaultStack);
 
         return defaultStack;
     }
 
     @Override
     public void onCraftedBy(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player) {
-        GeneratorType.NONE.setTypeToItemStack(stack);
+        GeneratorType.NONE.writeToItemStack(stack);
         super.onCraftedBy(stack, level, player);
     }
 }

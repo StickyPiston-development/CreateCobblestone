@@ -12,10 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.mojang.text2speech.Narrator.LOGGER;
 import static net.createcobblestone.neoforge.index.Blocks.MECHANICAL_GENERATOR_BLOCK;
@@ -23,6 +20,19 @@ import static net.createcobblestone.neoforge.index.Blocks.MECHANICAL_GENERATOR_B
 public class GeneratorType {
     private static final Map<String, GeneratorType> ID_TO_TYPE = new HashMap<>();
     private static final Map<ResourceLocation, GeneratorType> BLOCK_TO_TYPE = new HashMap<>();
+    private static final Map<String, String> LEGACY_IDS = Map.of(
+            "cobblestone",       "createcobblestone:generator_types/cobblestone.json",
+            "stone",             "createcobblestone:generator_types/stone.json",
+            "basalt",            "createcobblestone:generator_types/basalt.json",
+            "limestone",         "createcobblestone:generator_types/limestone.json",
+            "scoria",            "createcobblestone:generator_types/scoria.json",
+            "deepslate",         "createcobblestone:generator_types/deepslate.json",
+            "cobbled_deepslate", "createcobblestone:generator_types/cobbled_deepslate.json"
+    );
+    private static final Set<String> DEEPSLATE_PATHS = Set.of(
+            "createcobblestone:generator_types/deepslate.json",
+            "createcobblestone:generator_types/cobbled_deepslate.json"
+    );
 
     private final String id;
     private final ResourceLocation block;
@@ -30,44 +40,7 @@ public class GeneratorType {
     private final float outputPerSecondPerRpm;
     private final int generatorStorage;
 
-    public static final String ID_KEY = "id";
-    public static final String TYPE_KEY = "type";
-
-    public static GeneratorType NONE = initializeNewType("none", BuiltInRegistries.BLOCK.getKey(Blocks.AIR), -1, -1, -1);
-
-    public static void init() {
-        // clears all generator types and (re)adds the empty type
-        ID_TO_TYPE.clear();
-        BLOCK_TO_TYPE.clear();
-
-        LOGGER.info("Generator types cleared");
-
-        NONE = initializeNewType("none", BuiltInRegistries.BLOCK.getKey(Blocks.AIR), -1, -1, -1);
-    }
-
-    public static GeneratorType initializeNewType(String id, ResourceLocation block, int generatorStress, float outputPerSecondPerRpm, int generatorStorage){
-
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("Generator type ID cannot be null or empty");
-        }
-
-        id = id.toLowerCase();
-
-        if (BLOCK_TO_TYPE.get(block) != null) {
-            LOGGER.error("Error initializing generator, generator type with block {} already exists (existing id: {}, new id: {})", block, BLOCK_TO_TYPE.get(block).getId(), id);
-            return BLOCK_TO_TYPE.get(block);
-        }
-
-        GeneratorType type = new GeneratorType(id, block, generatorStress, outputPerSecondPerRpm, generatorStorage);
-        ID_TO_TYPE.put(id.toLowerCase(), type);
-        BLOCK_TO_TYPE.put(block, type);
-
-        if (Config.common().enableDebugLogging.get()) {
-            LOGGER.info("Generator type {} initialized with block {} generatorStress {} outputPerSecondPerRpm {} generatorStorage {}", id, block, generatorStress, outputPerSecondPerRpm, generatorStorage);
-        }
-
-        return type;
-    }
+    public static final GeneratorType NONE = initializeNewType("none", BuiltInRegistries.BLOCK.getKey(Blocks.AIR), -1, -1, -1);
 
     private GeneratorType(String id, ResourceLocation block, int generatorStress, float outputPerSecondPerRpm, int generatorStorage) {
         this.id = id;
@@ -78,111 +51,133 @@ public class GeneratorType {
         this.generatorStorage = generatorStorage;
     }
 
+    public static void init() {
+        // clears all generator types and (re)adds the empty type
+        ID_TO_TYPE.clear();
+        BLOCK_TO_TYPE.clear();
 
-    public int getGeneratorStress() {
-        if (generatorStress == -1) {
-            return Config.common().generatorStress.get();
-        }
-        return generatorStress;
+        LOGGER.info("Generator types cleared");
     }
 
-    public float getOutputPerSecondPerRpm() {
-        if (outputPerSecondPerRpm == -1) {
-            return Config.common().outputPerSecondPerRpm.get().floatValue();
+    public static GeneratorType initializeNewType(String id, ResourceLocation block, int generatorStress, float outputPerSecondPerRpm, int generatorStorage){
+
+        Objects.requireNonNull(block, "block key");
+        String normId = normalizeId(id);
+
+        GeneratorType existing = BLOCK_TO_TYPE.get(block);
+        if (existing != null) {
+            LOGGER.error("Error initializing generator, generator type with block {} already exists (existing id: {}, new id: {})",
+                    block, existing.getId(), normId);
+            return existing;
         }
-        return outputPerSecondPerRpm;
+
+        GeneratorType type = new GeneratorType(normId, block, generatorStress, outputPerSecondPerRpm, generatorStorage);
+        register(type);
+
+        if (Config.common().enableDebugLogging.get()) {
+            LOGGER.info("Generator type {} initialized with block {} generatorStress {} outputPerSecondPerRpm {} generatorStorage {}",
+                    normId, block, generatorStress, outputPerSecondPerRpm, generatorStorage);
+        }
+        return type;
     }
 
-    public int getStorage() {
-        if (generatorStorage == -1) {
-            return Config.common().maxStorage.get();
-        }
-        return generatorStorage;
+    private static void register(GeneratorType type) {
+        ID_TO_TYPE.put(type.id, type);
+        BLOCK_TO_TYPE.put(type.block, type);
     }
 
     public String getId() {
         return id;
     }
 
-    public Block getBlock() throws NullPointerException
-    {
+    public Block getBlock() throws NullPointerException {
         return BuiltInRegistries.BLOCK.get(block);
     }
 
-    public Item getItem() throws NullPointerException
-    {
+    public Item getItem() throws NullPointerException {
         return getBlock().asItem();
     }
 
+    public int getGeneratorStress() {
+        return (generatorStress == -1) ? Config.common().generatorStress.get() : generatorStress;
+    }
+
+    public float getOutputPerSecondPerRpm() {
+        return (outputPerSecondPerRpm == -1)
+                ? Config.common().outputPerSecondPerRpm.get().floatValue()
+                : outputPerSecondPerRpm;
+    }
+
+    public int getStorage() {
+        return (generatorStorage == -1) ? Config.common().maxStorage.get() : generatorStorage;
+    }
+
     public boolean isLoaded() {
-        return ID_TO_TYPE.get(id) != null;
+        return ID_TO_TYPE.containsKey(id);
     }
 
     public static @NotNull GeneratorType fromId(String id) {
+        String norm = normalizeId(id);
 
-        GeneratorType type = ensureType(ID_TO_TYPE.get(id.toLowerCase()));
+        GeneratorType type = ID_TO_TYPE.get(norm);
+        if (type != null) return type;
 
-        if (type == GeneratorType.NONE) {
-            switch (id.toLowerCase()) {
-                case "cobblestone":
-                    id = "createcobblestone:generator_types/cobblestone.json";
-                    break;
-                case "stone":
-                    id = "createcobblestone:generator_types/stone.json";
-                    break;
-                case "basalt":
-                    id = "createcobblestone:generator_types/basalt.json";
-                    break;
-                case "limestone":
-                    id = "createcobblestone:generator_types/limestone.json";
-                    break;
-                case "scoria":
-                    id = "createcobblestone:generator_types/scoria.json";
-                    break;
+        // legacy remap
+        String mapped = LEGACY_IDS.get(norm);
+        if (mapped != null) {
+            type = ID_TO_TYPE.get(mapped);
+            if (type != null) return type;
 
-                case "deepslate":
-                    id = "createcobblestone:generator_types/deepslate.json";
-                    break;
-                case "cobbled_deepslate":
-                    id = "createcobblestone:generator_types/cobbled_deepslate.json";
-                    break;
-            }
-
-            type = ensureType(ID_TO_TYPE.get(id));
-
-            if (type == GeneratorType.NONE && id.equals("createcobblestone:generator_types/deepslate.json") || id.equals("createcobblestone:generator_types/cobbled_deepslate.json")) {
-                LOGGER.error("Deepslate generators are now added using a data pack. Please install it from the mod page. (generator: {})", id);
+            if (DEEPSLATE_PATHS.contains(mapped)) {
+                LOGGER.error("Deepslate generators are now added using a data pack. Please install it from the mod page. (generator: {})", mapped);
             }
         }
 
-        return type;
+        // fallback
+        return NONE;
+    }
+
+    public static @NotNull GeneratorType fromCompoundTag(CompoundTag tag) {
+        return fromId(tag.getString("type"));
     }
 
     public static @NotNull GeneratorType fromBlock(Block block) {
-        return ensureType(BLOCK_TO_TYPE.get(BuiltInRegistries.BLOCK.getKey(block)));
+        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block);
+        return Objects.requireNonNullElse(BLOCK_TO_TYPE.get(key), NONE);
     }
 
     public static @NotNull GeneratorType fromItem(Item item) {
-        return ensureType(BLOCK_TO_TYPE.get(BuiltInRegistries.ITEM.getKey(item)));
+        Block block = Block.byItem(item);
+        if (block != Blocks.AIR) {
+            return fromBlock(block);
+        }
+
+        ResourceLocation itemKey = BuiltInRegistries.ITEM.getKey(item);
+        GeneratorType byItemKey = BLOCK_TO_TYPE.get(itemKey);
+        return Objects.requireNonNullElse(byItemKey, NONE);
     }
 
     public static List<GeneratorType> getTypes() {
-        return new ArrayList<>(ID_TO_TYPE.values());
+        return List.copyOf(ID_TO_TYPE.values());
     }
 
-    private static @NotNull GeneratorType ensureType(GeneratorType type) {
-        // Return NONE if type is null to stop the game from crashing
-        return type == null ? NONE : type;
+    public void writeToCompoundTag(CompoundTag tag) {
+        tag.putString("id", MECHANICAL_GENERATOR_BLOCK.getId().toString());
+        tag.putString("type", id);
     }
 
-    public void setTypeToCompoundTag(CompoundTag tag) {
-        tag.putString(ID_KEY, MECHANICAL_GENERATOR_BLOCK.getId().toString());
-        tag.putString(TYPE_KEY, id);
-    }
-
-    public void setTypeToItemStack(ItemStack stack) {
+    public void writeToItemStack(ItemStack stack) {
         CompoundTag tag = new CompoundTag();
-        setTypeToCompoundTag(tag);
+        writeToCompoundTag(tag);
         stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(tag));
     }
+
+    private static String normalizeId(String id) {
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("Generator type ID cannot be null or empty");
+        }
+        return id.toLowerCase(Locale.ROOT);
+    }
+
+
 }

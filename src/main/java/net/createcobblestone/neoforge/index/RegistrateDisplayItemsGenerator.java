@@ -27,7 +27,7 @@ public final class RegistrateDisplayItemsGenerator implements CreativeModeTab.Di
 
         ItemStack stack = Blocks.MECHANICAL_GENERATOR_BLOCK.asStack();
 
-        GeneratorType.NONE.setTypeToItemStack(stack);
+        GeneratorType.NONE.writeToItemStack(stack);
 
         stacks.add(stack);
 
@@ -39,7 +39,7 @@ public final class RegistrateDisplayItemsGenerator implements CreativeModeTab.Di
 
             stack = Blocks.MECHANICAL_GENERATOR_BLOCK.asStack();
 
-            type.setTypeToItemStack(stack);
+            type.writeToItemStack(stack);
 
             stacks.add(stack);
 
@@ -65,12 +65,6 @@ public final class RegistrateDisplayItemsGenerator implements CreativeModeTab.Di
     }
 
     public static DeferredHolder<CreativeModeTab,CreativeModeTab> getTabObject(ResourceKey<CreativeModeTab> tab) {
-        DeferredHolder<CreativeModeTab,CreativeModeTab> tabObject;
-        if (tab == CreativeTabs.getBaseTabKey()) {
-            tabObject = CreativeTabs.MAIN_TAB;
-        } else {
-            tabObject = CreativeTabs.MAIN_TAB;
-        }
-        return tabObject;
+        return CreativeTabs.MAIN_TAB;
     }
 }
