@@ -24,24 +24,27 @@ public class MechanicalGeneratorBlockItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, Item.@NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
         CustomData beData = stack.get(DataComponents.BLOCK_ENTITY_DATA);
-        if (beData  != null) {
-            CompoundTag BET = beData.copyTag(); // safe copy of the tag
+        Item generatedItem = GeneratorType.NONE.getItem();
+        if (beData == null) {
+            GeneratorType.NONE.writeToItemStack(stack);
+        }else {
+            generatedItem = GeneratorType.fromCompoundTag(beData.copyTag()).getItem();
+        }
 
-            Item generatedItem = GeneratorType.fromCompoundTag(BET)
-                .getItem();
-
-            if (generatedItem != Items.AIR) {
-                tooltipComponents.add(
-                        Component.translatable("block.createcobblestone.generators.hovertext.itemprefix")
-                            .append(generatedItem.getName(generatedItem.getDefaultInstance()))
-                            .setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
-                );
-            } else {
-                tooltipComponents.add(
-                        Component.translatable("block.createcobblestone.generators.hovertext.no_item")
-                            .setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
-                );
-            }
+        if (generatedItem != Items.AIR) {
+            tooltipComponents.add(
+                    Component.translatable(
+                            "block.createcobblestone.generators.hovertext.itemprefix"
+                    ).append(
+                            generatedItem.getName(generatedItem.getDefaultInstance())
+                    ).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
+            );
+        } else {
+            tooltipComponents.add(
+                    Component.translatable(
+                            "block.createcobblestone.generators.hovertext.no_item"
+                    ).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
+            );
         }
 
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);

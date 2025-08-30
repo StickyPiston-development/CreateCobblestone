@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -213,13 +214,15 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         boolean added = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
 
         if(!type.equals(GeneratorType.NONE)) {
-            CreateCobblestoneLang.translate("gui.goggles.generators.itemprefix")
-                    .style(ChatFormatting.GRAY)
-                    .forGoggles(tooltip);
+            Item generatedItem = type.getItem();
 
-            CreateCobblestoneLang.itemName(type.getItem().getDefaultInstance())
-                    .style(ChatFormatting.DARK_GRAY)
-                    .forGoggles(tooltip,1);
+            CreateCobblestoneLang
+                    .translate(
+                            "gui.goggles.generators.itemprefix",
+                            generatedItem.getName(generatedItem.getDefaultInstance())
+                    )
+                    .style(ChatFormatting.GREEN)
+                    .forGoggles(tooltip);
         }
 
         return added;

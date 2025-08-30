@@ -3,5 +3,5 @@
   "block.createcobblestone.mechanical_generator": "Mehaaniline generaator",
   "block.createcobblestone.generators.hovertext.itemprefix": "Genereerib: ",
   "block.createcobblestone.generators.hovertext.no_item": "Generaatori Klõpsumine kiviga muudub generatori tüüp.",
-  "createcobblestone.gui.goggles.generators.itemprefix": "Genereerib: "
+  "createcobblestone.gui.goggles.generators.itemprefix": "Genereerib: %1$s"
 }
