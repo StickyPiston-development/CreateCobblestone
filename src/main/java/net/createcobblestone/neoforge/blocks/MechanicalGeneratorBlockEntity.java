@@ -5,10 +5,13 @@ import net.createcobblestone.neoforge.CreateCobblestoneNeoForge;
 import net.createcobblestone.neoforge.data.GeneratorType;
 import net.createcobblestone.neoforge.index.BlockEntities;
 import net.createcobblestone.neoforge.index.Config;
+import net.createcobblestone.neoforge.utils.CreateCobblestoneLang;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
@@ -21,6 +24,8 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.min;
@@ -201,5 +206,22 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
                 BlockEntities.MECHANICAL_GENERATOR.get(),
                 (be, side) -> new InvWrapper(be)
         );
+    }
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        boolean added = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+
+        if(!type.equals(GeneratorType.NONE)) {
+            CreateCobblestoneLang.translate("gui.goggles.generators.itemprefix")
+                    .style(ChatFormatting.GRAY)
+                    .forGoggles(tooltip);
+
+            CreateCobblestoneLang.itemName(type.getItem().getDefaultInstance())
+                    .style(ChatFormatting.DARK_GRAY)
+                    .forGoggles(tooltip,1);
+        }
+
+        return added;
     }
 }
