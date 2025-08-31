@@ -21,7 +21,7 @@ config="${mod_id}.mixins.json"
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"
-    versionRange="${neo_version_range}"
+    versionRange="[${neo_version},)"
     ordering="NONE"
     side="BOTH"
 
@@ -35,6 +35,6 @@ config="${mod_id}.mixins.json"
 [[dependencies.${mod_id}]]
     modId="create"
     type="required"
-    versionRange="${create_version_range}"
+    versionRange="[${create_version},${create_until_version})"
     ordering="AFTER"
     side="BOTH"

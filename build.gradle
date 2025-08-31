@@ -14,7 +14,10 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version = mod_version
+// Formats the mod version to include the loader, Minecraft version, and build number (if present)
+// example: 1.0.0+fabric-1.18.2-100
+String buildNumber = System.getenv("GITHUB_RUN_NUMBER")
+version = "${mod_version}+neoforge-${minecraft_version}" + (buildNumber != null ? "-${buildNumber}" : "")
 group = mod_group_id
 
 repositories {
@@ -29,7 +32,7 @@ repositories {
 }
 
 base {
-    archivesName = mod_id
+    archivesName = archives_base_name
 }
 
 // Mojang ships Java 21 to end users in 1.21.1, so mods should target Java 21.
@@ -150,18 +153,18 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
     var replaceProperties = [
             minecraft_version      : minecraft_version,
             minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            neo_version_range      : neo_version_range,
+            neo_version            : neo_version.split("\\.")[0],
             loader_version_range   : loader_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
-            mod_version            : mod_version,
+            mod_version            : version,
             mod_authors            : mod_authors,
             mod_description        : mod_description,
             mod_logo               : mod_logo,
             mod_github             : mod_github,
-            create_version_range   : create_version_range
+            create_version         : create_version.split("-")[0],
+            create_until_version   : create_until_version
     ]
     inputs.properties replaceProperties
     expand replaceProperties
