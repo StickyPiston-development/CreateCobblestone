@@ -1,0 +1,7 @@
+// 1.21.1	2025-08-27T21:16:40.0446206	Registrate Provider for createcobblestone [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+577012a49d5fc542290eef7213e64ae33f46b355 assets/createcobblestone/blockstates/mechanical_generator.json
+60ac83844c86c811690247213c804c96d029f07b assets/createcobblestone/lang/en_ud.json
+d701f130156491c8e568d2a1d4523a1d8331c885 assets/createcobblestone/lang/en_us.json
+3c03d952d7f22a5e0176a0694bb790349af84d09 assets/createcobblestone/models/item/mechanical_generator.json
+3ade8696acdc55c5b231c24b6aeedef62d1ad4f8 data/createcobblestone/loot_table/blocks/mechanical_generator.json
+aa088294db259aea7d82c1abd88cc75c6adf439b data/create/tags/block/safe_nbt.json

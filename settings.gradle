@@ -1,15 +1,9 @@
 pluginManagement {
     repositories {
-        maven { url = "https://maven.fabricmc.net/" }
-        maven { url = "https://maven.architectury.dev/" }
-        maven { url = "https://maven.minecraftforge.net/" }
-        maven { url = "https://maven.quiltmc.org/repository/release" }
         gradlePluginPortal()
     }
 }
 
-include("common")
-include("fabric")
-include("forge")
-
-rootProject.name = "create-cobblestone"
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'
+}

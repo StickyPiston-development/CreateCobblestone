@@ -1,5 +1,0 @@
-create:andesite_alloy_block
-create:brass_block
-create:raw_zinc_block
-minecraft:raw_iron_block
-minecraft:raw_copper_block
