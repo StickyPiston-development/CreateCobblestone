@@ -1,5 +1,6 @@
 package net.createcobblestone.neoforge.data;
 
+import net.createcobblestone.neoforge.CreateCobblestoneNeoForge;
 import net.createcobblestone.neoforge.index.Config;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-import static com.mojang.text2speech.Narrator.LOGGER;
 import static net.createcobblestone.neoforge.index.Blocks.MECHANICAL_GENERATOR_BLOCK;
 
 public class GeneratorType {
@@ -56,7 +56,7 @@ public class GeneratorType {
         ID_TO_TYPE.clear();
         BLOCK_TO_TYPE.clear();
 
-        LOGGER.info("Generator types cleared");
+        CreateCobblestoneNeoForge.LOGGER.info("Generator types cleared");
     }
 
     public static GeneratorType initializeNewType(String id, ResourceLocation block, int generatorStress, float outputPerSecondPerRpm, int generatorStorage){
@@ -66,7 +66,7 @@ public class GeneratorType {
 
         GeneratorType existing = BLOCK_TO_TYPE.get(block);
         if (existing != null) {
-            LOGGER.error("Error initializing generator, generator type with block {} already exists (existing id: {}, new id: {})",
+            CreateCobblestoneNeoForge.LOGGER.error("Error initializing generator, generator type with block {} already exists (existing id: {}, new id: {})",
                     block, existing.getId(), normId);
             return existing;
         }
@@ -75,7 +75,7 @@ public class GeneratorType {
         register(type);
 
         if (Config.common().enableDebugLogging.get()) {
-            LOGGER.info("Generator type {} initialized with block {} generatorStress {} outputPerSecondPerRpm {} generatorStorage {}",
+            CreateCobblestoneNeoForge.LOGGER.info("Generator type {} initialized with block {} generatorStress {} outputPerSecondPerRpm {} generatorStorage {}",
                     normId, block, generatorStress, outputPerSecondPerRpm, generatorStorage);
         }
         return type;
@@ -129,7 +129,7 @@ public class GeneratorType {
             if (type != null) return type;
 
             if (DEEPSLATE_PATHS.contains(mapped)) {
-                LOGGER.error("Deepslate generators are now added using a data pack. Please install it from the mod page. (generator: {})", mapped);
+                CreateCobblestoneNeoForge.LOGGER.error("Deepslate generators are now added using a data pack. Please install it from the mod page. (generator: {})", mapped);
             }
         }
 
