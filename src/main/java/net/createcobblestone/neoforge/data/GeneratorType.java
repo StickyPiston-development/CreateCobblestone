@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-import static com.mojang.text2speech.Narrator.LOGGER;
+import static net.createcobblestone.neoforge.CreateCobblestoneNeoForge.LOGGER;
 import static net.createcobblestone.neoforge.index.Blocks.MECHANICAL_GENERATOR_BLOCK;
 
 public class GeneratorType {
