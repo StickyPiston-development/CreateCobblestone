@@ -28,7 +28,7 @@ public class MechanicalGeneratorRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, MECHANICAL_GENERATOR_BLOCK.get(),1)
                 .pattern("IEI")
                 .pattern("WDL")
-                .pattern("BBB")
+                .pattern("IBI")
                 .define('I', BRASS_INGOT)
                 .define('E', ELECTRON_TUBE)
                 .define('B', BRASS_CASING)
