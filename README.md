@@ -7,7 +7,8 @@ Create cobblestone is a create mod addon that focusses on reducing the lag gener
 
 ## Crafting
 ### Cobblestone generator
-![https://cdn.modrinth.com/data/ihpnEd80/images/98fa6466b29eb5024ea642319d28c68719ac6c7f.png](https://cdn.modrinth.com/data/ihpnEd80/images/98fa6466b29eb5024ea642319d28c68719ac6c7f.png)
+The recipe has been changed in version 1.4.7. The bottom corner casings have been replaced with ingots.
+![Crafting recipe](https://github.com/user-attachments/assets/8bd86662-09c9-4538-99f5-a51d024229dd)
 
 ### Generator types
 The included generator types in the mod are:
