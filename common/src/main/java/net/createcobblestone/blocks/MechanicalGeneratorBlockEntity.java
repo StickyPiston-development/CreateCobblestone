@@ -51,11 +51,11 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         super.read(compound, clientPacket);
 
         try {
-            updateType(GeneratorType.fromId(compound.getString("type")));
+            // dont call setChanged() in read as it caused a crash with contraptions
+            changeType(GeneratorType.fromId(compound.getString("type")));
         } catch (IllegalArgumentException e) {
             CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", compound.getString("type"));
             type = GeneratorType.NONE;
-            setChanged();
         }
     }
 
@@ -160,7 +160,12 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
     }
 
     public void updateType(GeneratorType newType) {
+        changeType(newType);
 
+        this.setChanged();
+    }
+
+    public void changeType(GeneratorType newType) {
         if (newType == null) {
             if (Config.common().enableDebugLogging.get()) {
                 CreateCobblestoneMod.LOGGER.error("Attempted to update generator type to null");
@@ -190,7 +195,5 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         // Make sure no items get ghosted to the new generator to avoid generator rate issues
         this.available = 0;
         this.items.clear();
-
-        this.setChanged();
     }
 }
