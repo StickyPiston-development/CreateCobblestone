@@ -58,11 +58,10 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         super.read(compound, registries, clientPacket);
 
         try {
-            updateType(GeneratorType.fromCompoundTag(compound));
+            changeType(GeneratorType.fromCompoundTag(compound));
         } catch (IllegalArgumentException e) {
             CreateCobblestoneNeoForge.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", GeneratorType.fromCompoundTag(compound).getId());
             type = GeneratorType.NONE;
-            setChanged();
         }
     }
 
@@ -167,7 +166,12 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
     }
 
     public void updateType(GeneratorType newType) {
+        changeType(newType);
 
+        this.setChanged();
+    }
+
+    public void changeType(GeneratorType newType) {
         if (newType == null) {
             if (Config.common().enableDebugLogging.get()) {
                 CreateCobblestoneNeoForge.LOGGER.error("Attempted to update generator type to null");
@@ -197,8 +201,6 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         // Make sure no items get ghosted to the new generator to avoid generator rate issues
         this.available = 0;
         this.items.clear();
-
-        this.setChanged();
     }
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
