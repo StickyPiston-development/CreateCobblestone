@@ -22,7 +22,7 @@ public class GeneratorType {
     private final float outputPerSecondPerRpm;
     private final int generatorStorage;
 
-    public static GeneratorType NONE;
+    public static GeneratorType NONE = initializeNewType("none", Blocks.AIR.arch$registryName(), -1, -1, -1);;
 
     public static void init() {
         // clears all generator types and (re)adds the empty type
@@ -30,8 +30,6 @@ public class GeneratorType {
         BLOCK_TO_TYPE.clear();
 
         LOGGER.info("Generator types cleared");
-
-        NONE = initializeNewType("none", Blocks.AIR.arch$registryName(), -1, -1, -1);
     }
 
     public static GeneratorType initializeNewType(String id, ResourceLocation block, int generatorStress, float outputPerSecondPerRpm, int generatorStorage){
