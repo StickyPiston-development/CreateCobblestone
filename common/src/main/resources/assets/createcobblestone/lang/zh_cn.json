@@ -1,0 +1,7 @@
+{
+  "itemGroup.create_cobblestone": "机械动力：刷石机",
+  "block.createcobblestone.mechanical_generator": "动力刷石机",
+  "block.createcobblestone.generators.hovertext.itemprefix": "生产： ",
+  "block.createcobblestone.generators.hovertext.no_item": "手持石材右键动力刷石机以设置生产种类",
+  "createcobblestone.gui.goggles.generators.itemprefix": "生产：%1$s"
+}
