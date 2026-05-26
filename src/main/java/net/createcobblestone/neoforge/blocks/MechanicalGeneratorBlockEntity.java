@@ -10,6 +10,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
@@ -17,6 +19,7 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -63,6 +66,20 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
             CreateCobblestoneNeoForge.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", GeneratorType.fromCompoundTag(compound).getId());
             type = GeneratorType.NONE;
         }
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.@NotNull Builder builder) {
+        super.collectImplicitComponents(builder);
+
+        // Emit BLOCK_ENTITY_DATA so the `minecraft:copy_components` loot function
+        // (source = block_entity, include = block_entity_data) actually has data
+        // to copy when the block is broken. Without this, the dropped stack is
+        // missing the component and stops stacking with crafted/picked items,
+        // which breaks Item Vault extraction (see issue #60).
+        CompoundTag tag = new CompoundTag();
+        type.writeToCompoundTag(tag);
+        builder.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(tag));
     }
 
     @Override
