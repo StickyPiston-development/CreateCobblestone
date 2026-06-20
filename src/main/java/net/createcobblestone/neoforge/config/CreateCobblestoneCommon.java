@@ -19,6 +19,7 @@ public class CreateCobblestoneCommon extends ConfigBase {
     public final ConfigFloat outputPerSecondPerRpm = f(2.5f, 0, "outputPerSecondPerRpm", Comments.outputPerSecondPerRpm);
 
     public final ConfigInt maxStorage = i(256, 1, "maxGeneratorStorage", Comments.maxStorage);
+    public final ConfigFloat breakTime = f(0, 0, "breakTime", Comments.breakTime);
     public final ConfigBool enableDebugLogging = b(false, "enableDebugLogging", Comments.enableDebugLogging);
 
     public final ConfigGroup generatorsGroup = group(1, "generatorsEnabled", Comments.generatorsGroup);
@@ -43,6 +44,10 @@ public class CreateCobblestoneCommon extends ConfigBase {
 
         public static String[] maxStorage = new String[]{
                 "(Can be overridden by custom generator types)",
+        };
+
+        public static  String[] breakTime = new String[]{
+                "(Does not scale with mining tool)",
         };
 
         public static String[] enableDebugLogging = new String[]{

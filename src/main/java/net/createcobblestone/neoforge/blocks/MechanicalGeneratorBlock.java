@@ -2,6 +2,7 @@ package net.createcobblestone.neoforge.blocks;
 
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
+import net.createcobblestone.neoforge.CreateCobblestoneNeoForge;
 import net.createcobblestone.neoforge.data.GeneratorType;
 import net.createcobblestone.neoforge.index.BlockEntities;
 import net.createcobblestone.neoforge.index.Config;
@@ -12,8 +13,10 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,6 +29,13 @@ public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements 
     public MechanicalGeneratorBlock(Properties properties) {
         super(properties);
     }
+
+    @Override
+    protected float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
+        // 1: instant, 0: never
+        return 1/(20*Config.common().breakTime.getF());
+    }
+
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
