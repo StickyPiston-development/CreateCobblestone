@@ -36,6 +36,12 @@ public class MechanicalGeneratorBlock extends HorizontalKineticBlock implements 
     }
 
     @Override
+    public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
+        // 1: instant, 0: never
+        return 1/(20*Config.common().breakTime.getF());
+    }
+
+    @Override
     public Direction.Axis getRotationAxis(BlockState state) {
         return state.getValue(HORIZONTAL_FACING)
                 .getAxis();
