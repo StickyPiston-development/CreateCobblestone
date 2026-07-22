@@ -63,7 +63,7 @@ public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implement
         try {
             changeType(GeneratorType.fromCompoundTag(compound));
         } catch (IllegalArgumentException e) {
-            CreateCobblestoneNeoForge.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", GeneratorType.fromCompoundTag(compound).getId());
+            CreateCobblestoneNeoForge.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", compound.getString("type"));
             type = GeneratorType.NONE;
         }
     }
