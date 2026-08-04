@@ -40,6 +40,7 @@ The generator types are also configurable. By default are all enabled, except fo
 
 ## Custom generators
 Custom generators can be added by installing a datapack. Custom generator types can have a custom stress, ratio and storage amount set. For an example pack check out the [deepslate generators datapack](https://modrinth.com/datapack/create-cobblestone-deepslate-generators).
+An easy way to create a custom generators datapack is using the [online generator](https://create-cobblestone.vercel.app/), which will generate a datapack for the specified block id's.
 
 ### Technical
 Custom generator files are json files located in the datapack folder data/MOD/generator_types/TYPE.json with the following required content:
