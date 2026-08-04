@@ -7,14 +7,13 @@ Create cobblestone is a create mod addon that focusses on reducing the lag gener
 [![Source code](https://img.shields.io/badge/Source%20code-333333?style=for-the-badge&logo=github&logoColor=white)](https://github.com/StickyPiston-development/CreateCobblestone)
 
 ## Crafting
-### Cobblestone generator
-The recipe has been changed in version 1.4.7. The bottom corner casings have been replaced with ingots.  
-![New crafting recipe](https://github.com/user-attachments/assets/63416683-45ea-4152-a5ab-3c5e716631f4)  
-Pre 1.4.7 recipe:  
-![Old crafting recipe](https://github.com/user-attachments/assets/0abf3cd2-9336-48fd-8303-36dfb34fdfdd)
+### Mechanical generator
+The mechanical generator can be crafted as follows:
+![Crafting recipe](https://github.com/user-attachments/assets/63416683-45ea-4152-a5ab-3c5e716631f4)  
 
 ### Generator types
-The included generator types in the mod are:
+When the generator is clicked with a valid item, the generator type will be changed to that item.
+By default, Create Cobblestone offers the following generator types:
 - Cobblestone
 - Stone
 - Basalt
@@ -27,23 +26,11 @@ The [deepslate generators datapack](https://modrinth.com/datapack/create-cobbles
 
 All the generators above can be enabled and disabled using the config. Disabling a generator while it is being used in the world will replace the generator with an empty one.
 
-## Stress Units to cobblestone ratio
-The amount of cobblestone per tick is scaled with the rpm, and the rpm is scaled with stress units. With the default configuration each 8 rpm gives one additional cobblestone per tick, and each rpm increases the stress with 8. In other words: one piece of cobblestone/tick costs 64SU.
-![8 rpm = 1 cobblestone/tick = 64 SU](https://cdn.modrinth.com/data/ihpnEd80/images/0c623573f25a99f5174a479514ff925d19738073.png)
-
-## Config
-### rates
-The stress per rpm and the rpm per cobblestone per tick are configurable.
-![https://cdn.modrinth.com/data/ihpnEd80/images/bf91b89821370226ebeb5894b755e7f9a1f97ace.png](https://cdn.modrinth.com/data/ihpnEd80/images/bf91b89821370226ebeb5894b755e7f9a1f97ace.png)
-### Generator types
-The generator types are also configurable. By default are all enabled, except for deepslate and cobbled deepslate. Those generator types also require a datapack to be installed.
-![https://cdn.modrinth.com/data/ihpnEd80/images/6fcd51448bd9df885a6428a22fd7999026556cb7.png](https://cdn.modrinth.com/data/ihpnEd80/images/6fcd51448bd9df885a6428a22fd7999026556cb7.png)
-
 ## Custom generators
 Custom generators can be added by installing a datapack. Custom generator types can have a custom stress, ratio and storage amount set. For an example pack check out the [deepslate generators datapack](https://modrinth.com/datapack/create-cobblestone-deepslate-generators).
 An easy way to create a custom generators datapack is using the [online generator](https://create-cobblestone.vercel.app/), which will generate a datapack for the specified block id's.
 
-### Technical
+### Technical details
 Custom generator files are json files located in the datapack folder data/MOD/generator_types/TYPE.json with the following required content:
 ```json
 {
@@ -57,6 +44,18 @@ The file can be expanded to contain the following extra configuration (inside th
   "storage": GENERATOR_STORAGE,
 ```
 Please check the configuration for what those values do. The default config will be overridden by the per generator config.
+
+## Stress Units to cobblestone ratio
+The amount of cobblestone per tick is scaled with the rpm, and the rpm is scaled with stress units. With the default configuration each 8 rpm gives one additional cobblestone per tick, and each rpm increases the stress with 8. In other words: one piece of cobblestone/tick costs 64SU.
+![8 rpm = 1 cobblestone/tick = 64 SU](https://cdn.modrinth.com/data/ihpnEd80/images/0c623573f25a99f5174a479514ff925d19738073.png)
+
+## Config
+### rates
+The stress per rpm and the rpm per cobblestone per tick are configurable.
+![https://cdn.modrinth.com/data/ihpnEd80/images/bf91b89821370226ebeb5894b755e7f9a1f97ace.png](https://cdn.modrinth.com/data/ihpnEd80/images/bf91b89821370226ebeb5894b755e7f9a1f97ace.png)
+### Generator types
+The generator types are also configurable. By default are all enabled, except for deepslate and cobbled deepslate. Those generator types also require a datapack to be installed.
+![https://cdn.modrinth.com/data/ihpnEd80/images/6fcd51448bd9df885a6428a22fd7999026556cb7.png](https://cdn.modrinth.com/data/ihpnEd80/images/6fcd51448bd9df885a6428a22fd7999026556cb7.png)
 
 ## Example usage
 ### Minimal
