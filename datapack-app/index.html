@@ -3,19 +3,21 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/src/styles.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 
 <body class="dark:bg-zinc-950 flex flex-col items-center">
-  <article class="prose dark:prose-invert prose-zinc lg:prose-lg prose-2xl p-6 mt-24">
+  <script type="module" src="/src/main.ts"></script>
+
+  <article class="prose dark:prose-invert prose-zinc p-6 mt-24">
     <h1 class="text-center">Create Cobblestone datapack generator</h1>
     <p class="text-center">Download Create Cobblestone on <a
         href="https://www.curseforge.com/minecraft/mc-mods/create-cobblestone">Curseforge</a> and <a
         href="https://modrinth.com/mod/create-cobblestone">Modrinth</a></p>
-    <script type="module" src="/src/main.ts"></script>
 
-    <div id="generators" class="flex flex-col gap-2"></div>
+    <div id="generators" class="flex flex-col gap-2 mt-8"></div>
 
     <button class="mt-3" id="add">Add generator</button>
     <button class="mt-2" id="download">Download datapack</button>
