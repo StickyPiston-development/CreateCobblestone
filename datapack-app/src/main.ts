@@ -43,16 +43,16 @@ document.getElementById('download')!.onclick = async () => {
     if (!valid) return
 
     let input = node.firstChild as HTMLInputElement
-    if (!RegExp(/^[a-z0-9._-]+:[a-z0-9._/-]+$/i).test(input.value)) {
+    if (!RegExp(/^[a-z0-9._-]+:[a-z0-9._/-]+$/i).test(input.value.trim())) {
       valid = false;
-      alert(`Invalid block id: ${input.value}`)
+      alert(`Invalid block id: '${input.value.trim()}'`)
       return
     }
 
-    let block = input.value.split(':')[1];
+    let block = input.value.trim().split(':')[1];
 
     const generator = new TextReader(JSON.stringify({
-      block: input.value,
+      block: input.value.trim(),
     }))
 
     await writer.add(`data/custom/generator_types/${block}.json`, generator)
@@ -68,4 +68,6 @@ document.getElementById('download')!.onclick = async () => {
   link.href = URL.createObjectURL(await file.getData())
   link.download = "datapack.zip"
   link.click()
+
+  alert("Downloaded custom generator datapack. Put this datapack directly in the datapacks folder of your save, or install the datapack using your launcher if possible.")
 }
