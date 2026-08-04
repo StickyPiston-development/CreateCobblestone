@@ -65,7 +65,7 @@ Please check the configuration for what those values do. The default config will
 ![Extended drawers example](https://cdn.modrinth.com/data/ihpnEd80/images/fa56da691ea4b4d751673104748f16f8eb75de7a.png)
 
 ## Balancing
-Do note that this mod makes it far more easy to generate cobblestone. If you feel its unbalanced, change the recipe for the cobblestone generator to something more difficult using a datapack or cubejs. Or change the config to make the generators generate less cobblestone.
+Do note that this mod makes it far more easy to generate cobblestone. If you feel its unbalanced, change the recipe for the cobblestone generator to something more difficult using a datapack or KubeJS. Or change the config to make the generators generate less cobblestone.
 
 ## Contributors
 <a href="https://github.com/StickyPiston-development/CreateCobblestone/graphs/contributors">
