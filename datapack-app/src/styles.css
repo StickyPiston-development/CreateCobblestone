@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+input,
+button {
+  @apply bg-zinc-900 rounded-lg px-3 py-1.5 w-full;
+}
+
+.generator-box {
+  @apply flex;
+
+  button {
+    flex: 1;
+  }
+}
+
+.deletebutton {
+  @apply aspect-square ml-2;
+
+  img {
+    @apply invert m-0;
+  }
+}
