@@ -30,11 +30,6 @@ public class CreateCobblestoneCommon extends ConfigBase {
   public final ConfigBool limestoneGeneratorEnabled = b(true, "limestoneGeneratorEnabled", Comments.generatorEnabled);
   public final ConfigBool scoriaGeneratorEnabled = b(true, "scoriaGeneratorEnabled", Comments.generatorEnabled);
 
-  public final ConfigBool deepslateGeneratorEnabled = b(true, "deepslateGeneratorEnabled",
-      Comments.deepslateGeneratorsEnabled);
-  public final ConfigBool cobbledDeepslateGeneratorEnabled = b(true, "cobbledDeepslateGeneratorEnabled",
-      Comments.deepslateGeneratorsEnabled);
-
   private static class Comments {
     public static String common = "Common config";
     public static String[] generatorStress = new String[] {
@@ -62,10 +57,6 @@ public class CreateCobblestoneCommon extends ConfigBase {
         "Cobblestone generator types",
     };
     public static String generatorEnabled = "Enables the generator. When disabled, the generator is replaced with unset generators. Make a backup before doing this.";
-    public static String[] deepslateGeneratorsEnabled = new String[] {
-        Comments.generatorEnabled,
-        "(Also requires deepslate generators datapack, https://modrinth.com/datapack/create-cobblestone-deepslate-generators)"
-    };
   }
 
   public boolean isEnabled(GeneratorType type) {
@@ -86,13 +77,8 @@ public class CreateCobblestoneCommon extends ConfigBase {
 
     } else if (Objects.equals(type.getId(), "createcobblestone:generator_types/scoria.json")) {
       return Config.common().scoriaGeneratorEnabled.get();
-
-    } else if (Objects.equals(type.getId(), "createcobblestone:generator_types/deepslate.json")) {
-      return Config.common().deepslateGeneratorEnabled.get();
-
-    } else if (Objects.equals(type.getId(), "createcobblestone:generator_types/cobbled_deepslate.json")) {
-      return Config.common().cobbledDeepslateGeneratorEnabled.get();
     }
+
     return true;
   }
 
