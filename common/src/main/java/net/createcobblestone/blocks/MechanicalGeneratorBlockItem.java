@@ -17,62 +17,58 @@ import java.util.List;
 
 public class MechanicalGeneratorBlockItem extends BlockItem {
 
-    public MechanicalGeneratorBlockItem(Block block, Properties properties) {
-        super(block, properties);
-    }
+  public MechanicalGeneratorBlockItem(Block block, Properties properties) {
+    super(block, properties);
+  }
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
-        if (stack.getTag() != null) {
-            CompoundTag BET = stack.getTagElement("BlockEntityTag");
+  @Override
+  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents,
+      TooltipFlag isAdvanced) {
+    if (stack.getTag() != null) {
+      CompoundTag BET = stack.getTagElement("BlockEntityTag");
 
-            if (BET != null) {
+      if (BET != null) {
 
-                Item generatedItem = GeneratorType.fromId(
-                        BET.getString("type")
-                ).getItem();
+        Item generatedItem = GeneratorType.fromId(
+            BET.getString("type")).getItem();
 
-                if (generatedItem != Items.AIR) {
-                    tooltipComponents.add(
-                            Component.translatable(
-                                    "block.createcobblestone.generators.hovertext.itemprefix"
-                            ).append(
-                                    generatedItem.getName(generatedItem.getDefaultInstance())
-                            ).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
-                    );
-                } else {
-                    tooltipComponents.add(
-                            Component.translatable(
-                                    "block.createcobblestone.generators.hovertext.no_item"
-                            ).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
-                    );
-                }
-
-
-
-            }
+        if (generatedItem != Items.AIR) {
+          tooltipComponents.add(
+              Component.translatable(
+                  "block.createcobblestone.generators.hovertext.itemprefix").append(
+                      generatedItem.getName(generatedItem.getDefaultInstance()))
+                  .setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
+        } else {
+          tooltipComponents.add(
+              Component.translatable(
+                  "block.createcobblestone.generators.hovertext.no_item")
+                  .setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
         }
 
-        super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+      }
     }
 
-    @Override
-    public @NotNull ItemStack getDefaultInstance() {
-        ItemStack defaultStack = super.getDefaultInstance();
-        try {
-            defaultStack.getOrCreateTagElement("BlockEntityTag").putString("type", GeneratorType.NONE.getId());
-        } catch (NullPointerException e) {
-            CreateCobblestoneMod.LOGGER.error("Tried accessing generator NONE as item before initialized (world load), error below:");
-            CreateCobblestoneMod.LOGGER.error(e.getMessage(), e);
-            defaultStack.getOrCreateTagElement("BlockEntityTag").putString("type", "none");
-        }
+    super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+  }
 
-        return defaultStack;
+  @Override
+  public @NotNull ItemStack getDefaultInstance() {
+    ItemStack defaultStack = super.getDefaultInstance();
+    try {
+      defaultStack.getOrCreateTagElement("BlockEntityTag").putString("type", GeneratorType.NONE.getId());
+    } catch (NullPointerException e) {
+      CreateCobblestoneMod.LOGGER
+          .error("Tried accessing generator NONE as item before initialized (world load), error below:");
+      CreateCobblestoneMod.LOGGER.error(e.getMessage(), e);
+      defaultStack.getOrCreateTagElement("BlockEntityTag").putString("type", "none");
     }
 
-    @Override
-    public void onCraftedBy(ItemStack stack, Level level, Player player) {
-        stack.getOrCreateTagElement("BlockEntityTag").putString("type", GeneratorType.NONE.getId());
-        super.onCraftedBy(stack, level, player);
-    }
+    return defaultStack;
+  }
+
+  @Override
+  public void onCraftedBy(ItemStack stack, Level level, Player player) {
+    stack.getOrCreateTagElement("BlockEntityTag").putString("type", GeneratorType.NONE.getId());
+    super.onCraftedBy(stack, level, player);
+  }
 }

@@ -22,178 +22,185 @@ import static java.lang.Math.min;
 
 public class MechanicalGeneratorBlockEntity extends KineticBlockEntity implements Container {
 
-    final NonNullList<ItemStack> items;
-    private final int size = 1;
-    private double available = 0d;
+  final NonNullList<ItemStack> items;
+  private final int size = 1;
+  private double available = 0d;
 
-    public GeneratorType type;
+  public GeneratorType type;
 
-    public MechanicalGeneratorBlockEntity(BlockEntityType<? extends MechanicalGeneratorBlockEntity> typeIn, BlockPos pos, BlockState state) {
-        super(typeIn, pos, state);
+  public MechanicalGeneratorBlockEntity(BlockEntityType<? extends MechanicalGeneratorBlockEntity> typeIn, BlockPos pos,
+      BlockState state) {
+    super(typeIn, pos, state);
 
-        items = NonNullList.withSize(size, ItemStack.EMPTY);
-        type = GeneratorType.NONE;
+    items = NonNullList.withSize(size, ItemStack.EMPTY);
+    type = GeneratorType.NONE;
 
-        if (type == null) {
-            throw new IllegalStateException("Generator type cannot be null (GeneratorTypes not initialized but mechanicalGeneratorBlockEntity created)");
-        }
+    if (type == null) {
+      throw new IllegalStateException(
+          "Generator type cannot be null (GeneratorTypes not initialized but mechanicalGeneratorBlockEntity created)");
+    }
+  }
+
+  @Override
+  protected void write(CompoundTag compound, boolean clientPacket) {
+    super.write(compound, clientPacket);
+
+    compound.putString("type", type.getId());
+  }
+
+  @Override
+  protected void read(CompoundTag compound, boolean clientPacket) {
+    super.read(compound, clientPacket);
+
+    try {
+      // dont call setChanged() in read as it caused a crash with contraptions
+      changeType(GeneratorType.fromId(compound.getString("type")));
+    } catch (IllegalArgumentException e) {
+      CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE",
+          compound.getString("type"));
+      type = GeneratorType.NONE;
+    }
+  }
+
+  @Override
+  public int getContainerSize() {
+    return this.size;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    for (ItemStack itemstack : this.items) {
+      if (!itemstack.isEmpty()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public @NotNull ItemStack getItem(int index) {
+    return this.items.get(index);
+  }
+
+  @Override
+  public @NotNull ItemStack removeItem(int index, int count) {
+    ItemStack itemstack = ContainerHelper.removeItem(this.items, index, count);
+    if (!itemstack.isEmpty()) {
+      this.setChanged();
+    }
+    return itemstack;
+  }
+
+  @Override
+  public @NotNull ItemStack removeItemNoUpdate(int index) {
+    return ContainerHelper.takeItem(this.items, index);
+  }
+
+  @Override
+  public void setItem(int index, @NotNull ItemStack stack) {
+    this.items.set(index, stack);
+    if (stack.getCount() > this.getMaxStackSize()) {
+      stack.setCount(this.getMaxStackSize());
+    }
+    this.setChanged();
+  }
+
+  @Override
+  public boolean stillValid(@NotNull Player player) {
+    return true;
+  }
+
+  @Override
+  public void clearContent() {
+    this.items.clear();
+  }
+
+  @Override
+  public void tick() {
+    super.tick();
+
+    Block generatorBlock;
+
+    try {
+      generatorBlock = type.getBlock();
+
+      if (!Config.common().isEnabled(type)) {
+        updateType(GeneratorType.NONE);
+        return;
+      }
+
+    } catch (NullPointerException e) {
+      if (Config.common().enableDebugLogging.get()) {
+        CreateCobblestoneMod.LOGGER.error("Tried accessing generator block before world was loaded");
+      }
+      return;
     }
 
-    @Override
-    protected void write(CompoundTag compound, boolean clientPacket) {
-        super.write(compound, clientPacket);
+    if (generatorBlock != Blocks.AIR) {
 
-        compound.putString("type", type.getId());
+      if (!type.isLoaded()) {
+        updateType(GeneratorType.NONE);
+        return;
+      }
+
+      if (this.available < type.getStorage()) {
+        this.available = min(this.available + abs(getSpeed() * type.getOutputPerSecondPerRpm()) / 20,
+            type.getStorage());
+      }
+
+      int current = this.items.get(0).getCount();
+      int added = (int) this.available;
+      this.available -= added;
+
+      this.items.set(0, new ItemStack(generatorBlock, Math.min(current + added, type.getStorage())));
+    }
+  }
+
+  @Override
+  public float calculateStressApplied() {
+    float impact = type.getGeneratorStress();
+    this.lastStressApplied = impact;
+    return impact;
+  }
+
+  public void updateType(GeneratorType newType) {
+    changeType(newType);
+
+    this.setChanged();
+  }
+
+  public void changeType(GeneratorType newType) {
+    if (newType == null) {
+      if (Config.common().enableDebugLogging.get()) {
+        CreateCobblestoneMod.LOGGER.error("Attempted to update generator type to null");
+      }
+      return;
     }
 
-    @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
-        super.read(compound, clientPacket);
-
-        try {
-            // dont call setChanged() in read as it caused a crash with contraptions
-            changeType(GeneratorType.fromId(compound.getString("type")));
-        } catch (IllegalArgumentException e) {
-            CreateCobblestoneMod.LOGGER.error("Invalid generator type \"{}\", setting type to NONE", compound.getString("type"));
-            type = GeneratorType.NONE;
-        }
+    if (Config.common().enableDebugLogging.get()) {
+      CreateCobblestoneMod.LOGGER.info("Trying to update generator type from \"{}\" to \"{}\"", type.getId(),
+          newType.getId());
     }
 
-    @Override
-    public int getContainerSize() {
-        return this.size;
+    if (!Config.common().isEnabled(newType)) {
+      if (!Config.common().isEnabled(type)) {
+        newType = GeneratorType.NONE;
+      } else {
+        CreateCobblestoneMod.LOGGER.error("Disabled generator type \"{}\", not changing old generator type. ({})",
+            newType.getId(), type.getId());
+        return;
+      }
     }
 
-    @Override
-    public boolean isEmpty() {
-        for (ItemStack itemstack : this.items) {
-            if (!itemstack.isEmpty()) {
-                return false;
-            }
-        }
-        return true;
+    if (Config.common().enableDebugLogging.get()) {
+      CreateCobblestoneMod.LOGGER.info("Changing generator type from \"{}\" to \"{}\"", type.getId(), newType.getId());
     }
 
-    @Override
-    public @NotNull ItemStack getItem(int index) {
-        return this.items.get(index);
-    }
+    this.type = newType;
 
-    @Override
-    public @NotNull ItemStack removeItem(int index, int count) {
-        ItemStack itemstack = ContainerHelper.removeItem(this.items, index, count);
-        if (!itemstack.isEmpty()) {
-            this.setChanged();
-        }
-        return itemstack;
-    }
-
-    @Override
-    public @NotNull ItemStack removeItemNoUpdate(int index) {
-        return ContainerHelper.takeItem(this.items, index);
-    }
-
-    @Override
-    public void setItem(int index, @NotNull ItemStack stack) {
-        this.items.set(index, stack);
-        if (stack.getCount() > this.getMaxStackSize()) {
-            stack.setCount(this.getMaxStackSize());
-        }
-        this.setChanged();
-    }
-
-    @Override
-    public boolean stillValid(@NotNull Player player) {
-        return true;
-    }
-
-    @Override
-    public void clearContent() {
-        this.items.clear();
-    }
-
-    @Override
-    public void tick(){
-        super.tick();
-
-        Block generatorBlock;
-
-        try {
-            generatorBlock = type.getBlock();
-
-            if (!Config.common().isEnabled(type)) {
-                updateType(GeneratorType.NONE);
-                return;
-            }
-
-        } catch (NullPointerException e) {
-            if (Config.common().enableDebugLogging.get()) {
-                CreateCobblestoneMod.LOGGER.error("Tried accessing generator block before world was loaded");
-            }
-            return;
-        }
-
-        if (generatorBlock != Blocks.AIR) {
-
-            if (!type.isLoaded()){
-                updateType(GeneratorType.NONE);
-                return;
-            }
-
-            if (this.available < type.getStorage()) {
-                this.available = min(this.available + abs(getSpeed() * type.getOutputPerSecondPerRpm())/20, type.getStorage());
-            }
-
-            int current = this.items.get(0).getCount();
-            int added = (int) this.available;
-            this.available -= added;
-
-            this.items.set(0, new ItemStack(generatorBlock, Math.min(current + added, type.getStorage())));
-        }
-    }
-
-    @Override
-    public float calculateStressApplied() {
-        float impact = type.getGeneratorStress();
-        this.lastStressApplied = impact;
-        return impact;
-    }
-
-    public void updateType(GeneratorType newType) {
-        changeType(newType);
-
-        this.setChanged();
-    }
-
-    public void changeType(GeneratorType newType) {
-        if (newType == null) {
-            if (Config.common().enableDebugLogging.get()) {
-                CreateCobblestoneMod.LOGGER.error("Attempted to update generator type to null");
-            }
-            return;
-        }
-
-        if (Config.common().enableDebugLogging.get()) {
-            CreateCobblestoneMod.LOGGER.info("Trying to update generator type from \"{}\" to \"{}\"", type.getId(), newType.getId());
-        }
-
-        if (!Config.common().isEnabled(newType)){
-            if (!Config.common().isEnabled(type)) {
-                newType = GeneratorType.NONE;
-            } else {
-                CreateCobblestoneMod.LOGGER.error("Disabled generator type \"{}\", not changing old generator type. ({})", newType.getId(), type.getId());
-                return;
-            }
-        }
-
-        if (Config.common().enableDebugLogging.get()) {
-            CreateCobblestoneMod.LOGGER.info("Changing generator type from \"{}\" to \"{}\"", type.getId(), newType.getId());
-        }
-
-        this.type = newType;
-
-        // Make sure no items get ghosted to the new generator to avoid generator rate issues
-        this.available = 0;
-        this.items.clear();
-    }
+    // Make sure no items get ghosted to the new generator to avoid generator rate
+    // issues
+    this.available = 0;
+    this.items.clear();
+  }
 }
