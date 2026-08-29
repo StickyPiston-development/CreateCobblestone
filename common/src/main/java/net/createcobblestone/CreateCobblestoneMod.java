@@ -9,27 +9,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CreateCobblestoneMod {
-    public static final String MOD_ID = "createcobblestone";
-    public static final String NAME = "Create cobblestone";
-    public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
+  public static final String MOD_ID = "createcobblestone";
+  public static final String NAME = "Create cobblestone";
+  public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
-    public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(CreateCobblestoneMod.MOD_ID);
+  public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(CreateCobblestoneMod.MOD_ID);
 
-    public static void init() {
-        LOGGER.info("{} initializing on platform: {}", NAME, CreateCobblestoneExpectPlatform.platformName());
+  public static void init() {
+    LOGGER.info("{} initializing on platform: {}", NAME, CreateCobblestoneExpectPlatform.platformName());
 
-        Network.init();
-        Config.register();
+    Network.init();
+    Config.register();
 
-        Blocks.init(); // hold registrate in a separate class to avoid loading early on forge
-        BlockEntities.init();
+    Blocks.init(); // hold registrate in a separate class to avoid loading early on forge
+    BlockEntities.init();
 
-        CreativeTabs.init();
+    CreativeTabs.init();
 
-        GeneratorTypeLoader.init();
-    }
+    GeneratorTypeLoader.init();
+  }
 
-    public static ResourceLocation id(String path) {
-        return new ResourceLocation(MOD_ID, path);
-    }
+  public static ResourceLocation id(String path) {
+    return new ResourceLocation(MOD_ID, path);
+  }
 }

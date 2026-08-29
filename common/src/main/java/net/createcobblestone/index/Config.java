@@ -9,33 +9,33 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class Config {
-    public static final Map<ModConfig.Type, ConfigBase> CONFIGS = new EnumMap<>(ModConfig.Type.class);
+  public static final Map<ModConfig.Type, ConfigBase> CONFIGS = new EnumMap<>(ModConfig.Type.class);
 
-    protected static CreateCobblestoneCommon common;
+  protected static CreateCobblestoneCommon common;
 
-    public static CreateCobblestoneCommon common() {
-        return common;
-    }
+  public static CreateCobblestoneCommon common() {
+    return common;
+  }
 
-    public static ConfigBase byType(ModConfig.Type type) {
-        return CONFIGS.get(type);
-    }
+  public static ConfigBase byType(ModConfig.Type type) {
+    return CONFIGS.get(type);
+  }
 
-    @ExpectPlatform
-    public static void register() {
-    }
+  @ExpectPlatform
+  public static void register() {
+  }
 
-    public static void onLoad(ModConfig modConfig) {
-        for (ConfigBase config : CONFIGS.values())
-            if (config.specification == modConfig
-                    .getSpec())
-                config.onLoad();
-    }
+  public static void onLoad(ModConfig modConfig) {
+    for (ConfigBase config : CONFIGS.values())
+      if (config.specification == modConfig
+          .getSpec())
+        config.onLoad();
+  }
 
-    public static void onReload(ModConfig modConfig) {
-        for (ConfigBase config : CONFIGS.values())
-            if (config.specification == modConfig
-                    .getSpec())
-                config.onReload();
-    }
+  public static void onReload(ModConfig modConfig) {
+    for (ConfigBase config : CONFIGS.values())
+      if (config.specification == modConfig
+          .getSpec())
+        config.onReload();
+  }
 }

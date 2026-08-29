@@ -14,40 +14,41 @@ import java.util.function.Consumer;
 
 public class MechanicalGeneratorVisual extends KineticBlockEntityVisual<MechanicalGeneratorBlockEntity> {
 
-    protected final RotatingInstance rotatingModel;
+  protected final RotatingInstance rotatingModel;
 
-	public MechanicalGeneratorVisual(VisualizationContext context, MechanicalGeneratorBlockEntity blockEntity, float partialTick) {
-		super(context, blockEntity, partialTick);
-		rotatingModel = shaft(instancerProvider(), blockState)
-			.setup(blockEntity)
-			.setPosition(getVisualPosition());
-		rotatingModel.setChanged();
-	}
+  public MechanicalGeneratorVisual(VisualizationContext context, MechanicalGeneratorBlockEntity blockEntity,
+      float partialTick) {
+    super(context, blockEntity, partialTick);
+    rotatingModel = shaft(instancerProvider(), blockState)
+        .setup(blockEntity)
+        .setPosition(getVisualPosition());
+    rotatingModel.setChanged();
+  }
 
-    public static RotatingInstance shaft(InstancerProvider instancerProvider, BlockState state) {
-			return instancerProvider.instancer(AllInstanceTypes.ROTATING, Models.partial(AllPartialModels.SHAFT))
-				.createInstance()
-				.rotateToFace(state.getValue(MechanicalGeneratorBlock.HORIZONTAL_FACING));
-	}
+  public static RotatingInstance shaft(InstancerProvider instancerProvider, BlockState state) {
+    return instancerProvider.instancer(AllInstanceTypes.ROTATING, Models.partial(AllPartialModels.SHAFT))
+        .createInstance()
+        .rotateToFace(state.getValue(MechanicalGeneratorBlock.HORIZONTAL_FACING));
+  }
 
-    @Override
-	public void update(float pt) {
-		rotatingModel.setup(blockEntity)
-			.setChanged();
-	}
+  @Override
+  public void update(float pt) {
+    rotatingModel.setup(blockEntity)
+        .setChanged();
+  }
 
-	@Override
-	public void updateLight(float partialTick) {
-		relight(rotatingModel);
-	}
+  @Override
+  public void updateLight(float partialTick) {
+    relight(rotatingModel);
+  }
 
-	@Override
-	protected void _delete() {
-		rotatingModel.delete();
-	}
+  @Override
+  protected void _delete() {
+    rotatingModel.delete();
+  }
 
-	@Override
-	public void collectCrumblingInstances(Consumer<Instance> consumer) {
-		consumer.accept(rotatingModel);
-	}
+  @Override
+  public void collectCrumblingInstances(Consumer<Instance> consumer) {
+    consumer.accept(rotatingModel);
+  }
 }
