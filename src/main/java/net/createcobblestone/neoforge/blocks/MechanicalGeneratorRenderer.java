@@ -12,11 +12,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class MechanicalGeneratorRenderer extends KineticBlockEntityRenderer<MechanicalGeneratorBlockEntity> {
     public MechanicalGeneratorRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
+    }
+
+    @Override
+    protected BlockState getRenderedBlockState(MechanicalGeneratorBlockEntity be) {
+        return shaft(getRotationAxisOf(be));
     }
 
     @Override

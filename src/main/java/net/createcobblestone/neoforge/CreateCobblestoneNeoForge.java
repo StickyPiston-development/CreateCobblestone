@@ -33,7 +33,7 @@ import java.util.Collections;
 @Mod(CreateCobblestoneNeoForge.MOD_ID)
 public class CreateCobblestoneNeoForge {
   public static final String MOD_ID = "createcobblestone";
-  public static final String NAME = "Create cobblestone NeoForge";
+  public static final String NAME = "Create Cobblestone NeoForge";
   public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
   public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);

@@ -40,7 +40,7 @@ public class Blocks {
 
         // TODO: fix generator stress and tab
         MECHANICAL_GENERATOR_BLOCK = REGISTRATE.block("mechanical_generator", MechanicalGeneratorBlock::new)
-                .properties(p -> p.mapColor(MapColor.COLOR_BROWN))
+                .properties(p -> p.mapColor(MapColor.COLOR_BROWN).noOcclusion())
 //                .transform(BlockStressDefaults.setImpact(generator_stress))
                 .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
                 .blockstate((ctx, prov) -> {
