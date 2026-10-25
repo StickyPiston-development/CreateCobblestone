@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class CreateCobblestoneMod {
   public static final String MOD_ID = "createcobblestone";
-  public static final String NAME = "Create cobblestone";
+  public static final String NAME = "Create Cobblestone";
   public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
   public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(CreateCobblestoneMod.MOD_ID);
